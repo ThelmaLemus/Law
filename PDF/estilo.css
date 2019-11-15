@@ -1,0 +1,14 @@
+#my_canvas
+{
+	width: 60%;
+	height: 100%;
+	transform: scale(1,0.9);
+}
+
+.container
+{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 100px;
+}

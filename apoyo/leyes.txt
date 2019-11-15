@@ -1,0 +1,21 @@
+Leyes
+	Administrativa
+	Ambiental
+	Civil
+	Constitucional
+	Laboral
+	Mercantil
+	Penal
+	Tributaria
+Acuerdos
+	No tenemos categoría
+
+Convenios
+	No tenemos categoría
+
+
+
+
+
+
+Son pocos acuerdos y convenios

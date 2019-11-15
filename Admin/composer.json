@@ -1,0 +1,6 @@
+{
+    "require": {
+        "smalot/pdfparser": "^0.13.2",
+        "gufy/pdftohtml-php": "~2"
+    }
+}

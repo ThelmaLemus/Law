@@ -1,0 +1,27 @@
+.fa-star input{
+    display: none;
+}
+
+.fa-star{
+    /* font-size: 28px; */
+    /* background: blue; */
+    padding: 0;
+
+}
+
+.law_name{
+    padding-bottom: 15px;
+    height: 100%;
+    /* background: red; */
+}
+
+.btn-icon-clipboard,
+.btn-icon-clipboard:hover{
+    padding: 10px 20px 5px;
+    color: #393f49 !important;
+}
+
+.hey{
+	display: flex;
+    justify-content: center !important;
+}

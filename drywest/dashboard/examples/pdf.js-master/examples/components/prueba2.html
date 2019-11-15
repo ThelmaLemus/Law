@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #canvas_container {
+                width: 800px;
+                height: 450px;
+                overflow: auto;
+            }
+        </style>
+        <link rel="stylesheet" href="pdf.js/web/text_layer_builder.css" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
+        <script type="text/javascript" src="https://raw.githubusercontent.com/mozilla/pdf.js/master/web/ui_utils.js"></script>
+        <script type="text/javascript" src="https://raw.githubusercontent.com/mozilla/pdf.js/master/web/text_layer_builder.js"></script>
+        <script type="text/javascript" src="https://raw.githubusercontent.com/mozilla/pdf.js/master/web/pdf_viewer.js"></script>
+
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <div id="my_pdf_viewer">
+            <div id="canvas_container">
+                <canvas id="pdf_renderer"></canvas>
+            </div>                      
+        </div>
+
+    <script>
+    var myState = {
+        pdf: null,
+        currentPage: 1,
+        zoom: 1
+    };
+
+    this.loadPdfDrawing = function(drawingName) {
+        pdfjsLib.getDocument(drawingName).then((pdf) => {
+            myState.pdf = pdf;
+            render();
+        });     
+    };
+
+    function render() {
+        myState.pdf.getPage(myState.currentPage).then((page) => {
+            var canvas = document.getElementById("pdf_renderer");
+            var ctx = canvas.getContext('2d');
+
+            var viewport = page.getViewport(myState.zoom);
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            page.render({
+                canvasContext: ctx,
+                viewport: viewport
+            });
+        });
+    }
+
+    var container = document.getElementById('my_pdf_viewer');
+    var viewer = document.getElementById('canvas_container');
+
+    var pdfViewer = new PDFViewer({ 
+        container: container,
+        viewer: viewer
+    });
+
+    var pdfFindController = new PDFFindController({
+        pdfViewer: pdfViewer
+    });
+
+    pdfViewer.setFindController(pdfFindController);
+
+    function findText(text) {
+        pdfFindController.executeCommand('find', {
+            caseSensitive: false, 
+            findPrevious: undefined,
+            highlightAll: true, 
+            phraseSearch: true, 
+            query: text
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        loadPdfDrawing('../../../../Admin/Documentos/Codigo Civil.pdf');
+        findText('personas');
+    });
+
+    </script>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+#my_canvas
+{
+	width: 60%;
+	height: 100%;
+	transform: scale(1,0.9);
+}
+
+.container
+{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 100px;
+}
+
+.childcomment input{
+	display: none;
+}
+
+.footer-L{
+	display: flex;
+	justify-content: space-between;
+}
+
+.container_form{
+	background: none;
+}
+
+.letter{
+	width: 100% !important;
+	background: none;
+	text-align: justify;
+	color: black;
+	display: flex;
+	flex-direction: column;
+	
+}
+
+.anotaciones{
+	width: 40% !important;
+	padding-left: 0 !important;
+	/* background: blue !important; */
+}
+
+.bold{
+	width: 100px !important;
+	font-weight: bold;
+}
+
+.editop{
+	display: flex !important;
+	flex-direction: row !important;
+	width: 100%;
+}
+.editop a{
+	height: 55px !important;
+	width: 49% !important;
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
+	border-radius: 0 !important;
+}
+
+.Lcontent{
+	padding: 30px 80px 80px !important;
+	width: 100%;
+}
+
+.docname{
+	padding: 10px 0px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.ntext{
+	display: inline;
+}
+
+mark{
+	background: none !important;
+}

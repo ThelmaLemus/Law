@@ -1,0 +1,179 @@
+/* PDF buttons and canvas  
+******************************************************************************************
+******************************************************************************************
+*/
+
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 60px;
+    .fix-search & {
+        background: #eee;
+    }
+}
+  
+.search { /* Container just in case we want more than just the search input to come along */
+    position: absolute;
+    top: 155px;
+    left: 20px;
+    right: 20px;
+    input {
+        width: 265px;
+        transition: width 0.2s;
+        -webkit-appearance: none; /* Autoprefixer doesn't catch this */
+    }
+    .fix-search & {
+        position: fixed;
+        top: 10px;
+        input {
+          width: 250px;
+        }
+    }
+}
+
+.top {
+    height: 250px; /* Space in here for search */
+    padding-top: 40px;
+    position: relative;
+}
+
+    .container{
+        padding: 0;
+        background: white;
+        display: flex;
+        justify-content: left;
+        /* flex-direction: column; */
+    }
+
+    #my_canvas{
+        background: none;
+        padding: 0 !important;
+        margin: 0;
+        /* margin-top: -43px !important; */
+        float: left;   
+    }
+
+    .pdf-buttons{
+        transform: 2s;
+        color: rgba(0, 0, 0, 0.575);
+        background: white;
+        z-index: 2;
+        width: 150px;
+        border: none !important;
+        padding: 0 !important;
+        /* height: 100% !important; */
+        /* position: absolute; */
+    }
+
+    .temp{
+        width: 150px;
+        padding: 0 !important;
+        z-index: 2;
+        border: 2px solid gray;
+        border-top: none;
+        border-bottom: none;
+        color: gray;
+        background: none;
+
+    }
+
+    #pdf-prev:hover{
+        background: gray;
+        color:white;
+    }
+
+    #pdf-next:hover{
+        background: gray;
+        color:white;
+    }
+/* PDF buttons and canvas  
+******************************************************************************************
+******************************************************************************************
+*/
+
+/* Comentarios  
+******************************************************************************************
+******************************************************************************************
+*/
+    .notas{
+        width: 30%;
+        /* display: flex;
+        justify-content: flex-end !important; */
+        padding: 0 15px;
+        background: none;
+        margin: 0 !important;
+        .fix-search & {
+            position: fixed;
+        }
+    }
+
+    .notes-buttons{
+        display: flex;
+        flex-direction: row !important;
+    }
+    
+    .comment-result-buttons{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+    }
+    
+    .notes-buttons a{
+        border-radius: 0 !important;
+    }
+
+
+    .buto{
+        justify-content: space-between !important;
+        /* background: black; */
+    }
+
+    .choose{
+        /* background: yellow; */
+        display: flex;
+        flex-direction: column;
+        padding-left: 5px;
+    }
+
+    #contres{
+        margin-bottom: 20px;
+    }
+
+    .newcomment{
+        padding: 5px;
+    }
+
+    .comments-card-body{
+        padding: 0 !important;
+    }
+    .publish-button{
+        margin-top: 10px;
+    }
+
+    #otroscomentarios{
+        padding-top: 20px;
+        background: pink;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .posts, #results{
+        overflow-y: auto;
+        max-height: 450px !important;
+    }
+
+    .post-item{
+        padding: 0 !important;
+    }
+
+    .comment{
+        padding: 10px 0;
+    }
+
+/* Comentarios
+******************************************************************************************
+******************************************************************************************
+*/

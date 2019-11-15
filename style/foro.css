@@ -1,0 +1,128 @@
+.fondoI{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+.foro{
+    z-index: 2;
+    background: rgba(93, 188, 210, 0.596) !important;
+    min-width: 90%;
+    min-height: 500px;
+    max-height: 500px !important;
+    height: 90% !important;
+    margin-top: 20px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* justify-content: space-around; */
+    padding: 20px;
+}
+
+.insideforum{
+    border-radius: 15px;
+    /* background: rgba(0, 0, 255, 0.445); */
+    display: flex;
+    width: 98%;
+    max-width: 98% !important;
+    min-height: 460px;
+    max-height: 460px;
+    overflow: hidden !important;
+
+}
+
+.fperse{
+    background: rgba(128, 128, 128, 0.904);
+    width: 66%;
+    max-width: 66% !important;
+    max-height: 100%;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.posts{
+    /* border-radius: 15px; */
+    width: 100%;
+    height: 460px;
+    overflow-y: scroll;
+    background: white !important;
+}
+
+.posts::-webkit-scrollbar-track,
+.textareapcontent::-webkit-scrollbar-track,
+.newpostform::-webkit-scrollbar-track
+{
+	/* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.01); */
+	border-radius: 10px;
+	background-color: transparent;
+}
+
+.posts::-webkit-scrollbar,
+.textareapcontent::-webkit-scrollbar,
+.newpostform::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: transparent;
+}
+
+.posts::-webkit-scrollbar-thumb,
+.textareapcontent::-webkit-scrollbar-thumb,
+.newpostform::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	/* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.01); */
+	background-color: rgb(74, 123, 143);
+}
+
+.show, .collapsing, .collapse{
+    /* width: 700px !important; */
+    border-top: 1px solid rgb(148, 148, 148);
+    margin-top: 20px;
+    padding: 20px;
+    width: 700px !important;
+}
+
+.ashow{
+    cursor: pointer;
+}
+.postcontent{
+    max-width: 700px;
+}
+
+.postactions{
+    margin-top: 10px;
+    display: flex;
+}
+
+.actionsgroup{
+    width: 50px;
+    display: flex;
+    justify-content: space-between
+}
+
+.answinput{
+    margin-bottom: 5px;
+}
+
+
+.newpost{
+    width: 34%;
+    max-width: 34%;
+    min-height: 460px;
+    background: white;
+}
+
+.newpostform{
+    max-height: 460px;
+    overflow-y: scroll;
+}
+.textareapcontent{
+    height: 311px;
+    max-height: 311px;
+}
