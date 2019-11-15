@@ -49,6 +49,19 @@
               </label>
             </a>
           </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"Carta_de_poder.php?uid=$UID\" title=\"Carta de poder\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Carta de poder</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
         </div>
       </div>
     </div>

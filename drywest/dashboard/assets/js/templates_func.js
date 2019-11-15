@@ -201,3 +201,63 @@ function setValues(date, nname, sname, dpi){
     dp.innerText = document.getElementById(dpi).value;
     
 }
+
+Date.daysBetween = function( date1, date2 ) {
+  //Get 1 day in milliseconds
+  var one_day=1000*60*60*24;
+
+  // Convert both dates to milliseconds
+  var date1_ms = date1.getTime();
+  var date2_ms = date2.getTime();
+
+  // Calculate the difference in milliseconds
+  var difference_ms = date2_ms - date1_ms;
+    
+  // Convert back to days and return
+  return Math.round(difference_ms/one_day); 
+}
+
+function setValues_cartadepoder(inputdate,nombre_a_dar, nombre_a_recibir, responsabilidades, DPI_otorgante, DPI_apoderado, DPI_testigo1, DPI_testigo2, fecha_final)
+{
+	//INPUTS
+	var fecha_inicio = document.getElementById("inputdate").value;
+	var nombre_a_dar = document.getElementById("nombre_a_dar").value;
+	var nombre_a_recibir = document.getElementById("nombre_a_recibir").value;
+	var responsabilidades = document.getElementById("responsabilidades").value;
+	var DPI_otorgante = document.getElementById("DPI_otorgante").value;
+	var DPI_apoderado = document.getElementById("DPI_apoderado").value;
+	var DPI_testigo1 = document.getElementById("DPI_testigo1").value;
+	var DPI_testigo2 = document.getElementById("DPI_testigo2").value;
+	var fecha_final = document.getElementById("fecha_final").value;
+	fecha_inicio_como_date = new Date(fecha_inicio);
+	fecha_final_como_date = new Date(fecha_final);
+	var diferencia = Math.abs(fecha_final_como_date - fecha_inicio_como_date);
+	console.log(diferencia);
+	var diferencia_endias = Date.daysBetween(fecha_inicio_como_date, fecha_final_como_date);
+	console.log(diferencia_endias);
+
+
+	//MARKS
+	var fecha_emision = document.getElementById("fecha_emision");
+	var nombre_otorgante = document.getElementById("nombre_otorgante");
+	var nombre_apoderado = document.getElementById("nombre_apoderado");
+	var responsabilidadesm = document.getElementById("responsabilidadesm");
+	var DPI_otorgantem = document.getElementById("DPI_otorgantem");
+	var DPI_apoderadom = document.getElementById("DPI_apoderadom");
+	var DPI_testigo1m = document.getElementById("DPI_testigo1m");
+	var DPI_testigo2m = document.getElementById("DPI_testigo2m");
+	var cantidad_diasm = document.getElementById("cantidad_diasm");
+	var fecha_finalm = document.getElementById("fecha_finalm");
+
+
+	fecha_emision.innerText = fecha_inicio;
+	nombre_otorgante.innerText = nombre_a_dar;
+	nombre_apoderado.innerText = nombre_a_recibir;
+	responsabilidadesm.innerText = responsabilidades;
+	DPI_otorgantem.innerText = DPI_otorgante;
+	DPI_apoderadom.innerText = DPI_apoderado;
+	DPI_testigo1m.innerText = DPI_testigo1;
+	DPI_testigo2m.innerText = DPI_testigo2;
+	cantidad_diasm.innerText = diferencia_endias;
+	fecha_finalm.innerText = fecha_final;
+}

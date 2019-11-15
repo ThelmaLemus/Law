@@ -27,7 +27,7 @@
 	<script src="../assets/js/templates_func.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale = 1.0">
 	<meta charset="utf-8">
-		<title>Single_Template</title>
+		<title>Carta de poder</title>
 		<?php 
 			$uid = $_GET['uid'];
 		 	include "navbar.php" 
@@ -47,13 +47,30 @@
 					}
 				};
 
+                //15, 105
 				doc.fromHTML($('#profile').html(), 15, 15, {
 					'width': 170,
-						'elementHandlers': specialElementHandlers
+                    'align': "justify",
+					'elementHandlers': specialElementHandlers
 				});
 				console.log(doc);
 				doc.save('sample-file.pdf');
 			};
+
+			function genPDF()
+			{
+			html2canvas(document.getElementById("profile"),{
+			onrendered:function(canvas){
+
+			var img=canvas.toDataURL("image/png");
+			var doc = new jsPDF();
+			doc.addImage(img,'JPEG',20,20);
+			doc.save('test.pdf');
+			}
+
+			});
+
+			}
 
 /* 			function genPDF()
 			{
@@ -79,31 +96,64 @@
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
 				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Vista previa</a>
 			</div>
-			<h2 class="docname">Autenticación de firma</h2>
+			<h2 class="docname">Carta de poder</h2>
 			<div class="tab-content Lcontent">
 				<form method='post' class="tab-pane active" id="home" role="tabpanel">
 					<div class="form-row">
 						<div class="form-group col-md-6">
+                            <!-- fecha_emision -->
 							<label for="inputdate">Fecha</label>
 							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión en letras"
-							onchange="setValues('inputdate','notario_name', 'affected_name', 'dpi');">
+							onchange="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="notario_name">Nombre</label>
-							<input type="texxt" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>''
-							onkeyup="setValues('inputdate','notario_name', 'affected_name', 'dpi');">
+                        <!-- nombre_a_dar -->
+							<label for="nombre_a_dar">Nombre</label>
+							<input type="text" class="form-control" id="nombre_a_dar" placeholder="Nombre del otorgante"
+							onkeyup="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">
 						</div>
 					</div>
 					<div class="form-row">
-					<div class="form-group col-md-6" id="templ">
-							<label for="affected_name">Nombre</label>
-							<input type="texxt" class="form-control" id="affected_name" placeholder="Nombre del solicitante"
-							onkeyup="setValues('inputdate','notario_name', 'affected_name', 'dpi');">
+                        <div class="form-group col-md-6" id="templ">
+                        <!-- nombre_a_recibir -->
+							<label for="nombre_a_recibir">Nombre</label>
+							<input type="text" class="form-control" id="nombre_a_recibir" placeholder="Nombre del apoderado"
+							onkeyup="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">
 						</div>
+                        <!-- responsabilidades -->
+                        <div class="form-group col-md-6" id="templ">
+							<label for="responsabilidades">Responsabilidades</label>
+							<textarea class="form-control" id="responsabilidades" placeholder="Responsabilidades"
+							onkeyup="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">
+                            </textarea>
+						</div>
+                        <!-- DPIs -->
 						<div class="form-group col-md-6">
-							<label for="dpi">DPI</label>
-							<input type="text" class="form-control" id="dpi" placeholder="Número de DPI en letras"
-							onkeyup="setValues('inputdate','notario_name', 'affected_name', 'dpi');">
+							<label for="DPI_otorgante">DPI del otorgante</label>
+							<input type="text" class="form-control" id="DPI_otorgante" placeholder="Número de DPI en letras"
+							onkeyup="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">
+						</div>
+                        <div class="form-group col-md-6">
+							<label for="DPI_apoderado">DPI del apoderado</label>
+							<input type="text" class="form-control" id="DPI_apoderado" placeholder="Número de DPI en letras"
+							onkeyup="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">
+						</div>
+                        <div class="form-group col-md-6">
+							<label for="DPI_testigo1">DPI del Testigo 1</label>
+							<input type="text" class="form-control" id="DPI_testigo1" placeholder="Número de DPI en letras"
+							onkeyup="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">
+						</div>
+                        <div class="form-group col-md-6">
+							<label for="DPI_testigo2">DPI del Testigo 2</label>
+							<input type="text" class="form-control" id="DPI_testigo2" placeholder="Número de DPI en letras"
+							onkeyup="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">
+						</div>
+                        <!-- SETEAR CANTIDAD DE DÍAS CON JS -->
+                        <!-- fecha_final -->
+                        <div class="form-group col-md-6">
+							<label for="fecha_final">Fecha de caducidad</label>
+							<input type="date" class="form-control" id="fecha_final" placeholder="Fecha de caducidad en letras"
+							onchange="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Imprimir</div>
@@ -125,21 +175,83 @@
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">
 					<div class="ntext" id="ntext">
-						<h2 class="docname" style="display: none;">Autenticación de firma</h2>
-						En la ciudad de Guatemala, el <mark id="date1"></mark>, YO: <mark id="name1"></mark>, como Notario DOY FE: Que la 
-						firma que antecede es AUTENTICA por haber sido reconocida en mi presencia por <mark id="name2"></mark>,
-						 quién se identifica con el Documento Personal de Identificación con Código Único de Identificación 
-						<mark id= "DPI"></mark>, extendido por el Registro Nacional de las Personas de la República de Guatemala.
-						El signatario firma la presente acta de legalización.
-					</div>
-					<div>&nbsp;</div>
-					<div>&nbsp;</div>
-					<div>&nbsp;</div>
-					<div>&nbsp;</div>
-					<br><br><br><br><br>
-					<div class="footer-L">
-						<div class="left">F. del Notario</div>
-						<div class="right">ANTE MÍ: Firma y sello</div>
+					<div class="right">
+                            En Guatemala, a <mark id= "fecha_emision"></mark>
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+						    Yo Don(a) <mark id= "nombre_otorgante"></mark> aquí PRESENTE y en plenas facultades mentales, <b>otorgo</b> al Sr(a) 
+                            <mark id= "nombre_apoderado"></mark> poder especial amplio y suficiente para que pueda realizar las gestiones 
+                            específicas encomendadas en mi nombre y representación. Las cuales son:
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            <mark id="responsabilidadesm"></mark>
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>                       
+                        <div>
+                            Y de la misma manera, pueda contestar y responder a las demandas o circunstancias que se deprendan de dicho encargo, atendiendo al reconocimiento de las firmas y de las personalidades aquí reflejadas, siempre y cuando se protejan mis derechos y se beneficien mis propios intereses.
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            A continuación, el otorgante, el apoderado y los dos testigos deben identificarse mediantes sus respectivos documentos de identidad:
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            Identificación del otorgante: <mark id= "DPI_otorgantem"></mark>
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            Identificación del Apoderado: <mark id= "DPI_apoderadom"></mark>
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            Identificación del Testigo 1: <mark id= "DPI_testigo1m"></mark>
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            Identificación del Testigo 2: <mark id= "DPI_testigo2m"></mark>
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            Esta carta tiene una vigencia de <mark id= "cantidad_diasm"></mark> días, comenzando hoy mismo tras el momento de plasmarse las firmas, y finalizando el próximo día <mark id= "fecha_finalm"></mark>.
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            Otorgante      Apoderado
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            <mark id="vacio"></mark>
+                        </div>
+                        <div>
+                            Testigo 1      Testigo 2
+                        </div>
 					</div>
 				</div>
 				<div id="elementH"></div>
