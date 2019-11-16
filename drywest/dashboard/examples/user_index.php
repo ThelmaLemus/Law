@@ -177,9 +177,11 @@
                     echo"
                       <div class=\"ley col-lg-3 col-md-6\">";
                       if($admin){
-                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=0\" title=\"".$agreement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$agreement_name."\">";
+                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
                       }else{
-                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=0\" title=\"".$agreement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$agreement_name."\">";
+                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
                       }
                       echo"
                           <div class=\"law_name\">
@@ -215,9 +217,11 @@
                     echo"
                       <div class=\"ley col-lg-3 col-md-6\">";
                       if($admin){
-                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=0\" title=\"".$agreement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$agreement_name."\">";
+                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
                       }else{
-                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=0\" title=\"".$agreement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$agreement_name."\">";
+                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
                       }
                       echo"
                           <div class=\"law_name\">
@@ -268,9 +272,11 @@
                     echo"
                       <div class=\"ley col-lg-3 col-md-6\">";
                       if($admin){
-                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$arrangement_name."\">";
+                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
                       }else{
-                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$arrangement_name."\">";
+                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
                       }
                       echo"
                           <div class=\"law_name\">
@@ -306,9 +312,11 @@
                     echo"
                       <div class=\"ley col-lg-3 col-md-6\">";
                       if($admin){
-                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$arrangement_name."\">";
+                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
                       }else{
-                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$arrangement_name."\">";
+                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
                       }
                       echo"
                           <div class=\"law_name\">
