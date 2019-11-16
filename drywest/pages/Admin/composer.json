@@ -1,5 +1,0 @@
-{
-    "require": {
-        "smalot/pdfparser": "^0.13.2"
-    }
-}
