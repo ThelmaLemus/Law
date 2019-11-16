@@ -285,7 +285,7 @@ C:\wamp64\www\Lawbrary\drywest\dashboard\examples\pdf.js-master\examples\compone
       overflow: scroll;
       width: 70%;
       display: flex;
-      height: auto;
+      height: 100vh;
       padding:0 !important;
     }
     .todo{
@@ -325,7 +325,10 @@ C:\wamp64\www\Lawbrary\drywest\dashboard\examples\pdf.js-master\examples\compone
           echo
           "
           <script> 
-            var newurl=\"../Admin/\"+url+\"#page=\"+pagina
+		  console.log('esto es la pagina: '+pagina);
+			var newurl=\"../Admin/\"+url+\"#page=\"+pagina;
+			localStorage.setItem('p',pagina);
+
           ";
         /* 				if(isset($_POST['buscar']))
           {
@@ -342,7 +345,11 @@ C:\wamp64\www\Lawbrary\drywest\dashboard\examples\pdf.js-master\examples\compone
           echo
           "
           <script> 
-            var newurl=\"../Admin/\"+url+\"#page=\"+pagina
+		  console.log('esto es la pagina: '+pagina);
+			var newurl=\"../Admin/\"+url+\"#page=\"+pagina;
+			localStorage.setItem('p',pagina);
+
+			
           ";
         /* 				if(isset($_POST['buscar']))
           {
