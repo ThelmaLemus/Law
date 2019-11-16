@@ -42,7 +42,7 @@ File: Layout CSS
 	display: flex;
 	background: white;
 	justify-content: center;
-	height: 400px;
+	height: 350px;
 	align-items: center;
 }
 
@@ -77,29 +77,6 @@ File: Layout CSS
 	border-left: 1px solid gray;
 }
 
-.dpi-button{
-	width: 100px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.fa-upload, .fa-upload:hover{
-	font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	display: flex;
-	align-items: center;
-	background: none;
-	border: none;
-	height: 25px;
-}
-.dpispecial{
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-}
-.specialrow{
-	display: flex;
-	justify-content: space-around;
-}
 
 /* Favorites
 --------------------------------------------------------------------------------------------------------------- */

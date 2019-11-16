@@ -32,6 +32,10 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="layout/scripts/index.js"></script>
+  <script src='https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js'></script>
+
+
+
 
     <body id="top">
   <div class="wrapper row1">
@@ -67,17 +71,29 @@
           <div class="form-group">
             <label for="usr">Usuario</label>
             <input type="text" name="user" placeholder="Usuario" class="form-control" id="usr" required>
-            </div>
-            <div class="form-group">
-              <label for="pswrd">Contraseña</label>
-              <input type="password" name= "password" placeholder="Contraseña" class="form-control" id="pswrd" required>
-            </div>
-            <label for="lbut" style="color:white;">Contraseña</label>
-            <div class="form-group">
-              <input type="submit" name="Ingresar" value="Ingresar" class="btn btn-secondary" id="lbut">
+          </div>
+          <div class="form-group">
+            <label for="pswrd">Contraseña</label>
+            <input type="password" name= "password" placeholder="Contraseña" class="form-control" id="pswrd" required>
+          </div>
+          <label for="lbut" style="color:white;">Contraseña</label>
+          <div class="form-group">
+            <input type="submit" name="Ingresar" value="Ingresar" class="btn btn-secondary" id="lbut">
+          </div>
+        </form>
+        <div class="register_form">
+          <form method="post" enctype="multipart/form-data">
+            <div class="row">
+              <div class="form-group col-md-6 dpispecial">
+                <div class="row specialrow">
+                  <input type="file" name="img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                  <label class="btn btn-secondary dpi-button" for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI</i></label>
+                  <input type="submit" name="upload" class="btn fa-upload" value="&#xf093;">
+                </div>
+              </div>
             </div>
           </form>
-          <form class="register_form" method="post">
+          <form method="post">
             <div class="row">
               <div class="form-group col-md-6">
                 <label for="inputName">Nombre</label>
@@ -100,23 +116,28 @@
             </div>
             <div class="row">
               <div class="form-group col-md-6">
+                <label for="inputDPI">DPI</label>
+                <input required type="text" name = "dpi" class="form-control" id="inputDPI" placeholder="DPI">
+              </div>
+              <div class="form-group col-md-6">
                 <label for="inputContra">Contraseña</label>
                 <input required type="password" name = "Contra" class="form-control" id="  inputContra" placeholder="Contraseña">
               </div>
-              <div class="form-group col-md-6">
+              <!-- <div class="form-group col-md-6">
                 <label for="inputContrac">Confirmar contraseña</label>
                 <div class="confirm_pass">
                   <input required type="password" name = "Contra2" class="form-control" id="inputContrac" placeholder="Contraseña" onkeyup="passwordConfirmation(Contra.value, Contra2.value)">
                   <div class="fa fa-times-circle" id="pass2check" style="display:none;"></div>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group col-md-12">
                 <input type="submit" name="Registrar" class="btn btn-secondary" value="Registrar" id= "regbut">
               </div>
             </div>
           </form>
-          <?php include 'layout/PHP/login.php'?>
-        </footer>
+        </div>
+        <?php include 'layout/PHP/login.php'?>
+      </footer>
         <!-- ################################################################################################ -->
       </article>
     </div>

@@ -32,7 +32,7 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
-          <h3 class="mb-0">Leyes</h3>
+          <h3 class="mb-0">Plantillas</h3>
         </div>
         <div class="card-body">
          <div class="row icon-examples">

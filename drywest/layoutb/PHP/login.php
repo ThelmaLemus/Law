@@ -1,9 +1,5 @@
-<script src="layout/scripts/index.js"></script>
-
 <?php
     
-    include 'OCR.php';
-
     if (isset($_POST["Ingresar"])){
         $dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
 
@@ -35,7 +31,8 @@
                 </script>";
                     
         }
-    }else if (isset($_POST["Registrar"])){
+    }
+    else if (isset($_POST["Registrar"])){
 
         $dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
 
@@ -44,7 +41,6 @@
         $correo=$_POST["Correo"];
         $contraseña=$_POST["Contra"];
         $usuario=$_POST["Usuario"];
-        $dpi = $_POST['dpi'];
 
         $f5 = 0;
         $f6 = 0;
@@ -79,7 +75,7 @@
 
         if(($f5==1)&&($f6==1)){
             $date = date("Y-m-d");
-            $query = "INSERT INTO usuarios(nombre, apellido, correo, usuario, contraseña, fecha_c, dpi) VALUES ( '$nombre', '$apellido','$correo', '$usuario', '$contraseña', '$date', '$dpi')";
+            $query = "INSERT INTO usuarios(nombre, apellido, correo, usuario, contraseña, fecha_c) VALUES ( '$nombre', '$apellido','$correo', '$usuario', '$contraseña', '$date')";
             $result = pg_query($query) or die('Query failed: ' . pg_last_error());
             pg_free_result($result);
             pg_close($dbconn);
@@ -92,44 +88,6 @@
                 </script>";
         }
         
-    }else if (isset($_POST["upload"])){
-        
-        $file = $_FILES['img'];
-
-		//File properties
-		$file_name = $file['name'];
-		$file_tmp = $file['tmp_name'];
-		$file_size = $file['size'];
-		$file_error = $file['error'];
-
-		//Work out the file extension
-		$file_ext = explode('.', $file_name);
-		$file_ext = strtolower(end($file_ext));
-
-		print_r($file_ext);
-
-		$allowed = array('jpg', 'jpe','jpeg', 'png');
-
-		//SE GUARDA EL ARCHIVO EN UNA CARPETA LLAMADA DOCUMENTOS
-		if(in_array($file_ext, $allowed)){
-			if($file_error === 0){
-				$file_destination = 'pics/' . $file_name;
-
-				if(move_uploaded_file($file_tmp, $file_destination)){
-                    echo "<script>console.log('Ingresado correctamente')</script>";
-                    $res = getImageText($file_destination);
-                    echo "<script>fillUserInfo(\"$res\")</script>";
-                    
-				} else {
-					echo "<script>console.log('Intentalo de nuevo')</script>";
-				}
-			} else {
-				echo "<script>console.log('Ocurrió un error, intentalo de nuevo')</script>";
-			}
-		} else {
-			echo "<script>console.log('No es del tipo aceptado $file_ext')</script>";
-		}
-
     }
 
 ?>

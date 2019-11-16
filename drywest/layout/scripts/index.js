@@ -8,3 +8,17 @@ function passwordConfirmation(pass1, pass2){
         document.getElementById("pass2check").style.display = "none";
     }
 }
+
+
+function fillUserInfo(info){
+    console.log(info);
+    var dpi_p = /\d{4} \d{5} \d{4}/g;
+    var dpi = info.match(dpi_p);
+    var findpi = info.search(dpi[0]) + 15;
+    info = info.substring(findpi);
+    info = info.substring(info.search("BRE"));
+    var name = info.match(/[A-Z]+ [A-Z]+/g);
+    document.getElementById('inputDPI').value = dpi[0];
+    document.getElementById('inputName').value = name[0];
+    // debugger
+}
