@@ -11,20 +11,6 @@
   $admin = $varsesion=="admin";
   echo"<link rel=\"stylesheet\" href=\"../assets/css/library.css\">";
 
-
-  // Include Composer autoloader if not already done.
-  /* $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 
-  "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .  
-  $_SERVER['REQUEST_URI']; 
-  if (strpos($link, 'examples') !== false) {
-  }else{
-    include '../../Admin/vendor/autoload.php';
-  } */
-  include '../../../Admin/vendor/autoload.php';
-   
-  // Parse pdf file and build necessary objects.
-  $parser = new \Smalot\PdfParser\Parser();
-
   $dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
   $user_query = "SELECT * FROM usuarios WHERE '$varsesion'=usuario";
   $user_result = pg_query($dbconn, $user_query) or die('User query failed: '.pg_last_error());

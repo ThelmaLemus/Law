@@ -31,10 +31,14 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 //
 var CMAP_URL = '../../node_modules/pdfjs-dist/cmaps/';
 var CMAP_PACKED = true;
-
-var DEFAULT_URL = url;
+console.log("SOLO URL " + url);
+console.log("NEW URL . " + newurl);
+var DEFAULT_URL = url + "#page=5";
 var pathname = window.location.pathname;
 var SEARCH_FOR = localStorage.getItem('vs'); // try 'Mozilla';
+
+var desiredPage = pagina;
+
 //console.log(SEARCH_FOR);
 
 var container = document.getElementById('viewerContainer');
@@ -79,7 +83,12 @@ todo.on("scroll", function(e) {
 document.addEventListener('pagesinit', function () {
   // We can use pdfViewer now, e.g. let's change default scale.
   pdfViewer.currentScaleValue = 'page-width';
-  pdfViewer.currentPageNumber = pagina;
+  pdfViewer.currentPageNumber = 5;
+  console.log("EN EVENT : " + pdfViewer.currentPageNumber);
+  //pdfViewer.currentPageNumber = pagina;
+  //pdfViewer.page = desiredPage;
+  console.log(pagina);
+  console.log(desiredPage);
   // setTimeout(() => {
     console.log("EL VALUETOSEARCH: "+ SEARCH_FOR);
     // debugger;
@@ -105,9 +114,14 @@ var loadingTask = pdfjsLib.getDocument({
 loadingTask.promise.then(function(pdfDocument) {
   // Document loaded, specifying document for the viewer and
   // the (optional) linkService.
+  pdfViewer.currentPageNumber = 5;
+  console.log("EN PROMISE 1 : "+pdfViewer.currentPageNumber);
   pdfViewer.setDocument(pdfDocument);
+  console.log("EN PROMISE : "+pdfViewer.currentPageNumber);
+  //pdfViewer.currentPageNumber = pagina;
+  //pdfViewer.page = desiredPage;
   pdfLinkService.setDocument(pdfDocument, null);
 });
-printPage();
+//printPage();
 
 
