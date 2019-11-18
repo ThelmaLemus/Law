@@ -285,7 +285,7 @@ C:\wamp64\www\Lawbrary\drywest\dashboard\examples\pdf.js-master\examples\compone
       overflow: scroll;
       width: 70%;
       display: flex;
-      height: 100vh;
+      height: auto;
       padding:0 !important;
     }
     .todo{

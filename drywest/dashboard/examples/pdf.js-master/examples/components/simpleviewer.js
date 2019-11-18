@@ -31,14 +31,11 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 //
 var CMAP_URL = '../../node_modules/pdfjs-dist/cmaps/';
 var CMAP_PACKED = true;
-console.log("SOLO URL " + url);
-console.log("NEW URL . " + newurl);
-var DEFAULT_URL = url + "#page=5";
+
+var DEFAULT_URL = url;
 var pathname = window.location.pathname;
 var SEARCH_FOR = localStorage.getItem('vs'); // try 'Mozilla';
-
-var desiredPage = pagina;
-
+var lectura_pagina = pagina;
 //console.log(SEARCH_FOR);
 
 var container = document.getElementById('viewerContainer');
@@ -68,7 +65,7 @@ function printPage(){
   }, 1000);
 }
 
-var todo = $("#todo");
+/* var todo = $("#todo");
 
 todo.on("scroll", function(e) {
     
@@ -78,17 +75,22 @@ todo.on("scroll", function(e) {
     todo.removeClass("fix-search");
   }
   
+}); */
+
+
+$(document).ready(function(){
+  $(window).scroll(function(){
+      if ($(window).scrollTop() > 100){
+          lectura_pagina++;
+          console.log($(window).scrollTop());
+      }
+  });
 });
 
 document.addEventListener('pagesinit', function () {
   // We can use pdfViewer now, e.g. let's change default scale.
   pdfViewer.currentScaleValue = 'page-width';
-  pdfViewer.currentPageNumber = 5;
-  console.log("EN EVENT : " + pdfViewer.currentPageNumber);
-  //pdfViewer.currentPageNumber = pagina;
-  //pdfViewer.page = desiredPage;
-  console.log(pagina);
-  console.log(desiredPage);
+  pdfViewer.currentPageNumber = pagina;
   // setTimeout(() => {
     console.log("EL VALUETOSEARCH: "+ SEARCH_FOR);
     // debugger;
@@ -114,14 +116,9 @@ var loadingTask = pdfjsLib.getDocument({
 loadingTask.promise.then(function(pdfDocument) {
   // Document loaded, specifying document for the viewer and
   // the (optional) linkService.
-  pdfViewer.currentPageNumber = 5;
-  console.log("EN PROMISE 1 : "+pdfViewer.currentPageNumber);
   pdfViewer.setDocument(pdfDocument);
-  console.log("EN PROMISE : "+pdfViewer.currentPageNumber);
-  //pdfViewer.currentPageNumber = pagina;
-  //pdfViewer.page = desiredPage;
   pdfLinkService.setDocument(pdfDocument, null);
 });
-//printPage();
+printPage();
 
 

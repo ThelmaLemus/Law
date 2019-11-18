@@ -34,7 +34,39 @@ var DEFAULT_URL = '../../web/compressed.tracemonkey-pldi-09.pdf';
 var PAGE_TO_VIEW = 1;
 var SCALE = 1.0;
 
+var SEARCH_FOR = 'Mozilla'; // try 'Mozilla';
+
 var container = document.getElementById('pageContainer');
+
+// (Optionally) enable hyperlinks within PDF files.
+var pdfLinkService = new pdfjsViewer.PDFLinkService();
+
+// (Optionally) enable find controller.
+var pdfFindController = new pdfjsViewer.PDFFindController({
+  linkService: pdfLinkService,
+});
+
+/* var pdfViewer = new pdfjsViewer.PDFViewer({
+  container: container,
+  linkService: pdfLinkService,
+  findController: pdfFindController,
+  //text
+}); */
+
+
+document.addEventListener('pagesinit', function () {
+  // We can use pdfViewer now, e.g. let's change default scale.
+
+    if (SEARCH_FOR) { // We can try search for things
+      pdfFindController.executeCommand('find', 
+      { 
+        caseSensitive: false,
+        highlightAll: true,
+        phraseSearch: true,
+        query: SEARCH_FOR,
+      });
+    }
+});
 
 // Loading document.
 var loadingTask = pdfjsLib.getDocument({
@@ -50,10 +82,8 @@ loadingTask.promise.then(function(pdfDocument) {
       container: container,
       id: PAGE_TO_VIEW,
       scale: SCALE,
+      findController: pdfFindController,
       defaultViewport: pdfPage.getViewport({ scale: SCALE, }),
-      // We can enable text/annotations layers, if needed
-      textLayerFactory: new pdfjsViewer.DefaultTextLayerFactory(),
-      annotationLayerFactory: new pdfjsViewer.DefaultAnnotationLayerFactory(),
     });
     // Associates the actual page with the view, and drawing it
     pdfPageView.setPdfPage(pdfPage);
