@@ -357,7 +357,7 @@ C:\wamp64\www\Lawbrary\drywest\dashboard\examples\pdf.js-master\examples\compone
         }		 	
       ?>
     </div>
-    <div class="notas">
+    <div class="notas" id="notas">
         <div class="accordion" id="accordionExample">
           <form method="post">
             <div class="buto">

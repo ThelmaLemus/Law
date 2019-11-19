@@ -17,6 +17,17 @@
  //gulp dist-install
 'use strict';
 
+
+$(document).scroll(function() {
+    var y = $(document).scrollTop(), //get page y value 
+        header = $("#notas"); // your div id
+    if(y >= 400)  {
+        header.css({"position": "fixed", "top" : "0", "right" : "0"});
+    } else {
+        header.css({"position": "static", "right":"0"});
+    }
+});
+
 if (!pdfjsLib.getDocument || !pdfjsViewer.PDFViewer) {
   alert('Please build the pdfjs-dist library using\n' +
         '  `gulp dist-install`');
