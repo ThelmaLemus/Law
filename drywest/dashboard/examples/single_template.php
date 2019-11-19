@@ -121,6 +121,16 @@
 						});
 
 					}
+
+					
+					var fecha_field = document.getElementById('inputdate');
+					var fecha_hoy = new Date();
+					var año = fecha_hoy.getFullYear();
+					var mes = fecha_hoy.getMonth() + 1;
+					var dia = fecha_hoy.getDate();
+					var fecha_formateada = año + "-" + mes + "-" + dia;
+
+					fecha_field.value = fecha_formateada;
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">
