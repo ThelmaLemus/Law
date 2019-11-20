@@ -42,37 +42,65 @@
 		<script>
 			localStorage.setItem('busco', false);
 
-		function imprimirDIV(contenido) {
-			console.log(contenido);
-			var ficha = document.getElementById(contenido);
-			var ventanaImpresion = window.open(' ', 'popUp');
-			ventanaImpresion.document.write(ficha.innerHTML);
-			ventanaImpresion.document.close();
-			ventanaImpresion.print();
-			ventanaImpresion.close();
-		}
- 
 			function converttoPDF()
 			{
 				console.log('hola');
 
-				var doc = new jsPDF();
-				console.log("creo doc");
-				var specialElementHandlers = {
-					'#profile': function (element, renderer) 
-					{
-						return true;
-					}
-				};
+				//GUARDAR
+				var fecha_inicio = document.getElementById("inputdate").value;
+				var nombre_a_dar = document.getElementById("nombre_a_dar").value;
+				var nombre_a_recibir = document.getElementById("nombre_a_recibir").value;
+				var responsabilidades = document.getElementById("responsabilidades").value;
+				var DPI_otorgante = document.getElementById("DPI_otorgante").value;
+				var DPI_apoderado = document.getElementById("DPI_apoderado").value;
+				var DPI_testigo1 = document.getElementById("DPI_testigo1").value;
+				var DPI_testigo2 = document.getElementById("DPI_testigo2").value;
+				var fecha_final = document.getElementById("fecha_final").value;
+				var usuario = "<?php echo $uid ?>";
+				console.log(usuario);
 
-                //15, 105
-				doc.fromHTML($('#profile').html(), 15, 15, {
-					'width': 170,
-                    'align': "justify",
-					'elementHandlers': specialElementHandlers
+				$.ajax({
+					type: "POST",
+					url: "guardartemplates/guardar_cartadepoder.php",
+					data:
+					{
+						fecha_emision : fecha_inicio,
+						nombre_otorgante : nombre_a_dar,
+						nombre_apoderado : nombre_a_recibir,
+						responsabilidades : responsabilidades,
+						DPI_otorgante : DPI_otorgante,
+						DPI_apoderado : DPI_apoderado,
+						DPI_testigo1 : DPI_testigo1,
+						DPI_testigo2 : DPI_testigo2,
+						fecha_caducidad : fecha_final,
+						usuario : usuario
+					},
+					success: function(r){
+						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
+						if(r == 1){
+							alert("Agregado");
+							
+							//DESCARGAR
+							var doc = new jsPDF();
+							console.log("creo doc");
+							var specialElementHandlers = {
+								'#profile': function (element, renderer) 
+								{
+									return true;
+								}
+							};
+
+							//15, 105
+							doc.fromHTML($('#profile').html(), 15, 15, {
+								'width': 170,
+								'align': "justify",
+								'elementHandlers': specialElementHandlers
+							});
+							console.log(doc);
+							doc.save('carta_de_poder.pdf');
+						}
+					},
 				});
-				console.log(doc);
-				doc.save('sample-file.pdf');
 			};
 
 			function genPDF()
@@ -165,7 +193,7 @@
 							<input type="date" class="form-control" id="fecha_final" placeholder="Fecha de caducidad">
 						</div>
 					</div>
-					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Imprimir</div>
+					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
 				</form>
 				<script>
 					 function imprimir(){

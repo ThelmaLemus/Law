@@ -41,20 +41,53 @@
 			{
 				console.log('hola');
 
-				var doc = new jsPDF();
-				console.log("creo doc");
-				var specialElementHandlers = {
-					'#profile': function (element, renderer) {
-						return true;
-					}
-				};
+				//GUARDAR
+				var fecha_inicio = document.getElementById("inputdate").value;
+				var nombre_notario = document.getElementById("notario_name").value;
+				var nombre_solicitante = document.getElementById("affected_name").value;
+				var dpi_solicitante = document.getElementById("dpi").value;
+				var usuario = "<?php echo $uid ?>";
+//				console.log(usuario);
 
-				doc.fromHTML($('#profile').html(), 15, 15, {
-					'width': 170,
-						'elementHandlers': specialElementHandlers
+				$.ajax({
+					type: "POST",
+					url: "guardartemplates/guardar_autoirzaciondefirma.php",
+					data:
+					{
+						fecha_emision : fecha_inicio,
+						nombre_notario : nombre_notario,
+						nombre_solicitante : nombre_solicitante,
+						dpi_solicitante : dpi_solicitante,
+						usuario : usuario
+					},
+					success: function(r){
+						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
+						if(r == 1){
+							alert("Agregado");
+							
+							//DESCARGAR
+							var doc = new jsPDF();
+							console.log("creo doc");
+							var specialElementHandlers = {
+								'#profile': function (element, renderer) 
+								{
+									return true;
+								}
+							};
+
+							//15, 105
+							doc.fromHTML($('#profile').html(), 15, 15, {
+								'width': 170,
+								'align': "justify",
+								'elementHandlers': specialElementHandlers
+							});
+							console.log(doc);
+							doc.save('autenticacion_de_firma.pdf');
+						}
+						else
+						console.log("error" + r);
+					},
 				});
-				console.log(doc);
-				doc.save('sample-file.pdf');
 			};
 
 /* 			function genPDF()
@@ -115,7 +148,7 @@
 							<input type="text" class="form-control" id="dpi" placeholder="Número de DPI">
 						</div>
 					</div>
-					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Imprimir</div>
+					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
 				</form>
 				<script>
 					 function imprimir(){
