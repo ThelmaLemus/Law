@@ -186,6 +186,17 @@ function dateParser(date){
     
 } 
 
+function fillField(info, dpi_field, name_field){
+    var dpi_p = /\d{4} \d{5} \d{4}/g;
+    var dpi = info.match(dpi_p);
+    var findpi = info.search(dpi[0]) + 15;
+    info = info.substring(findpi);
+    info = info.substring(info.search("BRE"));
+    var name = info.match(/[A-Z]+ [A-Z]+/g);
+    document.getElementById(dpi_field).value = dpif[0];
+    document.getElementById(name_field).value = name[0];
+}
+
 function fixDate(stringdate){
     let goodDate = moment(stringdate);
     let findate = goodDate.date() + " de " + MESES[goodDate.month()] + " de " +goodDate.year();

@@ -180,7 +180,7 @@
     $added_url = $admin? $added_url : $index==1? "/dashboard/assets/img/profile/default.png": $added_url;
     $profile_image = $row0[6] == null? "<img alt=\"Image placeholder\" src=\"$add../$added_url\" class=\"rounded-circle\">":"<img alt=\"Image placeholder\" src = \"data:image/jpg;base64,".base64_encode(pg_unescape_bytea($row0[6]))."\" class=\"rounded-circle\">";
 
-    echo "<script>console.log('$isSimpleViewer')</script";
+    // echo "<script>console.log('$isSimpleViewer')</script";
     // echo $row;
 
   ?>

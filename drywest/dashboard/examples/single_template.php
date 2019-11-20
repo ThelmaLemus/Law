@@ -5,6 +5,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.943/build/pdf.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/f529d3c7df.js" crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.debug.js"></script>
 
@@ -84,14 +85,14 @@
 			</div>
 			<h2 class="docname">Autenticación de firma</h2>
 			<div class="tab-content Lcontent">
-				<form method='post' class="tab-pane active" id="home" role="tabpanel">
-					<div class="row">
-						<div class="form-group col-md-6 dpispecial">
-							<div class="row specialrow">
+				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<!-- <div class="row"> -->
 								<input type="file" name="img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-								<label class="btn btn-secondary dpi-button" for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI</i></label>
-								<input type="submit" name="upload" class="btn fa-upload" value="&#xf093;">
-							</div>
+								<label class="btn btn-primary" for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
+								<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
+							<!-- </div> -->
 						</div>
 					</div>
 					<div class="form-row">

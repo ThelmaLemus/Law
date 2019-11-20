@@ -80,3 +80,11 @@
 mark{
 	background: none !important;
 }
+
+/* Templates styles */
+.uploadbutton{
+	background: none !important;
+	border: none !important;
+	padding: 20px;
+}
+/* Templates styles */
