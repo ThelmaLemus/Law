@@ -170,15 +170,17 @@
     $user_pass=$row0[4];
     $user_email=$row0[5];
     $user_full_name= trim($row0[1])." ".trim($row0[2]);
+    $user_dpi = trim($row0[8]);
 
     $query = "SELECT * FROM biblioteca WHERE '$row0[0]'=uid";
     $result = pg_query($dbconn, $query) or die('Query failed: ' . pg_last_error());
     $row=pg_num_rows($result);
 
-    $added_url = $index==1?$add."/dashboard/assets/img/profile/default.png": $isSimpleViewer? "assets/img/profile/default.png": $add."assets/img/profile/default.png";
+    $added_url = $index==1?$add."/dashboard/assets/img/profile/default.png": $isSimpleViewer? "assets/img/profile/default.png": "assets/img/profile/default.png";
+    $added_url = $admin? $added_url : $index==1? "/dashboard/assets/img/profile/default.png": $added_url;
     $profile_image = $row0[6] == null? "<img alt=\"Image placeholder\" src=\"$add../$added_url\" class=\"rounded-circle\">":"<img alt=\"Image placeholder\" src = \"data:image/jpg;base64,".base64_encode(pg_unescape_bytea($row0[6]))."\" class=\"rounded-circle\">";
 
-
+    echo "<script>console.log('$isSimpleViewer')</script";
     // echo $row;
 
   ?>

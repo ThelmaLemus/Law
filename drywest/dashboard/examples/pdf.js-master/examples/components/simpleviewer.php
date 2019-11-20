@@ -282,7 +282,7 @@ C:\wamp64\www\Lawbrary\drywest\dashboard\examples\pdf.js-master\examples\compone
       background: none !important;
       /* position: absolute; */
       /* overflow: auto; */
-      overflow: scroll;
+      overflow: none;
       width: 70%;
       display: flex;
       height: auto;

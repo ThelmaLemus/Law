@@ -11,11 +11,11 @@
   include 'navbar.php';
 
   $admin = $varsesion=="admin";
-  if ($admin) {
-    echo"<link rel=\"stylesheet\" href=\"../assets/css/library.css\">";
-  }else{
-    echo"<link rel=\"stylesheet\" href=\"assets/css/library.css\">";
-  }
+  // if ($admin) {
+    // echo"<link rel=\"stylesheet\" href=\"assets/css/library.css\">";
+    // }else{
+    // }
+  echo"<link rel=\"stylesheet\" href=\"../assets/css/library.css\">";
   $dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
   $user_query = "SELECT * FROM usuarios WHERE '$varsesion'=usuario";
   $user_result = pg_query($dbconn, $user_query) or die('User query failed: '.pg_last_error());

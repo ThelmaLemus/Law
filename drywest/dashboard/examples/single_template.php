@@ -30,7 +30,8 @@
 		<title>Single_Template</title>
 		<?php 
 			$uid = $_GET['uid'];
-		 	include "navbar.php" 
+			include "navbar.php";
+			include "../assets/php/upload_dpi.php"; 
 		?>
 		<script>
 			localStorage.setItem('busco', false);
@@ -77,33 +78,40 @@
 		<div class="letter">
 			<div class="editop list-group" id="myList" role="tablist">
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
-				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Vista previa</a>
+				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab"
+					onclick="setValues('inputdate','notario_name', 'affected_name', 'dpi');"
+				>Vista previa</a>
 			</div>
 			<h2 class="docname">Autenticación de firma</h2>
 			<div class="tab-content Lcontent">
 				<form method='post' class="tab-pane active" id="home" role="tabpanel">
+					<div class="row">
+						<div class="form-group col-md-6 dpispecial">
+							<div class="row specialrow">
+								<input type="file" name="img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+								<label class="btn btn-secondary dpi-button" for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI</i></label>
+								<input type="submit" name="upload" class="btn fa-upload" value="&#xf093;">
+							</div>
+						</div>
+					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputdate">Fecha</label>
-							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión en letras"
-							onchange="setValues('inputdate','notario_name', 'affected_name', 'dpi');">
+							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión">
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="texxt" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>''
-							onkeyup="setValues('inputdate','notario_name', 'affected_name', 'dpi');">
+							<input type="texxt" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>'>
 						</div>
 					</div>
 					<div class="form-row">
 					<div class="form-group col-md-6" id="templ">
 							<label for="affected_name">Nombre</label>
-							<input type="texxt" class="form-control" id="affected_name" placeholder="Nombre del solicitante"
-							onkeyup="setValues('inputdate','notario_name', 'affected_name', 'dpi');">
+							<input type="texxt" class="form-control" id="affected_name" placeholder="Nombre del solicitante">
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">DPI</label>
-							<input type="text" class="form-control" id="dpi" placeholder="Número de DPI en letras"
-							onkeyup="setValues('inputdate','notario_name', 'affected_name', 'dpi');">
+							<input type="text" class="form-control" id="dpi" placeholder="Número de DPI">
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Imprimir</div>
@@ -123,20 +131,14 @@
 					}
 
 					
-					var fecha_field = document.getElementById('inputdate');
-					var fecha_hoy = new Date();
-					var año = fecha_hoy.getFullYear();
-					var mes = fecha_hoy.getMonth() + 1;
-					var dia = fecha_hoy.getDate();
-					var fecha_formateada = año + "-" + mes + "-" + dia;
-
-					fecha_field.value = fecha_formateada;
+					setTodaysDate('inputdate');
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">
 					<div class="ntext" id="ntext">
 						<h2 class="docname" style="display: none;">Autenticación de firma</h2>
-						En la ciudad de Guatemala, el <mark id="date1"></mark>, YO: <mark id="name1"></mark>, como Notario DOY FE: Que la 
+						En la ciudad de Guatemala, el <mark id="fecha_emision"></mark>, YO: <mark id="name1"></mark>, que me identifico con el 
+						Documento Personal de Identificación con Código Único de Identificación <mark id="DPIN"><?php echo $user_dpi?></mark>, como Notario DOY FE: Que la 
 						firma que antecede es AUTENTICA por haber sido reconocida en mi presencia por <mark id="name2"></mark>,
 						 quién se identifica con el Documento Personal de Identificación con Código Único de Identificación 
 						<mark id= "DPI"></mark>, extendido por el Registro Nacional de las Personas de la República de Guatemala.

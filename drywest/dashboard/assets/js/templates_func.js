@@ -1,10 +1,11 @@
+$("head").append('<script type="text/javascript" src="../assets/js/moments.js"></script>');
 
+var MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+    'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 function dateParser(date){
     date = new Date(date);
     // date.setDate(date.getDate() + 1);
 
-    const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
-        'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
     const DIAS = ['uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince',
         'dieciséis', 'diecisiete', 'dieciocho','diecinueve','veinte','veintiuno','veintidós','vientitrés','veinticuatro','veinticinco','veintiséis','veintisiete',
@@ -185,22 +186,37 @@ function dateParser(date){
     
 } 
 
+function fixDate(stringdate){
+    let goodDate = moment(stringdate);
+    let findate = goodDate.date() + " de " + MESES[goodDate.month()] + " de " +goodDate.year();
+    return findate;
+}
+
 
 function setValues(date, nname, sname, dpi){
     let fecha = document.getElementById(date).value;
-    
-    console.log(fecha);
-    
-    d = document.getElementById('date1');
+    // console.log(fecha);
+    d = document.getElementById('fecha_emision');
     nn = document.getElementById('name1');
     sn = document.getElementById('name2');
     dp = document.getElementById('DPI');
-    d.innerText = fecha;
+    d.innerText = fixDate(fecha);
     nn.innerText = document.getElementById(nname).value;
     sn.innerText = document.getElementById(sname).value;
     dp.innerText = document.getElementById(dpi).value;
     
 }
+
+function setTodaysDate(input_id_element){
+    var fecha_field = document.getElementById(input_id_element);
+    var fecha_hoy = new Date();
+    var año = fecha_hoy.getFullYear();
+    var mes = fecha_hoy.getMonth() + 1;
+    var dia = fecha_hoy.getDate();
+    var fecha_formateada = año + "-" + mes + "-" + dia;
+    fecha_field.value = fecha_formateada;
+}
+
 
 Date.daysBetween = function( date1, date2 ) {
   //Get 1 day in milliseconds
@@ -250,7 +266,7 @@ function setValues_cartadepoder(inputdate,nombre_a_dar, nombre_a_recibir, respon
 	var fecha_finalm = document.getElementById("fecha_finalm");
 
 
-	fecha_emision.innerText = fecha_inicio;
+	fecha_emision.innerText = fixDate(fecha_inicio);
 	nombre_otorgante.innerText = nombre_a_dar;
 	nombre_apoderado.innerText = nombre_a_recibir;
 	responsabilidadesm.innerText = responsabilidades;
