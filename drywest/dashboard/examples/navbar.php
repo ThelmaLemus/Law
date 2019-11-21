@@ -514,7 +514,7 @@
             }
             else{
               $.ajax({
-              url: addjs +'assets/php/crud.php',
+              url: 'assets/php/crud.php',
               type: 'POST',
               data: {tipo:'fav',idF:idFile,idU:idUser,is:1},
                   success: function(data){
@@ -543,7 +543,7 @@
             }
             else{
               $.ajax({
-              url: addjs +'assets/php/crud.php',
+              url: 'assets/php/crud.php',
               type: 'POST',
               data: {tipo:'fav',idF:idFile,idU:idUser,is:0},
                   success: function(data){

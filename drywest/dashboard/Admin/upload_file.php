@@ -69,6 +69,8 @@
 
 				if(move_uploaded_file($file_tmp, $file_destination)){
 
+					echo "<script>console.log(\"A guardar\");</script>";
+
 					$dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
 
  					$nombre=$_POST['nombre'];
@@ -78,9 +80,17 @@
 
 		 			$query = "INSERT INTO leyes(nombre_original, categoria, url, tipo, nombre_sintilde) VALUES ('$nombre', '$categoria', '$file_destination', '$tipo', '$clave')";
 					$result = pg_query($dbconn, $query) or die('Query failed: ' . pg_last_error());
-
+					if($result){
 					echo "Ingresado correctamente
 						<script>
+							window.location= '../';
+						</script>
+					";
+					}
+					else
+					echo "Ingresado mal
+						<script>
+							console.log($result);
 							window.location= '../';
 						</script>
 					";
@@ -140,6 +150,7 @@
 			}   
 		}
 
+		echo "<script>console.log(\"Va a buscar\")</script>";
 		$dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
 
 		$parser = new \Smalot\PdfParser\Parser();
@@ -168,6 +179,7 @@
 
 			if(true)
 			{
+				echo "<script>console.log(\"buscando\")</script>";
 				//echo "<a href='$link#page=$pagina'>Pagina $pagina :</a> ";
 				$i = buscar($contenido_pagina, $txt_buscar, $inicio, $final, $i, $pagina, $lid, $dbconn);
 				//echo "<br/>";

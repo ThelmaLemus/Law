@@ -31,6 +31,7 @@
 		<title>Single_Template</title>
 		<?php 
 			$uid = $_GET['uid'];
+			// $pid = $_GET['pid'];
 			include "navbar.php";
 			include "../assets/php/upload_dpi.php"; 
 		?>
@@ -47,47 +48,54 @@
 				var nombre_solicitante = document.getElementById("affected_name").value;
 				var dpi_solicitante = document.getElementById("dpi").value;
 				var usuario = "<?php echo $uid ?>";
+				// var pid = "<?php ?>";
 //				console.log(usuario);
+				var nombre_archivo = document.getElementById("fname").value;
+				if(nombre_archivo == "" || nombre_archivo == null){
+					alert("El archivo debe tener un nombre para guardarlo.");
+				}else{
+					$.ajax({
+						type: "POST",
+						url: "guardartemplates/guardar_autoirzaciondefirma.php",
+						data:
+						{
+							fecha_emision : fecha_inicio,
+							nombre_notario : nombre_notario,
+							nombre_solicitante : nombre_solicitante,
+							dpi_solicitante : dpi_solicitante,
+							usuario : usuario,
+							nombre_archivo: nombre_archivo
+						},
+						success: function(r){
+							//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
+							if(r == 1){
+								alert("Agregado");
+								
+								//DESCARGAR
+								var doc = new jsPDF();
+								console.log("creo doc");
+								var specialElementHandlers = {
+									'#profile': function (element, renderer) 
+									{
+										return true;
+									}
+								};
+	
+								//15, 105
+								doc.fromHTML($('#profile').html(), 15, 15, {
+									'width': 170,
+									'align': "justify",
+									'elementHandlers': specialElementHandlers
+								});
+								console.log(doc);
+								doc.save(nombre_archivo + '.pdf');
+							}
+							else
+							console.log("error" + r);
+						},
+					});
+				}
 
-				$.ajax({
-					type: "POST",
-					url: "guardartemplates/guardar_autoirzaciondefirma.php",
-					data:
-					{
-						fecha_emision : fecha_inicio,
-						nombre_notario : nombre_notario,
-						nombre_solicitante : nombre_solicitante,
-						dpi_solicitante : dpi_solicitante,
-						usuario : usuario
-					},
-					success: function(r){
-						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
-						if(r == 1){
-							alert("Agregado");
-							
-							//DESCARGAR
-							var doc = new jsPDF();
-							console.log("creo doc");
-							var specialElementHandlers = {
-								'#profile': function (element, renderer) 
-								{
-									return true;
-								}
-							};
-
-							//15, 105
-							doc.fromHTML($('#profile').html(), 15, 15, {
-								'width': 170,
-								'align': "justify",
-								'elementHandlers': specialElementHandlers
-							});
-							console.log(doc);
-							doc.save('autenticacion_de_firma.pdf');
-						}
-						else
-						console.log("error" + r);
-					},
-				});
 			};
 
 /* 			function genPDF()
@@ -123,9 +131,13 @@
 						<div class="form-group col-md-6">
 							<!-- <div class="row"> -->
 								<input type="file" name="img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-								<label class="btn btn-primary" for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
+								<label class="btn btn-primary " for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
 								<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
 							<!-- </div> -->
+						</div>
+						<div class="form-group col-md-6">
+							<label for="fname">Nombre archivo</label>
+							<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf	">
 						</div>
 					</div>
 					<div class="form-row">
@@ -148,7 +160,7 @@
 							<input type="text" class="form-control" id="dpi" placeholder="Número de DPI">
 						</div>
 					</div>
-					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
+					<div type="" id="imprimir" onclick="setValues('inputdate','notario_name', 'affected_name', 'dpi'); converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
 				</form>
 				<script>
 					 function imprimir(){
