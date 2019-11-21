@@ -11,7 +11,7 @@
 
     $link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
 
-    $query = "INSERT INTO acta_de_declaracion(fecha, nombre_notario, direccion, nombre_solicitante, dpi_solicitante, institucion, solicitud, uid) 
+    $query = "INSERT INTO acta_de_declaracion(fecha, nombre_notario, direccion, nombre_solicitante, dpi_solicitante, institucion, solicitud, usuario) 
                 VALUES ('$fecha_emision', '$nombre_notario', '$direccion', '$nombre_solicitante', '$dpi_solicitante', '$institucion', '$solicitud', $usuario)";
 
     $result = pg_query($link, $query);

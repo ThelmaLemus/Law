@@ -51,7 +51,7 @@
       $laws_query = "SELECT * FROM autenticacion_de_firma WHERE '$UID'= uid";
       $laws_result = pg_query($dbconn, $laws_query) or die('Laws query failed: ' . pg_last_error());
       $law = pg_fetch_row($laws_result);
-      $law_ID = $law[0];
+      $law_ID = $law[5];
       $law_name = $law[1];
         $rows=pg_num_rows($laws_result);
         if ($rows>0) {
@@ -61,7 +61,7 @@
               echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$law_ID&b=0\" title=\"".$law_name."\">";
               echo "<script>localStorage.setItem('vs','');</script>";
             }else{
-              echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$law_ID&b=0\" title=\"".$law_name."\">";
+              echo"<a class=\"btn-icon-clipboard\" href=\"single_template.php?uid=$uid&pid=$law_ID\" title=\"".$law_name."\">";
               echo "<script>localStorage.setItem('vs','');</script>";
             }
             echo"
@@ -77,7 +77,7 @@
           ";
           $i++;
         }
-      }
+      
       pg_free_result($laws_result);
     echo"</div>";
     ?>

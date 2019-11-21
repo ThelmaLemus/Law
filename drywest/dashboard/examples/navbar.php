@@ -328,6 +328,15 @@
             <i class="ni ni-paper-diploma"></i> Plantillas
           </a>
         </li>
+
+        <li class="nav-item">
+          <?php 
+            $href = $index==1?"<a class=\"nav-link \" href=\"examples/mis_templates.php\">":"<a class=\"nav-link \" href=\"mis_templates.php\">";
+            echo $href;
+          ?>
+            <i class="ni ni-paper-diploma"></i> Mis plantillas
+          </a>
+        </li>
         
         <?php
           $new_doc = $admin? "<li class=\"nav-item\">":"<li class=\"nav-item\" style=\"display:none\">";

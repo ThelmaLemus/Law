@@ -42,7 +42,7 @@
 				console.log('hola');
 
 				//GUARDAR
-				var fecha_inicio = document.getElementById("inputdate").value;
+				var fecha_inicio = document.getElementById("fecha_emision").value;
                 var nombre_notario = document.getElementById("notario_name").value;
                 var direccion = document.getElementById("direccion").value;
 				var nombre_solicitante = document.getElementById("affected_name").value;
@@ -146,7 +146,7 @@
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputdate">Dirección</label>
+							<label for="direccion">Dirección</label>
 							<input type="text" class="form-control" id="direccion" placeholder="Dirección">
 						</div>
 						<div class="form-group col-md-6">
@@ -170,7 +170,7 @@
 							<textarea class="form-control" id="solicitud" placeholder="Solicitud"></textarea>
 						</div>
 					</div>
-					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
+					<div type="" id="imprimir" onclick="setValues_actadedeclaracion('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'institucion', 'solicitud');converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
 				</form>
 				<script>
 

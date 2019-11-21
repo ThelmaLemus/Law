@@ -292,6 +292,7 @@ function setValues_cartadepoder(inputdate,nombre_a_dar, nombre_a_recibir, respon
 function setValues_actadedeclaracion(inputdate, notario_name, direccion, affected_name, affected_DPI, institucion, solicitud)
 {
     //  INPUTS
+    debugger
     var fecha_inicio = document.getElementById(inputdate).value;
     var nombre_notario = document.getElementById(notario_name).value;
     var direccion = document.getElementById(direccion).value;
