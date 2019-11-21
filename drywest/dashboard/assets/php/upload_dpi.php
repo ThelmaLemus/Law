@@ -4,6 +4,18 @@
 	function moveFile($fil, $file_name, $file_tmp, $path, $dpi_id, $name_id){
 		
 
+		
+	}
+
+	if (isset($_POST["signAuth"])){
+		$file = $_FILES['sig'];
+		//File properties
+
+		$file_name = $file['name'];
+		$file_tmp = $file['tmp_name'];
+		$file_size = $file['size'];
+		$file_error = $file['error'];
+
 		echo "<script>console.log('No es del tipo aceptado $file_name')</script>";
 		//Work out the file extension
 		$file_ext = explode('.', $file_name);
@@ -17,7 +29,7 @@
 		//SE GUARDA EL ARCHIVO EN UNA CARPETA LLAMADA DOCUMENTOS
 		if(in_array($file_ext, $allowed)){
 			if($file_error === 0){
-				$file_destination = $path + $file_name;
+				$file_destination = 'pics/' + $file_name;
 
 				if(move_uploaded_file($file_tmp, $file_destination)){
                     echo "<script>console.log('Ingresado correctamente')</script>";
@@ -33,18 +45,7 @@
 		} else {
 			echo "<script>console.log('No es del tipo aceptado $file_ext')</script>";
 		}
-	}
-
-	if (isset($_POST["signAuth"])){
-		$file = $_FILES['img'];
-		//File properties
-
-		$file_name = $fil['name'];
-		$file_tmp = $fil['tmp_name'];
-		$file_size = $fil['size'];
-		$file_error = $fil['error'];
-
-		moveFile($file, $file_name, $file_tmp, 'pics/', 'dpi', 'affected_name');
+		// moveFile($file, $file_name, $file_tmp, 'pics/', 'dpi', 'affected_name');
     }
 
 ?>
