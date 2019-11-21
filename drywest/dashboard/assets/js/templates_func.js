@@ -247,15 +247,15 @@ Date.daysBetween = function( date1, date2 ) {
 function setValues_cartadepoder(inputdate,nombre_a_dar, nombre_a_recibir, responsabilidades, DPI_otorgante, DPI_apoderado, DPI_testigo1, DPI_testigo2, fecha_final)
 {
 	//INPUTS
-	var fecha_inicio = document.getElementById("inputdate").value;
-	var nombre_a_dar = document.getElementById("nombre_a_dar").value;
-	var nombre_a_recibir = document.getElementById("nombre_a_recibir").value;
-	var responsabilidades = document.getElementById("responsabilidades").value;
-	var DPI_otorgante = document.getElementById("DPI_otorgante").value;
-	var DPI_apoderado = document.getElementById("DPI_apoderado").value;
-	var DPI_testigo1 = document.getElementById("DPI_testigo1").value;
-	var DPI_testigo2 = document.getElementById("DPI_testigo2").value;
-	var fecha_final = document.getElementById("fecha_final").value;
+	var fecha_inicio = document.getElementById(inputdate).value;
+	var nombre_a_dar = document.getElementById(nombre_a_dar).value;
+	var nombre_a_recibir = document.getElementById(nombre_a_recibir).value;
+	var responsabilidades = document.getElementById(responsabilidades).value;
+	var DPI_otorgante = document.getElementById(DPI_otorgante).value;
+	var DPI_apoderado = document.getElementById(DPI_apoderado).value;
+	var DPI_testigo1 = document.getElementById(DPI_testigo1).value;
+	var DPI_testigo2 = document.getElementById(DPI_testigo2).value;
+	var fecha_final = document.getElementById(fecha_final).value;
 	fecha_inicio_como_date = new Date(fecha_inicio);
 	fecha_final_como_date = new Date(fecha_final);
 	var diferencia = Math.abs(fecha_final_como_date - fecha_inicio_como_date);
@@ -287,4 +287,36 @@ function setValues_cartadepoder(inputdate,nombre_a_dar, nombre_a_recibir, respon
 	DPI_testigo2m.innerText = DPI_testigo2;
 	cantidad_diasm.innerText = diferencia_endias;
 	fecha_finalm.innerText = fecha_final;
+}
+
+function setValues_actadedeclaracion(inputdate, notario_name, direccion, affected_name, affected_DPI, institucion, solicitud)
+{
+    //  INPUTS
+    var fecha_inicio = document.getElementById(inputdate).value;
+    var nombre_notario = document.getElementById(notario_name).value;
+    var direccion = document.getElementById(direccion).value;
+    var nombre_solicitante = document.getElementById(affected_name).value;
+    var dpi_solicitante = document.getElementById(affected_DPI).value;
+    var institucion = document.getElementById(institucion).value;
+    var solicitud = document.getElementById(solicitud).value;
+
+    //MARKS
+    var fecha_emision = document.getElementById("fecha_emisionm");
+    var nombre_notariom = document.getElementById("nombre_notariom");
+    var direccionm = document.getElementById("direccionm");
+    var nombre_solicitantem = document.getElementById("nombre_solicitantem");
+    var dpi_solicitantem = document.getElementById("dpi_solicitantem");
+    var nombre_solicitante2m = document.getElementById("nombre_solicitante2m");
+    var institucion_a_solicitarm = document.getElementById("institucion_a_solicitarm");
+    var solicitudm = document.getElementById("solicitudm");
+
+    fecha_emision.innerText = fixDate(fecha_inicio);
+    nombre_notariom.innerText = nombre_notario;
+    direccionm.innerText = direccion;
+    nombre_solicitantem.innerText = nombre_solicitante;
+    dpi_solicitantem.innerText = dpi_solicitante;
+    nombre_solicitante2m.innerText = nombre_solicitante;
+    institucion_a_solicitarm.innerText = institucion;
+    solicitudm.innerText = solicitud;
+
 }
