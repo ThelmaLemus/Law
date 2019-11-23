@@ -1,0 +1,19 @@
+mision vision mas fluido
+explicar la gráfica de leyes obsoletas
+explicar cuanto cuesta un documento legal y si es costoso?
+agregar otro ejemplo de mala interpretación
+SAT legislación de guate o fiscal o ambas?
+Objetivos más fluidos
+qué es lawbrary, agregar templates protocolo usuario
+cuanto cuesta infile
+quitar db como actor en el diagrama
+quitar diagrama de secuencia favorito
+diagrama de secuencia comentario quitarlo
+dejarlo como están las de abajo modelo relacional hacer aclaración de que es el modelo simplificado, analizar líneas punteadas
+de php a servidor ocr a travez de la nube y agregar el logo de ocr diagrama de arquitectura
+mejorar las conclusiones
+
+Vender mejor
+alguna opción para indicar documentos relacionados (Admin)
+poder buscar plantillas
+refinar leyes en base a lo que busco y lo que la gente más mira

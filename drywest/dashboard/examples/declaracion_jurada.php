@@ -142,55 +142,47 @@
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
 				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_cartadepoder('inputdate','nombre_a_dar', 'nombre_a_recibir', 'responsabilidades', 'DPI_otorgante', 'DPI_apoderado', 'DPI_testigo1', 'DPI_testigo2', 'fecha_final');">Vista previa</a>
 			</div>
-			<h2 class="docname">Carta de poder</h2>
+			<h2 class="docname">Declaración jurada, extravío de patente</h2>
 			<div class="tab-content Lcontent">
 				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
-					<div class="form-row">
+					<<div class="form-row">
 						<div class="form-group col-md-6">
-                            <!-- fecha_emision -->
-							<label for="inputdate">Fecha</label>
-							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión">
+							<label for="fecha_emision">Fecha</label>
+							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
 						</div>
 						<div class="form-group col-md-6">
-                        <!-- nombre_a_dar -->
-							<label for="nombre_a_dar">Nombre</label>
-							<input type="text" class="form-control" id="nombre_a_dar" placeholder="Nombre del otorgante">
+							<label for="notario_name">Nombre</label>
+							<input type="texxt" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>'>
+						</div>
+                    </div>
+                    <div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputdate">Dirección</label>
+							<input type="text" class="form-control" id="direccion" placeholder="Dirección">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="notario_name">Nombre</label>
+							<input type="texxt" class="form-control" id="affected_name" placeholder="Nombre del solicitante">
 						</div>
 					</div>
 					<div class="form-row">
-                        <div class="form-group col-md-6" id="templ">
-                        <!-- nombre_a_recibir -->
-							<label for="nombre_a_recibir">Nombre</label>
-							<input type="text" class="form-control" id="nombre_a_recibir" placeholder="Nombre del apoderado">
+					    <div class="form-group col-md-6" id="templ">
+							<label for="affected_name">DPI</label>
+							<input type="texxt" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante">
 						</div>
-                        <!-- responsabilidades -->
-                        <div class="form-group col-md-6" id="templ">
-							<label for="responsabilidades">Responsabilidades</label>
-							<textarea class="form-control" id="responsabilidades" placeholder="Responsabilidades">
-                            </textarea>
-						</div>
-                        <!-- DPIs -->
 						<div class="form-group col-md-6">
-							<label for="DPI_otorgante">DPI del otorgante</label>
-							<input type="text" class="form-control" id="DPI_otorgante" placeholder="Número de DPI">
+							<label for="dpi">Entidad</label>
+							<input type="text" class="form-control" id="nombre_entidad" placeholder="Entidad propietaria">
 						</div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-6">
-							<label for="DPI_apoderado">DPI del apoderado</label>
-							<input type="text" class="form-control" id="DPI_apoderado" placeholder="Número de DPI">
+							<label for="fecha_emision">Fecha de emisión de acta notarial</label>
+							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
 						</div>
-                        <div class="form-group col-md-6">
-							<label for="DPI_testigo1">DPI del Testigo 1</label>
-							<input type="text" class="form-control" id="DPI_testigo1" placeholder="Número de DPI">
-						</div>
-                        <div class="form-group col-md-6">
-							<label for="DPI_testigo2">DPI del Testigo 2</label>
-							<input type="text" class="form-control" id="DPI_testigo2" placeholder="Número de DPI">
-						</div>
-                        <!-- SETEAR CANTIDAD DE DÍAS CON JS -->
-                        <!-- fecha_final -->
-                        <div class="form-group col-md-6">
-							<label for="fecha_final">Fecha de caducidad</label>
-							<input type="date" class="form-control" id="fecha_final" placeholder="Fecha de caducidad">
+                        <div class="form-group col-md-6" id="templ">
+							<label for="affected_name">Solicitud</label>
+							<textarea class="form-control" id="solicitud" placeholder="Solicitud"></textarea>
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
@@ -220,20 +212,19 @@
                     requerido por <mark id="nombre_solicitantem"></mark>, quien se identifica con el Documento Personal de Identificación 
                     (DPI) con Código Único de Identificación (CUI) <mark id="dpi_solicitantem"></mark>, emitido por el Registro Nacional 
                     de las Personas de la República de Guatemala, quien actúa en su calidad de Administrador Único y Representante Legal de la 
-                    entidad CORPORACIÓN INTEGRAL DE ADMINISTRACIÓN CORPORATIVA, SOCIEDAD ANÓNIMA, calidad que acredita con el acta notarial de su 
-                    nombramiento, autorizada en esta ciudad, el ocho de agosto del año dos mil diecisiete, por la Notaria María Isabel Salazar Urrutia, 
-                    inscrita en el Registro Mercantil General de la República bajo el número quinientos quince mil setenta y nueve (515079), 
-                    folio quinientos noventa y cinco (595) del libro cuatrocientos cuarenta y siete (447) de Auxiliares de Comercio, con el objeto de 
-                    hacer constar notarialmente una DECLARACIÓN JURADA, por lo que se procede de la manera siguiente: PRIMERO: La requirente en la calidad 
+                    entidad <mark id="nombre_entidadm"></mark>, calidad que acredita con el acta notarial de su 
+                    nombramiento, autorizada en esta ciudad, el <mark id="fecha_emision_actanotarialm"></mark>, por <mark id="nombre_notario_actanotarialm"></mark>, 
+                    inscrita en el Registro Mercantil General de la República, con el objeto de 
+                    hacer constar notarialmente una DECLARACIÓN JURADA, por lo que se procede de la manera siguiente: PRIMERO: 
+                    La requirente en la calidad 
                     con que actúa, bajo juramento de ley prestado con las formalidades del caso ante el Infrascrito Notario, y enterada de las penas 
-                    relativas al delito de perjurio, manifiesta: a) Que su representada, la entidad CORPORACIÓN INTEGRAL DE ADMINISTRACIÓN CORPORATIVA, 
-                    SOCIEDAD ANÓNIMA, es propietaria de la Empresa Mercantil “CIAC” inscrita en el Registro Mercantil General de la República bajo el 
-                    número SETECIENTOS SETENTA MIL CIENTO DIECIOCHO (770118), folio TRESCIENTOS NOVENTA Y DOS (392) del libro SETECIENTOS CINCUENTA (750) 
-                    DE EMPRESAS MERCANTILES; y, b) Que se ha extraviado la Patente de Comercio de Empresa de “CIAC”, la cual fue emitida con fecha cuatro 
-                    de octubre de dos mil diecisiete. SEGUNDO: No habiendo más que hacer constar se finaliza la presente, veinte minutos después, en el 
-                    mismo lugar y fecha de su inicio, la que consta en esta única hoja de papel bond útil en su anverso y reverso, la que es leída a la 
-                    requirente, quien enterada de su contenido, objeto, validez y efectos legales, en la calidad con que actúa, la acepta, ratifica y firma 
-                    con el Notario autorizante. DOY FE
+                    relativas al delito de perjurio, manifiesta: a) Que su representada, la entidad <mark id="nombre_entidad2m"></mark>, es propietario 
+                    de <mark id="empresa_afectadam"></mark> inscrita en el Registro Mercantil General de la República; y, b) Que se ha extraviado 
+                    la Patente de Comercio de Empresa de <mark id="empresa_afectada2m"></mark>. SEGUNDO: No habiendo más que hacer constar se finaliza 
+                    la presente, la que es leída al
+                    requirente, quien enterado de su contenido, objeto, validez y efectos legales, en la calidad con que actúa, la acepta, ratifica 
+                    y firma 
+                    con el Notario autorizante. <b>DOY FE</b>
 				<div id="elementH"></div>
 				<!-- <button onclick="converttoPDF()">Descargar</button> -->
 			</div>
