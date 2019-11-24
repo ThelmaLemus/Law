@@ -77,6 +77,19 @@
               </label>
             </a>
           </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada.php?uid=$UID\" title=\"Acta de declaracion jurada - extravío de patente\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Acta de declaracion jurada - extravío de patente</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
         </div>
       </div>
     </div>

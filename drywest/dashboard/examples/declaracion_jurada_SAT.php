@@ -33,7 +33,7 @@
 	<script src="../assets/js/moments.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale = 1.0">
 	<meta charset="utf-8">
-		<title>Declaración jurada</title>
+		<title>Declaración jurada - SAT</title>
 		<?php 
 			$uid = $_GET['uid'];
 			 include "navbar.php";
@@ -62,7 +62,7 @@
 
 				$.ajax({
 					type: "POST",
-					url: "guardartemplates/guardar_declaracionjurada_extraviodepatente.php",
+					url: "guardartemplates/guardar_declaracionjurada_SAT.php",
 					data:
 					{
 						fecha_emision : fecha_emision,
@@ -117,7 +117,7 @@
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
 				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_declaracionjurada('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'nombre_entidad', 'fecha_emision_actanotarial', 'nombre_notario_actanotarial', 'empresa_afectada');">Vista previa</a>
 			</div>
-			<h2 class="docname">Declaración jurada, extravío de patente</h2>
+			<h2 class="docname">Declaración jurada - SAT</h2>
 			<div class="tab-content Lcontent">
 				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
 					<div class="form-row">
@@ -128,32 +128,52 @@
                     </div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="fecha_emision">Fecha</label>
+							<label for="fecha_emision">Fecha de emisión</label>
 							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="notario_name">Nombre</label>
+							<label for="notario_name">Nombre del notario</label>
 							<input type="text" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>'>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputdate">Dirección</label>
-							<input type="text" class="form-control" id="direccion" placeholder="Dirección">
+							<label for="inputdate">Dirección del notario</label>
+							<input type="text" class="form-control" id="direccion" placeholder="Dirección de oficina del notario">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="notario_name">Nombre</label>
+							<label for="notario_name">Nombre del solicitante</label>
 							<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante">
 						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
-							<label for="affected_name">DPI</label>
+							<label for="affected_name">DPI del solicitante</label>
 							<input type="text" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante">
-						</div>
+                        </div>
+                        <div class="form-group col-md-6" id="templ">
+							<label for="affected_name">NIT del solicitante</label>
+							<input type="text" class="form-control" id="affected_NIT" placeholder="Número de NIT del solicitante">
+                        </div>
+                    </div>
+                    <div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="dpi">Entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="Entidad propietaria">
+							<label for="dpi">Nombre de la entidad</label>
+							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad propietaria">
+                        </div>
+                        <div class="form-group col-md-6">
+							<label for="dpi">NIT de la entidad</label>
+							<input type="text" class="form-control" id="nombre_entidad" placeholder="NIT de la entidad propietaria">
+						</div>
+                    </div>
+                    <div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="dpi">Nombre de la entidad</label>
+							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad propietaria">
+                        </div>
+                        <div class="form-group col-md-6">
+							<label for="dpi">NIT de la entidad</label>
+							<input type="text" class="form-control" id="nombre_entidad" placeholder="NIT de la entidad propietaria">
 						</div>
                     </div>
                     <div class="form-row">
@@ -196,24 +216,41 @@
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">
 					<div class="ntext" id="ntext">
-                    En la Ciudad de Guatemala, el <mark id="fecha_emisionm"></mark>. Yo, <mark id="nombre_notariom"></mark>, Notario, 
-                    constituido en mi oficina profesional ubicada en <mark id="direccionm"></mark> de esta ciudad capital. Soy 
-                    requerido por <mark id="nombre_solicitantem"></mark>, quien se identifica con el Documento Personal de Identificación 
-                    (DPI) con Código Único de Identificación (CUI) <mark id="dpi_solicitantem"></mark>, emitido por el Registro Nacional 
-                    de las Personas de la República de Guatemala, quien actúa en su calidad de Administrador Único y Representante Legal de la 
-                    entidad <mark id="nombre_entidadm"></mark>, calidad que acredita con el acta notarial de su 
-                    nombramiento, autorizada en esta ciudad, el <mark id="fecha_emision_actanotarialm"></mark>, por <mark id="nombre_notario_actanotarialm"></mark>, 
-                    inscrita en el Registro Mercantil General de la República, con el objeto de 
-                    hacer constar notarialmente una DECLARACIÓN JURADA, por lo que se procede de la manera siguiente: PRIMERO: 
-                    La requirente en la calidad 
-                    con que actúa, bajo juramento de ley prestado con las formalidades del caso ante el Infrascrito Notario, y enterada de las penas 
-                    relativas al delito de perjurio, manifiesta: a) Que su representada, la entidad <mark id="nombre_entidad2m"></mark>, es propietario 
-                    de <mark id="empresa_afectadam"></mark> inscrita en el Registro Mercantil General de la República; y, b) Que se ha extraviado 
-                    la Patente de Comercio de Empresa de <mark id="empresa_afectada2m"></mark>. SEGUNDO: No habiendo más que hacer constar se finaliza 
-                    la presente, la que es leída al
-                    requirente, quien enterado de su contenido, objeto, validez y efectos legales, en la calidad con que actúa, la acepta, ratifica 
-                    y firma 
-                    con el Notario autorizante. <b>DOY FE</b>
+                    En la Ciudad de Guatemala, el <mark id="fecha_emisionm"></mark>, Yo: <mark id="nombre_notariom"></mark>, Notario, 
+                    en ejercicio, constituido en mi oficina profesional ubicada en <mark id="direccionm"></mark>, de la ciudad de Guatemala, 
+                    a requerimiento de <mark id="nombre_solicitantem"></mark>, quien se identifica con Documento Personal de 
+                    Identificación –DPI- con Código Único de Identificación –CUI- <mark id="dpi_solicitantem"></mark>, extendido por 
+                    el Registro Nacional de las Personas, del Departamento de Guatemala, Municipio de Guatemala, con Número de 
+                    Identificación Tributaria (NIT) <mark id="NIT_solicitantem"></mark>, quien actúa en su calidad de Administrador 
+                    Único y Representante Legal, de la entidad <mark id="nombre_entidadm"></mark>, personería que acredita con el acta 
+                    notarial de nombramiento que está inscrito en el Registro Mercantil General de la República de Guatemala. La 
+                    entidad <mark id="nombre_entidad2m"></mark>, es titular del número de identificación tributaria (NIT), 
+                    <mark id="NIT_entidadm"></mark>, con domicilio fiscal en <mark id="direccion_entidadm"></mark>, Departamento de 
+                    <mark id="departamento_entidadm"></mark>, Municipio de <mark id="municipio_entidadm"></mark>. Como Notario doy fe 
+                    que tuve a la vista el documento con el cual se acredita la representación que se ejercita, la cual es amplia y 
+                    suficiente de conformidad con la ley y a mi juicio para el presente acto; que el compareciente me asegura se de 
+                    los datos de identificación personal anteriormente consignados, hallarse en el libre ejercicio de sus derechos 
+                    civiles; que la representación que ejercita no le ha sido revocada, restringida o limitada de forma alguna, y que, 
+                    en la calidad con que actúa, comparece para hacer constar su DECLARACIÓ JURADA, para lo cual procedo de la 
+                    siguiente manera: PRIMERO: Manifiesta el requirente, BAJO SOLEMNE JURAMENTO DE LEY Y BIEN ENTERADO DE LAS PENAS 
+                    RELATIVAS AL DELITO DE PERJURIO, si lo aquí declarado no fuera cierto: a) Que no ha recibido devolución en 
+                    efectivo, vales fiscales, vales tributarios escalonados, bonos, ni compensación o acreditamiento, del pago 
+                    efectuado indebidamente de Impuesto al Valor Agregado de Importación por <mark id="cantidad_del_pagom"></mark>, 
+                    el <mark id="fecha_del_pagom"></mark>, con el formulario SAT guion <mark id="numero_formulario_SATm"></mark>, 
+                    por parte de la Tesorería Nacional, ni del Ministerio de Finanzas Públicas a la fecha; b) Que no ha utilizado la 
+                    cantidad solicitada, en sus declaraciones de impuestos presentadas a la Administración Tributaria, con el 
+                    propósito de realizar auto compensación de oficio con cualquier impuesto a la fecha; c) Que no ha solicitado con 
+                    anterioridad la devolución del pago indebido de Impuesto al Valor Agregado de Importación mencionado, a la 
+                    Superintendencia de Administración Tributaria o cualquier dependencia del Ministerio de Finanzas Públicas a la 
+                    fecha; y d) Que solicita la devolución del pago indebido de Impuesto al Valor Agregado de Importación por 
+                    <mark id="cantidad_del_pago2m"></mark>. SEGUNDO: Continúa manifestando el 
+                    requirente que se responsabiliza de lo manifestado en la presente declaración y de las consecuencias que esto 
+                    conlleve y de su conocimiento de las penas relativas al delito de perjurio o falsedad. TERCERO: No habiendo nada 
+                    más que hacer constar, se finaliza la presente en el mismo lugar y fecha, a las cuales se les adhieren los timbres 
+                    de ley. Leo lo escrito al requirente, quien enterado de su contenido, objeto, validez y efectos legales, la ratifica, 
+                    acepta y firma, haciéndolo a continuación el Notario, quien de todo lo actuado DOY FE. 
+
+
 				<div id="elementH"></div>
 				<!-- <button onclick="converttoPDF()">Descargar</button> -->
 			</div>

@@ -321,3 +321,43 @@ function setValues_actadedeclaracion(inputdate, notario_name, direccion, affecte
     solicitudm.innerText = solicitud;
 
 }
+
+function setValues_declaracionjurada(fecha_emision,notario_name, direccion, affected_name, affected_DPI, nombre_entidad, fecha_emision_actanotarial, nombre_notario_actanotarial, empresa_afectada)
+{
+    //  INPUTS
+    //debugger
+    var fecha_emision = document.getElementById(fecha_emision).value;
+    var notario_name = document.getElementById(notario_name).value;
+    var direccion = document.getElementById(direccion).value;
+    var affected_name = document.getElementById(affected_name).value;
+    var affected_DPI = document.getElementById(affected_DPI).value;
+    var nombre_entidad = document.getElementById(nombre_entidad).value;
+    var fecha_emision_actanotarial = document.getElementById(fecha_emision_actanotarial).value;
+    var nombre_notario_actanotarial = document.getElementById(nombre_notario_actanotarial).value;
+    var empresa_afectada = document.getElementById(empresa_afectada).value;
+
+    //MARKS
+    var fecha_emisionm = document.getElementById("fecha_emisionm");
+    var nombre_notariom = document.getElementById("nombre_notariom");
+    var direccionm = document.getElementById("direccionm");
+    var nombre_solicitantem = document.getElementById("nombre_solicitantem");
+    var dpi_solicitantem = document.getElementById("dpi_solicitantem");
+    var nombre_entidadm = document.getElementById("nombre_entidadm");
+    var fecha_emision_actanotarialm = document.getElementById("fecha_emision_actanotarialm");
+    var nombre_notario_actanotarialm = document.getElementById("nombre_notario_actanotarialm");
+    var nombre_entidad2m = document.getElementById("nombre_entidad2m");
+    var empresa_afectadam = document.getElementById("empresa_afectadam");
+    var empresa_afectada2m = document.getElementById("empresa_afectada2m");
+
+    fecha_emisionm.innerText = fixDate(fecha_emision);
+    nombre_notariom.innerText = notario_name;
+    direccionm.innerText = direccion;
+    nombre_solicitantem.innerText = affected_name;
+    dpi_solicitantem.innerText = affected_DPI;
+    nombre_entidadm.innerText = nombre_entidad;
+    fecha_emision_actanotarialm.innerText = fecha_emision_actanotarial;
+    nombre_notario_actanotarialm.innerText = nombre_notario_actanotarial;
+    nombre_entidad2m.innerText = nombre_entidad;
+    empresa_afectadam.innerText = empresa_afectada;
+    empresa_afectada2m.innerText = empresa_afectada;
+}

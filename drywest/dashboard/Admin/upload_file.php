@@ -3,6 +3,9 @@
 	// include '../examples/navbar.php'; 
 	error_reporting(0);
 
+	// Include Composer autoloader if not already done.
+	require 'vendor/autoload.php';
+
 	function eliminar_tildes($cadena){
  
 		//Codificamos la cadena en formato utf8 en caso de que nos de errores
@@ -81,11 +84,52 @@
 		 			$query = "INSERT INTO leyes(nombre_original, categoria, url, tipo, nombre_sintilde) VALUES ('$nombre', '$categoria', '$file_destination', '$tipo', '$clave')";
 					$result = pg_query($dbconn, $query) or die('Query failed: ' . pg_last_error());
 					if($result){
-					echo "Ingresado correctamente
-						<script>
+						echo "<script>console.log(\"Va a buscar\")</script>";
+		//$dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
+
+		$parser = new \Smalot\PdfParser\Parser();
+		echo "<script>console.log(\"Se creó\");</script>";
+		//$link = "Documentos/sp_gtm-int-text-const.pdf";
+		echo "<script>console.log($file_destination);</script>";
+		$pdf    = $parser->parseFile($file_destination);
+		$total = 0;
+		$query1 = "SELECT * FROM leyes WHERE url = '$file_destination'";
+		$result1 = pg_query($dbconn, $query1) or die('Query failed: ' . pg_last_error());
+		$row = pg_fetch_row($result1);
+		$lid = $row[0];
+
+		// Retrieve all pages from the pdf file.
+		$pages  = $pdf->getPages();
+		
+		// Loop over each page to extract text.
+		$pagina = 1;
+		$txt_buscar = "civil";
+		$i = 1;
+	//	echo "Buscando $txt_buscar se muestra cantidad de ocurrencias por pagína <br/>";
+
+		foreach ($pages as $page) 
+		{
+			echo "<script>console.log(\"Funciona\");";
+			$contenido_pagina = $page->getText();
+			$inicio = 0;
+			$final = 0;
+
+			if(true)
+			{
+				echo "<script>console.log(\"buscando\")</script>";
+				//echo "<a href='$link#page=$pagina'>Pagina $pagina :</a> ";
+				$i = buscar($contenido_pagina, $txt_buscar, $inicio, $final, $i, $pagina, $lid, $dbconn);
+				//echo "<br/>";
+			}
+			$pagina++;
+		}
+
+		echo "Ingresado correctamente
+			
+		";
+		echo "<script>
 							window.location= '../';
-						</script>
-					";
+						</script>";
 					}
 					else
 					echo "Ingresado mal
@@ -106,8 +150,7 @@
 			echo "No es del tipo aceptado";
 		}
 
-		// Include Composer autoloader if not already done.
-		require 'vendor/autoload.php';
+		
 
 		//Funcion para buscar sugerencias de artículos
 		function buscar($texto, $palabra, $inicio, $final, $i, $pagina, $lid, $dbconn)
@@ -150,47 +193,10 @@
 			}   
 		}
 
-		echo "<script>console.log(\"Va a buscar\")</script>";
-		$dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
-
-		$parser = new \Smalot\PdfParser\Parser();
-		//$link = "Documentos/sp_gtm-int-text-const.pdf";
-		$pdf    = $parser->parseFile($file_destination);
-		$total = 0;
-		$query1 = "SELECT * FROM leyes WHERE url = '$file_destination'";
-		$result1 = pg_query($dbconn, $query1) or die('Query failed: ' . pg_last_error());
-		$row = pg_fetch_row($result1);
-		$lid = $row[0];
-
-		// Retrieve all pages from the pdf file.
-		$pages  = $pdf->getPages();
-		
-		// Loop over each page to extract text.
-		$pagina = 1;
-		$txt_buscar = "civil";
-		$i = 1;
-	//	echo "Buscando $txt_buscar se muestra cantidad de ocurrencias por pagína <br/>";
-
-		foreach ($pages as $page) 
-		{
-			$contenido_pagina = $page->getText();
-			$inicio = 0;
-			$final = 0;
-
-			if(true)
-			{
-				echo "<script>console.log(\"buscando\")</script>";
-				//echo "<a href='$link#page=$pagina'>Pagina $pagina :</a> ";
-				$i = buscar($contenido_pagina, $txt_buscar, $inicio, $final, $i, $pagina, $lid, $dbconn);
-				//echo "<br/>";
-			}
-			$pagina++;
-		}
-
 	}else{
 		echo"<script>console.log('No entro')</script>";
 	}
-	
+		
 	include '../examples/footer.php'; 
 ?>
 </body>
