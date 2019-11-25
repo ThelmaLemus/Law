@@ -5,8 +5,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="./assets/js/plugins/chart.js/dist/Chart.min.js"></script>
-  <script src="./assets/js/plugins/chart.js/dist/Chart.extension.js"></script>
+  
 <?php 
 
 
@@ -77,7 +76,7 @@
           <!-- Chart -->
           <div class="chart">
             <!-- Chart wrapper -->
-            <canvas id="mvg" ></canvas>
+            <canvas id="mvg" class="chart-canvas" ></canvas>
           </div>
         </div>
       </div>
@@ -95,7 +94,7 @@
         <div class="card-body">
           <!-- Chart -->
           <div class="chart">
-            <canvas id="chart-orders" class="chart-canvas"></canvas>
+            <canvas id="popular" class="chart-canvas" height="450"></canvas>
           </div>
         </div>
       </div>
@@ -622,10 +621,10 @@
                     echo"
                       <div class=\"ley col-lg-3 col-md-6\">";
                       if($admin){
-                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
                         echo "<script>localStorage.setItem('vs','');</script>";
                       }else{
-                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
                         echo "<script>localStorage.setItem('vs','');</script>";
                       }
                       echo"
@@ -657,6 +656,7 @@
 <script>
 
   let mvc = document.getElementById("mvg").getContext("2d");
+  let mp = document.getElementById("popular").getContext("2d");
   // debugger
   var c = new Chart(mvc, {
     type: "bar",
@@ -669,8 +669,8 @@
           data:views
         }
       ]      
-  },
-  options: {
+    },
+    options: {
         scales: {
           yAxes: [{
               ticks: {
@@ -679,5 +679,30 @@
           }]
         }
       }
-  })
+    }
+  );
+
+  var c2 = new Chart(mp, {
+    type: "bar",
+    data:{
+      labels:names,
+      datasets:[
+        {
+          label:"Más vistos",
+          backgroundColor: "orange",
+          data:views
+        }
+      ]      
+    },
+    options: {
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
+        }
+      }
+    }
+  )
 </script>
