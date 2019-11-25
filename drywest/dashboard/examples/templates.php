@@ -40,7 +40,7 @@
          <div class="row icon-examples">
           <div class="ley col-lg-3 col-md-6">
           <?php 
-            echo"<a class=\"btn-icon-clipboard\" href=\"single_template?uid=$UID\" title=\"Autenticación de firmas\">";
+            echo"<a class=\"btn-icon-clipboard\" href=\"single_template?uid=$UID&pid=0\" title=\"Autenticación de firmas\">";
           ?>
               <div class="law_name">
                 <i class="ni ni-single-copy-04"></i>
@@ -53,7 +53,7 @@
           </div>
           <div class="ley col-lg-3 col-md-6">
           <?php 
-            echo"<a class=\"btn-icon-clipboard\" href=\"Carta_de_poder.php?uid=$UID\" title=\"Carta de poder\">";
+            echo"<a class=\"btn-icon-clipboard\" href=\"Carta_de_poder.php?uid=$UID&pid=0\" title=\"Carta de poder\">";
           ?>
               <div class="law_name">
                 <i class="ni ni-single-copy-04"></i>
@@ -66,7 +66,7 @@
           </div>
           <div class="ley col-lg-3 col-md-6">
           <?php 
-            echo"<a class=\"btn-icon-clipboard\" href=\"acta_de_declaracion.php?uid=$UID\" title=\"Solicitud de tesis - Declaracion jurada\">";
+            echo"<a class=\"btn-icon-clipboard\" href=\"acta_de_declaracion.php?uid=$UID&pid=0\" title=\"Solicitud de tesis - Declaracion jurada\">";
           ?>
               <div class="law_name">
                 <i class="ni ni-single-copy-04"></i>
@@ -79,7 +79,7 @@
           </div>
           <div class="ley col-lg-3 col-md-6">
           <?php 
-            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada.php?uid=$UID\" title=\"Extravío de patente - Declaración jurada\">";
+            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada.php?uid=$UID&pid=0\" title=\"Extravío de patente - Declaración jurada\">";
           ?>
               <div class="law_name">
                 <i class="ni ni-single-copy-04"></i>
@@ -92,7 +92,7 @@
           </div>
           <div class="ley col-lg-3 col-md-6">
           <?php 
-            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada_SAT.php?uid=$UID\" title=\"SAT - Declaración jurada\">";
+            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada_SAT.php?uid=$UID&pid=0\" title=\"SAT - Declaración jurada\">";
           ?>
               <div class="law_name">
                 <i class="ni ni-single-copy-04"></i>
@@ -105,11 +105,24 @@
           </div>
           <div class="ley col-lg-3 col-md-6">
           <?php 
-            echo"<a class=\"btn-icon-clipboard\" href=\"ampliacion.php?uid=$UID\" title=\"Ampliación\">";
+            echo"<a class=\"btn-icon-clipboard\" href=\"ampliacion.php?uid=$UID&pid=0\" title=\"Ampliación\">";
           ?>
               <div class="law_name">
                 <i class="ni ni-single-copy-04"></i>
                 <span>Ampliación</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"nombramiento_admin.php?uid=$UID&pid=0\" title=\"Nombramiento de administrador\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Nombramiento de administrador</span>
               </div>
               <label class="fas fa-star" id= "ki">
               <input type="checkbox" id="on" onClick=""> 

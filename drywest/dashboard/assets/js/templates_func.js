@@ -467,3 +467,66 @@ function setValues_ampliacion(fecha_emision,nombre_notario, numero_escritura, fe
     numero_escritura2m.innerText = numero_escritura;
     fecha_autorizacion2m.innerText = fixDate(fecha_autorizacion);
 }
+
+function setValues_nombramiento(nombre_entidad,fecha_emision, nombre_notario, direccion, nombre_solicitante, dpi_solicitante, numero_escritura, notario_escritura, fecha_autorizacion, actividades, numero_acta, fecha_acta, plazo_enaños)
+{
+
+    //INPUTS
+    var nombre_entidad = document.getElementById(nombre_entidad).value;
+    var fecha_emision = document.getElementById(fecha_emision).value;
+    var nombre_notario = document.getElementById(nombre_notario).value;
+    var direccion = document.getElementById(direccion).value;
+    var nombre_solicitante = document.getElementById(nombre_solicitante).value;
+    var dpi_solicitante = document.getElementById(dpi_solicitante).value;
+    var numero_escritura = document.getElementById(numero_escritura).value;
+    var notario_escritura = document.getElementById(notario_escritura).value;
+    var fecha_autorizacion = document.getElementById(fecha_autorizacion).value;
+    var actividades = document.getElementById(actividades).value;
+    var numero_acta = document.getElementById(numero_acta).value;
+    var fecha_acta = document.getElementById(fecha_acta).value;
+    var plazo_enaños = document.getElementById(plazo_enaños).value;
+
+    //MARKS
+    var nombre_entidadm = document.getElementById("nombre_entidadm");
+    var fecha_emisionm = document.getElementById("fecha_emisionm");
+    var nombre_notariom = document.getElementById("nombre_notariom");
+    var direccionm = document.getElementById("direccionm");
+    var nombre_solicitantem = document.getElementById("nombre_solicitantem");
+    var dpi_solicitantem = document.getElementById("dpi_solicitantem");
+    var nombre_entidad2m = document.getElementById("nombre_entidad2m");
+    var nombre_entidad3m = document.getElementById("nombre_entidad3m");
+    var numero_escrituram = document.getElementById("numero_escrituram");
+    var notario_escrituram = document.getElementById("notario_escrituram");
+    var fecha_autorizacionm = document.getElementById("fecha_autorizacionm");
+    var actividadesm = document.getElementById("actividadesm");
+    var numero_actam = document.getElementById("numero_actam");
+    var nombre_entidad4m = document.getElementById("nombre_entidad4m");
+    var fecha_actam = document.getElementById("fecha_actam");
+    var nombre_solicitante2m = document.getElementById("nombre_solicitante2m");
+    var nombre_entidad5m = document.getElementById("nombre_entidad5m");
+    var plazo_enañosm = document.getElementById("plazo_enañosm");
+    var nombre_entidad6m = document.getElementById("nombre_entidad6m");
+    var nombre_solicitante3m = document.getElementById("nombre_solicitante3m");
+
+    nombre_entidadm.innerText = nombre_entidad;
+    fecha_emisionm.innerText = fixDate(fecha_emision);
+    nombre_notariom.innerText = nombre_notario;
+    direccionm.innerText = direccion;
+    nombre_solicitantem.innerText = nombre_solicitante;
+    dpi_solicitantem.innerText = dpi_solicitante;
+    nombre_entidad2m.innerText = nombre_entidad;
+    nombre_entidad3m.innerText = nombre_entidad;
+    numero_escrituram.innerText = numero_escritura;
+    notario_escrituram.innerText = notario_escritura;
+    fecha_autorizacionm.innerText = fixDate(fecha_autorizacion);
+    actividadesm.innerText = actividades;
+    numero_actam.innerText = numero_acta;
+    nombre_entidad4m.innerText = nombre_entidad;
+    fecha_actam.innerText = fixDate(fecha_acta);
+    nombre_solicitante2m.innerText = nombre_solicitante;
+    nombre_entidad5m.innerText = nombre_entidad;
+    plazo_enañosm.innerText = plazo_enaños;
+    nombre_entidad6m.innerText = nombre_entidad;
+    nombre_solicitante3m.innerText = nombre_solicitante;
+    
+}

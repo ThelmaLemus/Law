@@ -37,55 +37,134 @@
   "; 
   ?>
   <div class="container-fluid mt--7">
+  <!-- Table -->
+  <!-- AUTENTICACIÓN DE FIRMAS -->
   <div class="row">
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
-          <h3 class="mb-0">Mis documentos</h3>
+          <h3 class="mb-0">Autenticación de firmas</h3>
         </div>
         <div class="card-body">
-      <!-- Table -->
-      <?php
-      echo"<div class=\"row icon-examples\">";
-      
-      $laws_query = "SELECT * FROM autenticacion_de_firma WHERE '$UID'= uid";
-      $laws_result = pg_query($dbconn, $laws_query) or die('Laws query failed: ' . pg_last_error());
-      $law = pg_fetch_row($laws_result);
-      $law_ID = $law[5];
-      $law_name = $law[1];
-        $rows=pg_num_rows($laws_result);
-        if ($rows>0) {
-          echo"
-            <div class=\"ley col-lg-3 col-md-6\">";
-            if($admin){
-              echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$law_ID&b=0\" title=\"".$law_name."\">";
-              echo "<script>localStorage.setItem('vs','');</script>";
-            }else{
-              echo"<a class=\"btn-icon-clipboard\" href=\"single_template.php?uid=$uid&pid=$law_ID\" title=\"".$law_name."\">";
-              echo "<script>localStorage.setItem('vs','');</script>";
-            }
-            echo"
-                <div class=\"law_name\">
-                  <i class=\"ni ni-single-copy-04\"></i>
-                  <span>".$law_name."</span>
-                </div>
-                <label class=\"fas fa-star\" id= \"12amyChecka$i\">
-                  <input type=\"checkbox\" id=\"12myChecka$i\" onClick=\"funcionFavorito('12myChecka$i',$law_ID,$uid)\"checked> 
-                </label>
-              </a>
-            </div>
-          ";
-          $i++;
-        }
-      
-      pg_free_result($laws_result);
-    echo"</div>";
-    ?>
+         <div class="row icon-examples">
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"single_template?uid=$UID\" title=\"Autenticación de firmas\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Autenticación de firmas</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"Carta_de_poder.php?uid=$UID\" title=\"Carta de poder\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Carta de poder</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"acta_de_declaracion.php?uid=$UID\" title=\"Acta de declaracion jurada\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Acta de declaracion jurada</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada.php?uid=$UID\" title=\"Acta de declaracion jurada - extravío de patente\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Acta de declaracion jurada - extravío de patente</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
+        </div>
+<!-- CARTAS DE PODER -->
+  <!-- Table -->
+        <div class="card-header bg-transparent">
+          <h3 class="mb-0">Cartas de poder</h3>
+        </div>
+        <div class="card-body">
+         <div class="row icon-examples">
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"single_template?uid=$UID\" title=\"Autenticación de firmas\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Autenticación de firmas</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"Carta_de_poder.php?uid=$UID\" title=\"Carta de poder\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Carta de poder</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"acta_de_declaracion.php?uid=$UID\" title=\"Acta de declaracion jurada\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Acta de declaracion jurada</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada.php?uid=$UID\" title=\"Acta de declaracion jurada - extravío de patente\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>Acta de declaracion jurada - extravío de patente</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 <?php include 'footer.php' ?>
 
