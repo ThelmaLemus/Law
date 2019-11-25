@@ -61,25 +61,18 @@ CREATE TABLE comentarios_documentos
 	comentario character(500)
 );
 
-CREATE TABLE public."vistas"
+CREATE TABLE public.vistas
 (
-	lid integer,
-	uid integer,
-	views integer,
-	CONSTRAINT "Vistas_uid_fkey" FOREIGN KEY (uid)
-        REFERENCES public.usuarios (uid)
-	MATCH SIMPLE
-        ON
-	UPDATE NO ACTION
-        ON
-	DELETE NO ACTION,
-    CONSTRAINT lid
-	FOREIGN KEY
-	(lid)
-        REFERENCES public.leyes
-	(lid) MATCH SIMPLE
-        ON
-	UPDATE NO ACTION
-        ON
-	DELETE NO ACTION
+    lid integer,
+    uid integer,
+    views integer,
+    name character(100) COLLATE pg_catalog."default",
+    CONSTRAINT "Vistas_uid_fkey" FOREIGN KEY (uid)
+        REFERENCES public.usuarios (uid) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT lid FOREIGN KEY (lid)
+        REFERENCES public.leyes (lid) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
