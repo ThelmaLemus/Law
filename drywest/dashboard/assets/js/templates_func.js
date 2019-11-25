@@ -426,3 +426,44 @@ function setValues_declaracionjurada_SAT(fecha_emision,notario_name, direccion, 
 
 }
 
+function setValues_ampliacion(fecha_emision,nombre_notario, numero_escritura, fecha_autorizacion, contenido_escritura, nombre_solicitante, tipo_documento, numero_documento, ampliacion)
+{
+    //INPUTS
+    var fecha_emision = document.getElementById(fecha_emision).value;
+    var nombre_notario = document.getElementById(nombre_notario).value;
+    var numero_escritura = document.getElementById(numero_escritura).value;
+    var fecha_autorizacion = document.getElementById(fecha_autorizacion).value;
+    var contenido_escritura = document.getElementById(contenido_escritura).value;
+    var nombre_solicitante = document.getElementById(nombre_solicitante).value;
+    var tipo_documento = document.getElementById(tipo_documento).value;
+    var numero_documento = document.getElementById(numero_documento).value;
+    var ampliacion = document.getElementById(ampliacion).value;
+
+    //MARKS
+    var fecha_emisionm = document.getElementById("fecha_emisionm");
+    var nombre_notariom = document.getElementById("nombre_notariom");
+    var numero_escrituram = document.getElementById("numero_escrituram");
+    var fecha_autorizacionm = document.getElementById("fecha_autorizacionm");
+    var contenido_escrituram = document.getElementById("contenido_escrituram");
+    var nombre_solicitantem = document.getElementById("nombre_solicitantem");
+    var tipo_documentom = document.getElementById("tipo_documentom");
+    var numero_documentom = document.getElementById("numero_documentom");
+    var ampliacionm = document.getElementById("ampliacionm");
+    var nombre_solicitante2m = document.getElementById("nombre_solicitante2m");
+    var numero_escritura2m = document.getElementById("numero_escritura2m");
+    var fecha_autorizacion2m = document.getElementById("fecha_autorizacion2m");
+
+
+    fecha_emisionm.innerText = fixDate(fecha_emision);
+    nombre_notariom.innerText = nombre_notario;
+    numero_escrituram.innerText = numero_escritura;
+    fecha_autorizacionm.innerText = fixDate(fecha_autorizacion);
+    contenido_escrituram.innerText = contenido_escritura;
+    nombre_solicitantem.innerText = nombre_solicitante;
+    tipo_documentom.innerText = tipo_documento;
+    numero_documentom.innerText = numero_documento;
+    ampliacionm.innerText = ampliacion;
+    nombre_solicitante2m.innerText = nombre_solicitante;
+    numero_escritura2m.innerText = numero_escritura;
+    fecha_autorizacion2m.innerText = fixDate(fecha_autorizacion);
+}
