@@ -53,13 +53,13 @@
           <div class="row align-items-center">
             <div class="col">
               <h6 class="text-uppercase text-light ls-1 mb-1">Preliminar</h6>
-              <h2 class="text-white mb-0">Usuarios agregados</h2>
+              <h2 class="text-white mb-0">Tus más vistos</h2>
             </div>
             <div class="col">
               <ul class="nav nav-pills justify-content-end">
                 <li class="nav-item mr-2 mr-md-0"  data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[5, 10, 0, 8, 25, 30, 15, 40, 20, 75, 20]}]}}' data-prefix="$" data-suffix="k">
                   <a href="#" style="background:none;" class="nav-link py-2 px-3 active" data-toggle="tab">
-                    <span class="d-none d-md-block"><?php echo date("Y");?></span>
+                    <!-- <span class="d-none d-md-block"><?php echo date("Y");?></span> -->
                     <span class="d-md-none">M</span>
                   </a>
                 </li>
