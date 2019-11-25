@@ -11,14 +11,27 @@
 	//CONEXIÓN A BASE DE DATOS
 	$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
 	$dbconn = $link or die('Could not connect: ' . pg_last_error());
+
+	$getName ="SELECT nombre_original FROM leyes WHERE lid='$lid'";
+	$resName = pg_query($dbconn, $getName) or die('Query failedd: ' . pg_last_error());
+	$fresname= pg_fetch_row($resName);
+	$name= $fresname[0];
 	
 	$getViews = "SELECT DISTINCT views FROM vistas WHERE lid = '$lid' AND '$uid'= uid";
 	$resViews = pg_query($dbconn, $getViews) or die('Query failedd: ' . pg_last_error());
 	$views= pg_fetch_row($resViews);
 	$view= $views[0];
-	$view ++;
+	if ($view < 1 || $view == 0 || $view == null) {
+		$view ++;
+		$increaseViews = "INSERT INTO vistas (lid,uid,views, name) VALUES ($lid,$uid,$view,'$name')";
+	}else{
+		$view ++;
+		$increaseViews = "UPDATE vistas SET views = $view WHERE lid=$lid AND uid = $uid";
+	}
+
+
+
 		
-	$increaseViews = "INSERT INTO vistas (lid,uid,views) VALUES ($lid,$uid,$view)";
 	$result = pg_query($link, $increaseViews) or die('Query failed: ' . pg_last_error());
 	
 	
