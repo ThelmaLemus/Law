@@ -5,7 +5,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.943/build/pdf.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://kit.fontawesome.com/f529d3c7df.js" crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.debug.js"></script>
 
@@ -15,6 +14,11 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+<link href="../assets/js/plugins/nucleo/css/nucleo.css rel=stylesheet />
+      <link href=../assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css rel=stylesheet />
+      <link href=../assets/css/argon-dashboard.css?v=1.1.0 rel=stylesheet />
+      <link href=../assets/css/nvbr.css rel=stylesheet />
+      <link href=../assets/css/main.css rel=stylesheet />
 
 
 	<script
@@ -26,45 +30,52 @@
 	<script src="pdf.worker.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
 	<script src="../assets/js/templates_func.js"></script>
+	<script src="../assets/js/moments.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale = 1.0">
 	<meta charset="utf-8">
-		<title>Single_Template</title>
+		<title>Declaración jurada</title>
 		<?php 
 			$uid = $_GET['uid'];
-			include "navbar.php";
-			include "../assets/php/upload_dpi.php"; 
+			 include "navbar.php";
+			 include "../assets/php/upload_dpi.php"; 
 		?>
 		<script>
 			localStorage.setItem('busco', false);
- 
+
 			function converttoPDF()
 			{
 				console.log('hola');
 
 				//GUARDAR
-				var fecha_inicio = document.getElementById("fecha_emision").value;
-                var nombre_notario = document.getElementById("notario_name").value;
-                var direccion = document.getElementById("direccion").value;
-				var nombre_solicitante = document.getElementById("affected_name").value;
-                var dpi_solicitante = document.getElementById("affected_DPI").value;
-                var institucion = document.getElementById("institucion").value;
-                var solicitud = document.getElementById("solicitud").value;
+				var fecha_emision = document.getElementById("fecha_emision").value;
+                var nombre_notario = document.getElementById("nombre_notario").value;
+                var numero_escritura = document.getElementById("numero_escritura").value;
+                var fecha_autorizacion = document.getElementById("fecha_autorizacion").value;
+                var contenido_escritura = document.getElementById("contenido_escritura").value;
+                var nombre_solicitante = document.getElementById("nombre_solicitante").value;
+                var tipo_documento = document.getElementById("tipo_documento").value;
+                var numero_documento = document.getElementById("numero_documento").value;
+                var ampliacion = document.getElementById("ampliacion").value;
 				var usuario = "<?php echo $uid ?>";
-//				console.log(usuario);
+				var nombre_archivo = document.getElementById("nombre_archivo").value;
+				console.log(usuario);
 
 				$.ajax({
 					type: "POST",
-					url: "guardartemplates/guardar_actadedeclaracion.php",
+					url: "guardartemplates/guardar_ampliacion.php",
 					data:
 					{
-						fecha_emision : fecha_inicio,
+						fecha_emision : fecha_emision,
                         nombre_notario : nombre_notario,
-                        direccion : direccion,
+                        numero_escritura : numero_escritura,
+                        fecha_autorizacion : fecha_autorizacion,
+                        contenido_escritura : contenido_escritura,
                         nombre_solicitante : nombre_solicitante,
-                        dpi_solicitante : dpi_solicitante,
-                        institucion : institucion,
-                        solicitud : solicitud,
-						usuario : usuario
+                        tipo_documento : tipo_documento,
+                        numero_documento : numero_documento,
+                        ampliacion : ampliacion,
+                        usuario : usuario,
+                        nombre_archivo : nombre_archivo
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -88,28 +99,14 @@
 								'elementHandlers': specialElementHandlers
 							});
 							console.log(doc);
-							doc.save('acta_de_declaracion.pdf');
+							doc.save(nombre_archivo);
 						}
 						else
-						console.log("error" + r);
+							console.log(r);
 					},
 				});
 			};
 
-/* 			function genPDF()
-			{
-			html2canvas(document.getElementById("profile"),{
-			onrendered:function(canvas){
-
-			var img=canvas.toDataURL("image/png");
-			var doc = new jsPDF();
-			doc.addImage(img,'JPEG',20,20);
-			doc.save('test.pdf');
-			}
-
-			});
-
-			} */
 		</script>
 </head>
 <body class="fondon">
@@ -118,20 +115,15 @@
 		<div class="letter">
 			<div class="editop list-group" id="myList" role="tablist">
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
-				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab"
-					onclick="setValues_actadedeclaracion('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'institucion', 'solicitud');"
-				>Vista previa</a>
+				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_ampliacion('fecha_emision','nombre_notario', 'numero_escritura', 'fecha_autorizacion', 'contenido_escritura', 'nombre_solicitante', 'tipo_documento', 'numero_documento', 'ampliacion');">Vista previa</a>
 			</div>
-			<h2 class="docname">Acta de declaración jurada</h2>
+			<h2 class="docname">Ampliación</h2>
 			<div class="tab-content Lcontent">
-				<form method='post' class="tab-pane active" id="home" >
-					<div class="form-row" enctype="multipart/form-data">
+				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
+					<div class="form-row">
 						<div class="form-group col-md-6">
-							<!-- <div class="row"> -->
-								<input type="file" name="sig" class="custom-file-input" id="dpisgin" aria-describedby="inputGroupFileAddon01">
-								<label class="btn btn-primary" for="dpisgin"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
-								<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
-							<!-- </div> -->
+							<label for="notario_name">Nombre del documento</label>
+							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento">
 						</div>
                     </div>
 					<div class="form-row">
@@ -141,70 +133,95 @@
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="texxt" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>'>
+							<input type="text" class="form-control" id="nombre_notario" value ='<?php echo trim($user_full_name) ?>'>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="direccion">Dirección</label>
-							<input type="text" class="form-control" id="direccion" placeholder="Dirección">
+							<label for="inputdate">Número de escritura</label>
+							<input type="text" class="form-control" id="numero_escritura" placeholder="Número de escritura">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="notario_name">Nombre</label>
-							<input type="texxt" class="form-control" id="affected_name" placeholder="Nombre del solicitante">
+							<label for="notario_name">Fecha de autorización de escritura</label>
+							<input type="date" class="form-control" id="fecha_autorizacion" placeholder="Fecha de autorización de escritura">
 						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
-							<label for="affected_name">DPI</label>
-							<input type="texxt" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante">
+							<label for="affected_name">Contenido de escritura</label>
+							<input type="text" class="form-control" id="contenido_escritura" placeholder="Contenido de escritura">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="dpi">Institución</label>
-							<input type="text" class="form-control" id="institucion" placeholder="Nombre de institución a la que se hace solicitud">
+							<label for="dpi">Nombre solicitante</label>
+							<input type="text" class="form-control" id="nombre_solicitante" placeholder="Nombre del solicitante">
 						</div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6" id="templ">
-							<label for="affected_name">Solicitud</label>
-							<textarea class="form-control" id="solicitud" placeholder="Solicitud"></textarea>
+                        <div class="form-group col-md-6">
+							<label for="fecha_emision">Tipo de documento de identificación</label>
+							<input type="text" class="form-control" id="tipo_documento" placeholder="Tipo de documento de identificación">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="dpi">Número de documento de identificación</label>
+							<input type="text" class="form-control" id="numero_documento" placeholder="Número de documento de identificación">
 						</div>
 					</div>
-					<div type="" id="imprimir" onclick="setValues_actadedeclaracion('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'institucion', 'solicitud');converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
+					<div class="form-row">
+                        <div class="form-group col-md-6" id="templ">
+                            <label for="affected_name">Ampliación</label>
+                            <textarea class="form-control" id="ampliacion" placeholder="Detalles de la ampliación">
+                            </textarea>
+						</div>
+					</div>
+					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
 				</form>
-				<script>
+			
 
-				setTodaysDate('fecha_emision');
+				<script>
+					 function imprimir(){
+						//send the div to PDF
+						html2canvas($("#templ"), { // DIV ID HERE
+							onrendered: function(canvas) {
+								var imgData = canvas.toDataURL('image/png'); 
+								var doc = new jsPDF('landscape');
+								doc.addImage(imgData, 'PDF', 10, 10);
+								doc.save('sample-file.pdf'); //SAVE PDF FILE
+							}
+						});
+
+					}
+
+					setTodaysDate('fecha_emision');
+
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">
 					<div class="ntext" id="ntext">
-						<!-- <h2 class="docname" style="display: none;">Acta de declaración jurada</h2> -->
-                        <div>En la Ciudad de Guatemala, el día <mark id="fecha_emisionm"></mark>, YO, <mark id="nombre_notariom"><?php echo $user_full_name ?></mark>, 
-                        Notario, constituido en mi oficina profesional, ubicada en <mark id="direccionm"></mark> de esta ciudad capital. Soy requerido por 
-                        <mark id="nombre_solicitantem"></mark>, quien se Identifica con el Documento Personal de Identificación Código Único de identificación 
-                        -CUI-  numero <mark id="dpi_solicitantem"></mark>, extendido por el Registro Nacional de las Personas de la República de Guatemala, 
-                        quien asegura ser de los datos de identificación personal que han quedado consignados y hallarse en el libre ejercicio de sus derechos 
-                        civiles. Y por este acto, manifiesta el requirente, que solicita mis servicios profesionales a efecto de hacer constar en Acta Notarial 
-                        su DECLARACIÓN JURADA , de los hechos y circunstancias que a continuación se indican, y para tal efecto se procede de la manera siguiente: 
-                        PRIMERO: El infrascrito Notario procede a juramentar al requirente, advertido de las penas relativas al delito de perjurio,
-                        <mark id="nombre_solicitante2m"></mark>, BAJO JURAMENTO DECLARA Que con los documentos presentados cumple con los requisitos 
-                        reglamentarios establecidos por <mark id="institucion_a_solicitarm"></mark> para solicitar <mark id="solicitudm"></mark>, 
-                        además declara que los documentos a presentar para tal efecto son auténticos. SEGUNDO: No habiendo mas que hacer constar, se finaliza 
-                        la presente Acta Notarial. Leo lo escrito al requirente quien enterado de su contenido, objeto validez y demás efectos legales, ratifica, 
-                        acepta y firma juntamente con el Infrascrito Notario autorizante, que de todo lo expuesto,  DOY FE.</div>
-                        <div>f.</div>
-                        <div>ANTE MÍ:</div>
-					</div>
-					<div>&nbsp;</div>
-					<div>&nbsp;</div>
-					<div>&nbsp;</div>
-					<div>&nbsp;</div>
-					<br><br><br><br><br>
-				</div>
+                    En la ciudad de Guatemala, el <mark id="fecha_emisionm"></mark>, Por mí y Ante mí, 
+                    <b><mark id="nombre_notariom"></mark></b>, Notario, aseguro encontrarme en el libre ejercicio de mis derechos civiles 
+                    y de conformidad con el artículo setenta y siete (77) literal “e” del Código de Notariado, Decreto Número 
+                    trescientos catorce (314), procedo de conformidad con las siguientes cláusulas: <b><u>PRIMERA: ANTECEDENTES:</u></b>  
+                    Que 
+                    autoricé la escritura pública número <mark id="numero_escrituram"></mark> en la ciudad de Guatemala, el 
+                    <mark id="fecha_autorizacionm"></mark> y que la misma contiene <mark id="contenido_escrituram"></mark>. <b><u>SEGUNDA. 
+                    DE LA AMPLIACIÓN:</u></b> Que, por un error involuntario se omitió consignar el domicilio de 
+                    <mark id="nombre_solicitantem"></mark>. 
+                    Por lo que, a efecto de enmendar dicho error, así como para los efectos legales respectivos, la comparecencia 
+                    queda de la siguiente manera: “<b><mark id="nombre_solicitante2m"></mark></b>, quien se identifica con el 
+                    <mark id="tipo_documentom"></mark> número <mark id="numero_documentom"></mark> <mark id="ampliacionm"></mark>” 
+                    <b><u>TERCERA: ACEPTACIÓN:</u></b> Finalmente, acepto el 
+                    contenido total e íntegro del presente instrumento haciendo constar que todo lo demás contenido en la escritura 
+                    pública número <mark id="numero_escritura2m"></mark> autorizada en esta ciudad el <mark id="fecha_autorizacion2m"></mark> 
+                    por el 
+                    Infrascrito Notario se mantiene íntegro. Como Notario, DOY FE: a) De todo lo expuesto; b) De haber tenido a la 
+                    vista la documentación relacionada, especialmente la escritura pública referida que en este acto se amplía; y, 
+                    c) Que bien impuesto de su contenido, objeto, validez, efectos legales y obligación de registro, lo acepto, 
+                    ratifico y firmo. 
 				<div id="elementH"></div>
 				<!-- <button onclick="converttoPDF()">Descargar</button> -->
 			</div>
+		</div>
+		</div>
 		</div>
 
 		<div class="notas anotaciones">
