@@ -61,7 +61,7 @@ CREATE TABLE comentarios_documentos
 	comentario character(500)
 );
 
-CREATE TABLE public."Vistas"
+CREATE TABLE public."vistas"
 (
 	lid integer,
 	uid integer,

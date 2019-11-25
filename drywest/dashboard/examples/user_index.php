@@ -30,9 +30,9 @@
   
   $getMV ="SELECT name, MAX(views) FROM vistas WHERE uid=$UID group by(name) limit 5";
   $getMV_result = pg_query($dbconn, $getMV) or die('User query failed: '.pg_last_error());
-  while ($rw = pg_fetch_row($user_result);) {
+  // while ($rw = pg_fetch_row($user_result);) {
     // $names = $names.puh
-  }
+  // }
 
   ?>
   <div class="container-fluid mt--7">
