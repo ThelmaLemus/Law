@@ -668,7 +668,16 @@
           backgroundColor: "white",
           data:views
         }
-      ]
-    }
+      ]      
+  },
+  options: {
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
+        }
+      }
   })
 </script>
