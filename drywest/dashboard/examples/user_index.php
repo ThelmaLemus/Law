@@ -25,14 +25,23 @@
   echo"
     <script>
       // console.log('".$UID."');
+      var names = [];
+      var views = [];
     </script>
   ";
   
   $getMV ="SELECT name, MAX(views) FROM vistas WHERE uid=$UID group by(name) limit 5";
   $getMV_result = pg_query($dbconn, $getMV) or die('User query failed: '.pg_last_error());
-  // while ($rw = pg_fetch_row($user_result);) {
-    // $names = $names.puh
-  // }
+  while ($rw = pg_fetch_row($getMV_result)) {
+    $name = trim($rw[0]);
+    $view = $rw[1];
+    echo"<script>
+      names.push('$name');
+      views.push($view);
+      localStorage.setItem('names','$names');
+      localStorage.setItem('views','$views');
+    </script>";
+  }
 
   ?>
   <div class="container-fluid mt--7">
@@ -650,6 +659,7 @@
 <script>
 
   let mvc = document.getElementById("mvg").getContext("2d");
+  debugger
   var c = new Chart(mvc, {
     type: "bar",
     data:{
