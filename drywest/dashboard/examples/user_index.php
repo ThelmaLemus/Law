@@ -38,8 +38,6 @@
     echo"<script>
       names.push('$name');
       views.push($view);
-      localStorage.setItem('names','$names');
-      localStorage.setItem('views','$views');
     </script>";
   }
 
@@ -659,16 +657,16 @@
 <script>
 
   let mvc = document.getElementById("mvg").getContext("2d");
-  debugger
+  // debugger
   var c = new Chart(mvc, {
     type: "bar",
     data:{
-      labels:["fi","fo","fu"],
+      labels:names,
       datasets:[
         {
           label:"Más vistos",
           backgroundColor: "white",
-          data:[0,22,12]
+          data:views
         }
       ]
     }
