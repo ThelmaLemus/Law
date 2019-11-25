@@ -35,10 +35,14 @@
       var views = [];
       var names2 = [];
       var views2 = [];
+      var p_labels = [];
+      var p_values = [];
+      var p_labels2 = [];
+      var p_values2 = [];
     </script>
   ";
   
-  $getMV ="SELECT name, MAX(views) FROM vistas WHERE uid=$UID group by(name) limit 5";
+  $getMV ="SELECT name, MAX(views) as view FROM vistas WHERE uid=2  group by name order by MAX(views) DESC limit 5";
   $getMV_result = pg_query($dbconn, $getMV) or die('User query failed: '.pg_last_error());
   while ($rw = pg_fetch_row($getMV_result)) {
     $name = trim($rw[0]);
@@ -48,6 +52,18 @@
       names.push('$name');
       names2.push('$name');
       views2.push('$view');
+    </script>";
+  }
+  $getMP ="SELECT distinct name, sum(views) as view from vistas group by name order by view desc limit 5";
+  $getMP_result = pg_query($dbconn, $getMP) or die('User query failed: '.pg_last_error());
+  while ($rw = pg_fetch_row($getMP_result)) {
+    $name = trim($rw[0]);
+    $view = $rw[1];
+    echo"<script>
+      p_values.push($view);
+      p_labels.push('$name');
+      p_labels2.push('$name');
+      p_valuess2.push('$view');
     </script>";
   }
 
@@ -699,12 +715,12 @@
   var c2 = new Chart(mp, {
     type: "bar",
     data:{
-      labels:names,
+      labels:p_labels,
       datasets:[
         {
           label:"Populares en la comunidad",
           backgroundColor: "orange",
-          data:views
+          data:p_values
         }
       ]      
     },
