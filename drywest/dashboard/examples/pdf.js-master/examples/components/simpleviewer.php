@@ -2,12 +2,27 @@
 	//OBTENGO PARÁMETROS DEL URL
 	$uid = $_GET['uid'];
 	$lid = $_GET['lid'];
+
+
+
+
 	//CREO EL NUEVO URL
 	// $myURL = $_SERVER['PHP_SELF']."?uid=".$uid."&lid=".$lid;
 	//CONEXIÓN A BASE DE DATOS
 	$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
 	$dbconn = $link or die('Could not connect: ' . pg_last_error());
-
+	
+	$getViews = "SELECT DISTINCT views FROM vistas WHERE lid = '$lid' AND '$uid'= uid";
+	$resViews = pg_query($dbconn, $getViews) or die('Query failedd: ' . pg_last_error());
+	$views= pg_fetch_row($resViews);
+	$view= $views[0];
+	$view ++;
+		
+	$increaseViews = "INSERT INTO vistas (lid,uid,views) VALUES ($lid,$uid,$view)";
+	$result = pg_query($link, $increaseViews) or die('Query failed: ' . pg_last_error());
+	
+	
+	
 	echo "<script>
 			var pagina = 1; 
 			var showresults = false;
