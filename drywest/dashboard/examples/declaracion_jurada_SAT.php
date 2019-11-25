@@ -44,21 +44,25 @@
 
 			function converttoPDF()
 			{
-				console.log('hola');
-
+                
 				//GUARDAR
 				var fecha_emision = document.getElementById("fecha_emision").value;
 				var notario_name = document.getElementById("notario_name").value;
 				var direccion = document.getElementById("direccion").value;
 				var affected_name = document.getElementById("affected_name").value;
-				var affected_DPI = document.getElementById("affected_DPI").value;
-				var nombre_entidad = document.getElementById("nombre_entidad").value;
-				var fecha_emision_actanotarial = document.getElementById("fecha_emision_actanotarial").value;
-				var nombre_notario_actanotarial = document.getElementById("nombre_notario_actanotarial").value;
-				var empresa_afectada = document.getElementById("empresa_afectada").value;
+                var affected_DPI = document.getElementById("affected_DPI").value;
+                var affected_NIT = document.getElementById("affected_NIT").value;
+                var nombre_entidad = document.getElementById("nombre_entidad").value;
+                var nit_entidad = document.getElementById("nit_entidad").value;
+                var direccion_entidad = document.getElementById("direccion_entidad").value;
+				var departament_entidad = document.getElementById("departamento_entidad").value;
+				var municipio_entidad = document.getElementById("municipio_entidad").value;
+                var cantidad_del_pago = document.getElementById("cantidad_del_pago").value;
+                var fecha_del_pago = document.getElementById("fecha_del_pago").value;
+                var numero_formulario_SAT = document.getElementById("numero_formulario_SAT").value;
 				var usuario = "<?php echo $uid ?>";
 				var nombre_archivo = document.getElementById("nombre_archivo").value;
-				console.log(usuario);
+//				console.log(usuario);
 
 				$.ajax({
 					type: "POST",
@@ -66,16 +70,21 @@
 					data:
 					{
 						fecha_emision : fecha_emision,
-						notario_name : notario_name,
-						direccion : direccion,
-						affected_name : affected_name,
-						affected_DPI : affected_DPI,
-						nombre_entidad : nombre_entidad,
-						fecha_emision_actanotarial : fecha_emision_actanotarial,
-						nombre_notario_actanotarial : nombre_notario_actanotarial,
-						empresa_afectada : empresa_afectada,
-						usuario : usuario,
-						nombre_archivo : nombre_archivo
+                        notario_name : notario_name,
+                        direccion : direccion,
+                        affected_name : affected_name,
+                        affected_DPI : affected_DPI,
+                        affected_NIT : affected_NIT,
+                        nombre_entidad : nombre_entidad,
+                        nit_entidad : nit_entidad,
+                        direccion_entidad : direccion_entidad,
+                        departament_entidad : departament_entidad,
+                        municipio_entidad : municipio_entidad,
+                        cantidad_del_pago : cantidad_del_pago,
+                        fecha_del_pago : fecha_del_pago,
+                        numero_formulario_SAT : numero_formulario_SAT,
+                        usuario : usuario,
+                        nombre_archivo : nombre_archivo
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -115,7 +124,7 @@
 		<div class="letter">
 			<div class="editop list-group" id="myList" role="tablist">
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
-				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_declaracionjurada('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'nombre_entidad', 'fecha_emision_actanotarial', 'nombre_notario_actanotarial', 'empresa_afectada');">Vista previa</a>
+				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_declaracionjurada_SAT('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'affected_NIT', 'nombre_entidad', 'nit_entidad', 'direccion_entidad', 'departamento_entidad', 'municipio_entidad', 'cantidad_del_pago', 'fecha_del_pago', 'numero_formulario_SAT');">Vista previa</a>
 			</div>
 			<h2 class="docname">Declaración jurada - SAT</h2>
 			<div class="tab-content Lcontent">
@@ -163,33 +172,37 @@
                         </div>
                         <div class="form-group col-md-6">
 							<label for="dpi">NIT de la entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="NIT de la entidad propietaria">
+							<input type="text" class="form-control" id="nit_entidad" placeholder="NIT de la entidad propietaria">
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="dpi">Nombre de la entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad propietaria">
+							<label for="dpi">Dirección de la entidad</label>
+							<input type="text" class="form-control" id="direccion_entidad" placeholder="Dirección de la entidad propietaria">
                         </div>
                         <div class="form-group col-md-6">
-							<label for="dpi">NIT de la entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="NIT de la entidad propietaria">
+							<label for="dpi">Departamento de la entidad</label>
+							<input type="text" class="form-control" id="departamento_entidad" placeholder="Departamento de la entidad propietaria">
+						</div>
+                    </div>
+                    <div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="dpi">Municipio de la entidad</label>
+							<input type="text" class="form-control" id="municipio_entidad" placeholder="Municipio de la entidad propietaria">
+                        </div>
+                        <div class="form-group col-md-6">
+							<label for="dpi">Cantidad del pago</label>
+							<input type="text" class="form-control" id="cantidad_del_pago" placeholder="Cantidad del pago">
 						</div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-							<label for="fecha_emision">Fecha de emisión de acta notarial</label>
-							<input type="date" class="form-control" id="fecha_emision_actanotarial" placeholder="Fecha de emisión de acta notarial">
+							<label for="fecha_emision">Fecha del pago</label>
+							<input type="date" class="form-control" id="fecha_del_pago" placeholder="Fecha del pago">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="dpi">Notario de acta notarial</label>
-							<input type="text" class="form-control" id="nombre_notario_actanotarial" placeholder="Nombre del notario de acta notarial">
-						</div>
-					</div>
-					<div class="form-row">
-                        <div class="form-group col-md-6" id="templ">
-							<label for="affected_name">Empresa afectada</label>
-							<input type="text" class="form-control" id="empresa_afectada" placeholder="Nombre de la empresa afectada">
+							<label for="dpi">Número del formulario SAT</label>
+							<input type="text" class="form-control" id="numero_formulario_SAT" placeholder="Número del formulario SAT">
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>

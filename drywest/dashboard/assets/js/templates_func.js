@@ -228,6 +228,15 @@ function setTodaysDate(input_id_element){
     fecha_field.value = fecha_formateada;
 }
 
+function formatDate(fecha_field){
+    var fecha_hoy = new Date(fecha_field);
+    var año = fecha_hoy.getFullYear();
+    var mes = fecha_hoy.getMonth() + 1;
+    var dia = fecha_hoy.getDate();
+    var fecha_formateada = año + "-" + mes + "-" + dia;
+    return fecha_formateada;
+}
+
 
 Date.daysBetween = function( date1, date2 ) {
   //Get 1 day in milliseconds
@@ -355,9 +364,65 @@ function setValues_declaracionjurada(fecha_emision,notario_name, direccion, affe
     nombre_solicitantem.innerText = affected_name;
     dpi_solicitantem.innerText = affected_DPI;
     nombre_entidadm.innerText = nombre_entidad;
-    fecha_emision_actanotarialm.innerText = fecha_emision_actanotarial;
+    fecha_emision_actanotarialm.innerText = fixDate(fecha_emision_actanotarial);
     nombre_notario_actanotarialm.innerText = nombre_notario_actanotarial;
     nombre_entidad2m.innerText = nombre_entidad;
     empresa_afectadam.innerText = empresa_afectada;
     empresa_afectada2m.innerText = empresa_afectada;
 }
+
+function setValues_declaracionjurada_SAT(fecha_emision,notario_name, direccion, affected_name, affected_DPI, affected_NIT, nombre_entidad, nit_entidad, direccion_entidad, departamento_entidad, municipio_entidad, cantidad_del_pago, fecha_del_pago, numero_formulario_SAT)
+{
+    //INPUTS
+    var fecha_emision = document.getElementById(fecha_emision).value;
+    var notario_name = document.getElementById(notario_name).value;
+    var direccion = document.getElementById(direccion).value;
+    var affected_name = document.getElementById(affected_name).value;
+    var affected_DPI = document.getElementById(affected_DPI).value;
+    var affected_NIT = document.getElementById(affected_NIT).value;
+    var nombre_entidad = document.getElementById(nombre_entidad).value;
+    var nit_entidad = document.getElementById(nit_entidad).value;
+    var direccion_entidad = document.getElementById(direccion_entidad).value;
+    var departament_entidad = document.getElementById(departamento_entidad).value;
+    var municipio_entidad = document.getElementById(municipio_entidad).value;
+    var cantidad_del_pago = document.getElementById(cantidad_del_pago).value;
+    var fecha_del_pago = document.getElementById(fecha_del_pago).value;
+    var numero_formulario_SAT = document.getElementById(numero_formulario_SAT).value;
+
+    //MARKS
+    var fecha_emisionm = document.getElementById("fecha_emisionm");
+    var nombre_notariom = document.getElementById("nombre_notariom");
+    var direccionm = document.getElementById("direccionm");
+    var nombre_solicitantem = document.getElementById("nombre_solicitantem");
+    var dpi_solicitantem = document.getElementById("dpi_solicitantem");
+    var NIT_solicitantem = document.getElementById("NIT_solicitantem");
+    var nombre_entidadm = document.getElementById("nombre_entidadm");
+    var nombre_entidad2m = document.getElementById("nombre_entidad2m");
+    var NIT_entidadm = document.getElementById("NIT_entidadm");
+    var direccion_entidadm = document.getElementById("direccion_entidadm");
+    var departamento_entidadm = document.getElementById("departamento_entidadm");
+    var municipio_entidadm = document.getElementById("municipio_entidadm");
+    var cantidad_del_pagom = document.getElementById("cantidad_del_pagom");
+    var fecha_del_pagom = document.getElementById("fecha_del_pagom");
+    var numero_formulario_SATm = document.getElementById("numero_formulario_SATm");
+    var cantidad_del_pago2m = document.getElementById("cantidad_del_pago2m"); 
+
+    fecha_emisionm.innerText = fixDate(fecha_emision);
+    nombre_notariom.innerText = notario_name;
+    direccionm.innerText = direccion;
+    nombre_solicitantem.innerText = affected_name;
+    dpi_solicitantem.innerText = affected_DPI;
+    NIT_solicitantem.innerText = affected_NIT;
+    nombre_entidadm.innerText = nombre_entidad;
+    nombre_entidad2m.innerText = nombre_entidad;
+    NIT_entidadm.innerText = nit_entidad;
+    direccion_entidadm.innerText = direccion_entidad;
+    departamento_entidadm.innerText = departament_entidad;
+    municipio_entidadm.innerText = municipio_entidad;
+    cantidad_del_pagom.innerText = cantidad_del_pago;
+    fecha_del_pagom.innerText = fixDate(fecha_del_pago);
+    numero_formulario_SATm.innerText = numero_formulario_SAT;
+    cantidad_del_pago2m.innerText = cantidad_del_pago;
+
+}
+

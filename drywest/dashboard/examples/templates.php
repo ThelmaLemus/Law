@@ -66,11 +66,11 @@
           </div>
           <div class="ley col-lg-3 col-md-6">
           <?php 
-            echo"<a class=\"btn-icon-clipboard\" href=\"acta_de_declaracion.php?uid=$UID\" title=\"Acta de declaracion jurada\">";
+            echo"<a class=\"btn-icon-clipboard\" href=\"acta_de_declaracion.php?uid=$UID\" title=\"Solicitud de tesis - Declaracion jurada\">";
           ?>
               <div class="law_name">
                 <i class="ni ni-single-copy-04"></i>
-                <span>Acta de declaracion jurada</span>
+                <span>Solicitud de tesis - Declaracion jurada</span>
               </div>
               <label class="fas fa-star" id= "ki">
               <input type="checkbox" id="on" onClick=""> 
@@ -79,11 +79,24 @@
           </div>
           <div class="ley col-lg-3 col-md-6">
           <?php 
-            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada.php?uid=$UID\" title=\"Acta de declaracion jurada - extravío de patente\">";
+            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada.php?uid=$UID\" title=\"Extravío de patente - Declaración jurada\">";
           ?>
               <div class="law_name">
                 <i class="ni ni-single-copy-04"></i>
-                <span>Acta de declaracion jurada - extravío de patente</span>
+                <span>Extravío de patente - Declaración jurada</span>
+              </div>
+              <label class="fas fa-star" id= "ki">
+              <input type="checkbox" id="on" onClick=""> 
+              </label>
+            </a>
+          </div>
+          <div class="ley col-lg-3 col-md-6">
+          <?php 
+            echo"<a class=\"btn-icon-clipboard\" href=\"declaracion_jurada_SAT.php?uid=$UID\" title=\"SAT - Declaración jurada\">";
+          ?>
+              <div class="law_name">
+                <i class="ni ni-single-copy-04"></i>
+                <span>SAT - Declaración jurada</span>
               </div>
               <label class="fas fa-star" id= "ki">
               <input type="checkbox" id="on" onClick=""> 
