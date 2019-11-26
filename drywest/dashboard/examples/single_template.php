@@ -170,7 +170,7 @@
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputdate">Fecha</label>
-							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
+							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
