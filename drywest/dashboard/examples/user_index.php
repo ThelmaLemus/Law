@@ -178,7 +178,6 @@
                   if ($rows>0) {
                     echo"<div class=\"ley col-lg-3 col-md-6\">";
                       if($admin){
-//C:\wamp64\www\Lawbrary\drywest\dashboard\examples/pdf.js-master/examples/components/simpleviewer.php
 
                         echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$law_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$law_name."\">";
                         echo "<script>localStorage.setItem('vs','$gsearch');</script>";
@@ -208,8 +207,8 @@
                 echo"</div>
                 <div class=\"row icon-examples\">";
                 $laws_query = "SELECT DISTINCT L.lid, L.nombre_original
-                FROM contenido C, comentarios Com, leyes L 
-                WHERE L.tipo = 'L'
+                FROM contenido C, comentarios Com, leyes L, vistas V 
+                WHERE V.lid = C.lid L.tipo = 'L'
                 AND C.lid = L.lid AND Com.lid = L.lid AND 
                 (L.nombre_original ILIKE '%".$gsearch."%' 
                 OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
@@ -302,8 +301,8 @@
               echo"</div>
                 <div class=\"row icon-examples\">";
                 $agreements_query = "SELECT distinct L.nombre_original
-                FROM contenido C, comentarios Com, leyes L 
-                WHERE L.tipo = 'A'
+                FROM contenido C, comentarios Com, leyes L, vistas V
+                WHERE L.tipo = 'A' AND V.lid = C.lid AND
                 AND C.lid = L.lid AND Com.lid = L.lid AND 
                 (L.nombre_original ILIKE '%".$gsearch."%' 
                 OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
@@ -357,8 +356,8 @@
                 $i=0;
                 foreach ($Fav_arrangements as &$valor) {
                   $arrangements_query = "SELECT distinct L.nombre_original
-                  FROM contenido C, comentarios Com, leyes L 
-                  WHERE '$valor' = L.lid AND L.tipo = 'C'
+                  FROM contenido C, comentarios Com, leyes L, vistas V 
+                  WHERE '$valor' = L.lid AND V.lid = C.lid AND L.tipo = 'C'
                   AND C.lid = L.lid AND Com.lid = L.lid AND 
                   (L.nombre_original ILIKE '%".$gsearch."%' 
                   OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
@@ -394,7 +393,8 @@
                   }
                 }
                 pg_free_result($arrangements_result);
-                echo"</div>
+                echo"
+                </div>
                 <div class=\"row icon-examples\">";
                 $arrangements_query = "SELECT distinct L.nombre_original
                 FROM contenido C, comentarios Com, leyes L 
@@ -514,6 +514,7 @@
                   
                 pg_free_result($laws_result);
               echo"</div>
+                <a href=\"leyes.php\" class=\"badge badge-primary\">Más leyes</a>
                 <div class=\"card-header bg-transparent\">
                   <h3 class=\"mb-0\">Acuerdos</h3>
                 </div>
@@ -594,6 +595,7 @@
                 pg_free_result($agreements_result);
                 // pg_close($dbconn);
               echo"</div>
+                <a href=\"leyes.php\" class=\"badge badge-primary\">Más acuerdos</a>
                 <div class=\"card-header bg-transparent\">
                   <h3 class=\"mb-0\">Convenios</h3>
                 </div>
@@ -670,7 +672,9 @@
                   }
                   $i++;
                 }
-                  
+                /* echo"
+                <a href=\"leyes.php\" class=\"badge badge-primary\">Más convenios</a>
+                "; */
                 pg_free_result($arrangements_result);
                 // pg_close($dbconn);
             }
