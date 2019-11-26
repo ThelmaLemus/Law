@@ -595,7 +595,7 @@
                 pg_free_result($agreements_result);
                 // pg_close($dbconn);
               echo"</div>
-                <a href=\"leyes.php\" class=\"badge badge-primary\">Más acuerdos</a>
+                <a href=\"acuerdos.php\" class=\"badge badge-primary\">Más acuerdos</a>
                 <div class=\"card-header bg-transparent\">
                   <h3 class=\"mb-0\">Convenios</h3>
                 </div>

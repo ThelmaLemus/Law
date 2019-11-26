@@ -149,101 +149,6 @@
               echo"</div>";
 
               echo "<div class=\"card-header bg-transparent\">
-                  <h3 class=\"mb-0\">Acuerdos</h3>
-                </div>
-                <div class=\"row icon-examples\">";
-                $agreements_query = "SELECT * FROM biblioteca WHERE '$UID'=uid";
-                $agreements_result = pg_query($dbconn, $agreements_query) or die('agreements query failed: ' . pg_last_error());
-                $Fav_agreements =null;
-                while ($agreements = pg_fetch_row($agreements_result)) {
-                  $Fav_agreements[]= $agreements[1];
-                }
-                pg_free_result($agreements_result);
-                $i=0;
-                foreach ($Fav_agreements as &$valor) {
-                  $agreements_query = "SELECT distinct L.nombre_original
-                  FROM contenido C, comentarios Com, leyes L 
-                  WHERE '$valor' = L.lid AND L.tipo = 'A'
-                  AND C.lid = L.lid AND Com.lid = L.lid AND 
-                  (L.nombre_original ILIKE '%".$gsearch."%' 
-                  OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
-                  OR C.contenido ILIKE '%".$gsearch."%' OR 
-                  Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original";
-                  $agreements_result = pg_query($dbconn, $agreements_query) or die('agreements query failed D: ' . pg_last_error());
-                  $agreement = pg_fetch_row($agreements_result);
-                  $agreement_ID = $agreement[0];
-                  $agreement_name = $agreement[1];
-                  $rows=pg_num_rows($agreements_result);
-                  if ($rows>0) {
-                    echo"
-                      <div class=\"ley col-lg-3 col-md-6\">";
-                      if($admin){
-                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$agreement_name."\">";
-                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
-                      }else{
-                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$agreement_name."\">";
-                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
-                      }
-                      echo"
-                          <div class=\"law_name\">
-                            <i class=\"ni ni-single-copy-04\"></i>
-                            <span>".$agreement_name."</span>
-                          </div>
-                          <label class=\"fas fa-star\" id= \"12amyCheckc$i\">
-                            <input type=\"checkbox\" id=\"12myCheckc$i\" onClick=\"funcionFavorito('12myCheckc$i',$agreement_ID,$uid)\"checked> 
-                          </label>
-                        </a>
-                      </div>
-                    ";
-                    $i++;
-                  }
-                }
-                pg_free_result($agreements_result);
-              echo"</div>
-                <div class=\"row icon-examples\">";
-                $agreements_query = "SELECT distinct L.nombre_original
-                FROM contenido C, comentarios Com, leyes L, vistas V
-                WHERE L.tipo = 'A' AND V.lid = C.lid AND
-                AND C.lid = L.lid AND Com.lid = L.lid AND 
-                (L.nombre_original ILIKE '%".$gsearch."%' 
-                OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
-                OR C.contenido ILIKE '%".$gsearch."%' OR 
-                Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original";
-                $agreements_result = pg_query($dbconn, $agreements_query) or die('agreements query failed A: ' . pg_last_error());
-                $i=0;
-                while ($agreements = pg_fetch_row($agreements_result)) {
-                  $agreement_ID = $agreements[0];
-                  if (!(in_array($agreement_ID, $Fav_agreements))) {
-                    $agreement_name = $agreements[1];
-                    echo"
-                      <div class=\"ley col-lg-3 col-md-6\">";
-                      if($admin){
-                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$agreement_name."\">";
-                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
-                      }else{
-                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=11&search=$gsearch&p=$pa&c=3\" title=\"".$agreement_name."\">";
-                        echo "<script>localStorage.setItem('vs','$gsearch');</script>";
-                      }
-                      echo"
-                          <div class=\"law_name\">
-                            <i class=\"ni ni-single-copy-04\"></i>
-                            <span>".$agreement_name."</span>
-                          </div>
-                          <label class=\"far fa-star\" id= \"12amyCheckd$i\">
-                            <input type=\"checkbox\" id=\"12myCheckd$i\" onClick=\"funcionFavorito('12myCheckd$i',$agreement_ID,$uid)\"> 
-                          </label>
-                        </a>
-                      </div>
-                    ";
-                  }
-                  $i++;
-                }
-                  
-                pg_free_result($agreements_result);
-                // pg_close($dbconn);
-              echo"</div>";
-
-              echo "<div class=\"card-header bg-transparent\">
                   <h3 class=\"mb-0\">Convenios</h3>
                 </div>
                 <div class=\"row icon-examples\">";
@@ -339,43 +244,42 @@
                 // pg_close($dbconn);
 
             }else{
-             echo"
-                <div class=\"card-header bg-transparent\">
-                  <h3 class=\"mb-0\">Acuerdos</h3>
+                echo"<div class=\"card-header bg-transparent\">
+                  <h3 class=\"mb-0\">Convenios</h3>
                 </div>
                 <div class=\"row icon-examples\">";
-                $agreements_query = "SELECT * FROM biblioteca WHERE '$UID'=uid";
-                $agreements_result = pg_query($dbconn, $agreements_query) or die('agreements query failed: ' . pg_last_error());
-                $Fav_agreements =null;
-                while ($agreements = pg_fetch_row($agreements_result)) {
-                  $Fav_agreements[]= $agreements[1];
+                $arrangements_query = "SELECT * FROM biblioteca WHERE '$UID'=uid";
+                $arrangements_result = pg_query($dbconn, $arrangements_query) or die('arrangements query failed: ' . pg_last_error());
+                $Fav_arrangements =null;
+                while ($arrangements = pg_fetch_row($arrangements_result)) {
+                  $Fav_arrangements[]= $arrangements[1];
                 }
-                pg_free_result($agreements_result);
+                pg_free_result($arrangements_result);
                 $i=0;
-                foreach ($Fav_agreements as &$valor) {
-                  $agreements_query = "SELECT * FROM leyes WHERE '$valor'= lid AND tipo='A'";
-                  $agreements_result = pg_query($dbconn, $agreements_query) or die('agreements query failed: ' . pg_last_error());
-                  $agreement = pg_fetch_row($agreements_result);
-                  $agreement_ID = $agreement[0];
-                  $agreement_name = $agreement[1];
-                  $rows=pg_num_rows($agreements_result);
+                foreach ($Fav_arrangements as &$valor) {
+                  $arrangements_query = "SELECT * FROM leyes WHERE '$valor'= lid AND tipo='C'";
+                  $arrangements_result = pg_query($dbconn, $arrangements_query) or die('arrangements query failed: ' . pg_last_error());
+                  $arrangement = pg_fetch_row($arrangements_result);
+                  $arrangement_ID = $arrangement[0];
+                  $arrangement_name = $arrangement[1];
+                  $rows=pg_num_rows($arrangements_result);
                   if ($rows>0) {
                     echo"
                       <div class=\"ley col-lg-3 col-md-6\">";
                       if($admin){
-                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=0\" title=\"".$agreement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
                         echo "<script>localStorage.setItem('vs','');</script>";
                       }else{
-                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=0\" title=\"".$agreement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
                         echo "<script>localStorage.setItem('vs','');</script>";
                       }
                       echo"
                           <div class=\"law_name\">
                             <i class=\"ni ni-single-copy-04\"></i>
-                            <span>".$agreement_name."</span>
+                            <span>".$arrangement_name."</span>
                           </div>
-                          <label class=\"fas fa-star\" id= \"12amyCheckc$i\">
-                            <input type=\"checkbox\" id=\"12myCheckc$i\" onClick=\"funcionFavorito('12myCheckc$i',$agreement_ID,$uid)\"checked> 
+                          <label class=\"fas fa-star\" id= \"12amyChecke$i\">
+                            <input type=\"checkbox\" id=\"12myChecke$i\" onClick=\"funcionFavorito('12myChecke$i',$arrangement_ID,$uid)\"checked> 
                           </label>
                         </a>
                       </div>
@@ -383,44 +287,44 @@
                     $i++;
                   }
                 }
-                pg_free_result($agreements_result);
-              echo"</div>
+                pg_free_result($arrangements_result);
+                echo"</div>
                 <div class=\"row icon-examples\">";
-                $agreements_query = "SELECT * FROM leyes WHERE tipo = 'A'";
-                $agreements_result = pg_query($dbconn, $agreements_query) or die('agreements query failed: ' . pg_last_error());
+                $arrangements_query = "SELECT * FROM leyes WHERE tipo = 'C'";
+                $arrangements_result = pg_query($dbconn, $arrangements_query) or die('arrangements query failed: ' . pg_last_error());
                 $i=0;
-                while ($agreements = pg_fetch_row($agreements_result)) {
-                  $agreement_ID = $agreements[0];
-                  if (!(in_array($agreement_ID, $Fav_agreements))) {
-                    $agreement_name = $agreements[1];
+                while ($arrangements = pg_fetch_row($arrangements_result)) {
+                  $arrangement_ID = $arrangements[0];
+                  if (!(in_array($arrangement_ID, $Fav_arrangements))) {
+                    $arrangement_name = $arrangements[1];
                     echo"
                       <div class=\"ley col-lg-3 col-md-6\">";
                       if($admin){
-                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=0\" title=\"".$agreement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
                         echo "<script>localStorage.setItem('vs','');</script>";
                       }else{
-                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$agreement_ID&b=0\" title=\"".$agreement_name."\">";
+                        echo"<a class=\"btn-icon-clipboard\" href=\"examples/pdf.js-master/examples/components/simpleviewer.php?uid=$uid&lid=$arrangement_ID&b=0\" title=\"".$arrangement_name."\">";
                         echo "<script>localStorage.setItem('vs','');</script>";
                       }
                       echo"
                           <div class=\"law_name\">
                             <i class=\"ni ni-single-copy-04\"></i>
-                            <span>".$agreement_name."</span>
+                            <span>".$arrangement_name."</span>
                           </div>
-                          <label class=\"far fa-star\" id= \"12amyCheckd$i\">
-                            <input type=\"checkbox\" id=\"12myCheckd$i\" onClick=\"funcionFavorito('12myCheckd$i',$agreement_ID,$uid)\"> 
-                          </label>
+                          <label class=\"far fa-star\" id= \"12amyCheckf$i\">
+                            <input type=\"checkbox\" id=\"12myCheckf$i\" onClick=\"funcionFavorito('12myCheckf$i',$arrangement_ID,$uid)\"> 
+                          </label>                        
                         </a>
                       </div>
                     ";
                   }
                   $i++;
                 }
-                  
-                pg_free_result($agreements_result);
+                /* echo"
+                <a href=\"leyes.php\" class=\"badge badge-primary\">Más convenios</a>
+                "; */
+                pg_free_result($arrangements_result);
                 // pg_close($dbconn);
-              echo"</div>";
-               
             }
             ?> 
           </div>
