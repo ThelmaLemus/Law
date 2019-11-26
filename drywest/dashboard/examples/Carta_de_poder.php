@@ -36,6 +36,24 @@
 		<title>Carta de poder</title>
 		<?php 
 			$uid = $_GET['uid'];
+			$pid = $_GET['pid'];
+			if($pid != 0)
+			{
+				$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
+				$query = "SELECT * FROM carta_de_poder WHERE pid = $pid";
+				$result = pg_query($link, $query);
+				$row = pg_fetch_row($result);
+				$fecha_emision = $row[0];
+				$nombre_ortogante = $row[1];
+				$nombre_apoderado = $row[2];
+				$responsabilidades = $row[3];
+				$dpi_otorgante = $row[4];
+				$dpi_apoderado = $row[5];
+				$dpi_testigo1 = $row[6];
+				$dpi_testigo2 = $row[7];
+				$fecha_caducidad = $row[8];
+				$nombre_archivo = $row[11];
+			}
 			 include "navbar.php";
 			 include "../assets/php/upload_dpi.php"; 
 		?>
@@ -56,7 +74,9 @@
 				var DPI_testigo1 = document.getElementById("DPI_testigo1").value;
 				var DPI_testigo2 = document.getElementById("DPI_testigo2").value;
 				var fecha_final = document.getElementById("fecha_final").value;
+				var nombre_archivo = document.getElementById("fname").value;
 				var usuario = "<?php echo $uid ?>";
+				var pid = "<?php echo $pid ?>";
 				console.log(usuario);
 
 				$.ajax({
@@ -73,7 +93,9 @@
 						DPI_testigo1 : DPI_testigo1,
 						DPI_testigo2 : DPI_testigo2,
 						fecha_caducidad : fecha_final,
-						usuario : usuario
+						usuario : usuario,
+						pid : pid,
+						nombre_archivo : nombre_archivo
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -147,50 +169,56 @@
 				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
 					<div class="form-row">
 						<div class="form-group col-md-6">
+							<label for="fname">Nombre archivo</label>
+							<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
                             <!-- fecha_emision -->
 							<label for="inputdate">Fecha</label>
-							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión">
+							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
 						</div>
 						<div class="form-group col-md-6">
                         <!-- nombre_a_dar -->
 							<label for="nombre_a_dar">Nombre</label>
-							<input type="text" class="form-control" id="nombre_a_dar" placeholder="Nombre del otorgante">
+							<input type="text" class="form-control" id="nombre_a_dar" placeholder="Nombre del otorgante" <?php if($pid != 0) {echo "value='$nombre_otorgante'";}?>>
 						</div>
 					</div>
 					<div class="form-row">
                         <div class="form-group col-md-6" id="templ">
                         <!-- nombre_a_recibir -->
 							<label for="nombre_a_recibir">Nombre</label>
-							<input type="text" class="form-control" id="nombre_a_recibir" placeholder="Nombre del apoderado">
+							<input type="text" class="form-control" id="nombre_a_recibir" placeholder="Nombre del apoderado" <?php if($pid != 0) {echo "value='$nombre_apoderado'";}?>>
 						</div>
                         <!-- responsabilidades -->
                         <div class="form-group col-md-6" id="templ">
 							<label for="responsabilidades">Responsabilidades</label>
-							<textarea class="form-control" id="responsabilidades" placeholder="Responsabilidades">
+							<textarea class="form-control" id="responsabilidades" placeholder="Responsabilidades" <?php if($pid != 0) {echo "value='$responsabilidades'";}?>>
                             </textarea>
 						</div>
                         <!-- DPIs -->
 						<div class="form-group col-md-6">
 							<label for="DPI_otorgante">DPI del otorgante</label>
-							<input type="text" class="form-control" id="DPI_otorgante" placeholder="Número de DPI">
+							<input type="text" class="form-control" id="DPI_otorgante" placeholder="Número de DPI" <?php if($pid != 0) {echo "value='$dpi_otorgante'";}?>>
 						</div>
                         <div class="form-group col-md-6">
 							<label for="DPI_apoderado">DPI del apoderado</label>
-							<input type="text" class="form-control" id="DPI_apoderado" placeholder="Número de DPI">
+							<input type="text" class="form-control" id="DPI_apoderado" placeholder="Número de DPI" <?php if($pid != 0) {echo "value='$dpi_apoderado'";}?>>
 						</div>
                         <div class="form-group col-md-6">
 							<label for="DPI_testigo1">DPI del Testigo 1</label>
-							<input type="text" class="form-control" id="DPI_testigo1" placeholder="Número de DPI">
+							<input type="text" class="form-control" id="DPI_testigo1" placeholder="Número de DPI" <?php if($pid != 0) {echo "value='$dpi_testigo1'";}?>>
 						</div>
                         <div class="form-group col-md-6">
 							<label for="DPI_testigo2">DPI del Testigo 2</label>
-							<input type="text" class="form-control" id="DPI_testigo2" placeholder="Número de DPI">
+							<input type="text" class="form-control" id="DPI_testigo2" placeholder="Número de DPI" <?php if($pid != 0) {echo "value='$dpi_testigo2'";}?>>
 						</div>
                         <!-- SETEAR CANTIDAD DE DÍAS CON JS -->
                         <!-- fecha_final -->
                         <div class="form-group col-md-6">
 							<label for="fecha_final">Fecha de caducidad</label>
-							<input type="date" class="form-control" id="fecha_final" placeholder="Fecha de caducidad">
+							<input type="date" class="form-control" id="fecha_final" placeholder="Fecha de caducidad" <?php if($pid != 0) {echo "value='$fecha_final'";}?>>
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
