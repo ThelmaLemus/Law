@@ -7,7 +7,7 @@ Objetivos más fluidos
 qué es lawbrary, agregar templates protocolo usuario
 cuanto cuesta infile
 quitar db como actor en el diagrama
-quitar diagrama de secuencia favorito
+quitar diagrama de secuencia favorito   
 diagrama de secuencia comentario quitarlo
 dejarlo como están las de abajo modelo relacional hacer aclaración de que es el modelo simplificado, analizar líneas punteadas
 de php a servidor ocr a travez de la nube y agregar el logo de ocr diagrama de arquitectura
