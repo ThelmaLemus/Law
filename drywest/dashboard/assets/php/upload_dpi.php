@@ -8,7 +8,10 @@
 	}
 
 	if (isset($_POST["signAuth"])){
-		$file = $_FILES['sig'];
+
+
+		$file = $_FILES['img'];
+
 		//File properties
 
 		$file_name = $file['name'];
@@ -35,7 +38,6 @@
                     echo "<script>console.log('Ingresado correctamente')</script>";
                     $res = getImageText($file_destination);
                     echo "<script>fillField(\"$res\", \"$dpi_id\", \"$name_id\")</script>";
-                    
 				} else {
 					echo "<script>console.log('Intentalo de nuevo')</script>";
 				}

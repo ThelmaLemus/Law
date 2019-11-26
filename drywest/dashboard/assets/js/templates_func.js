@@ -193,7 +193,7 @@ function fillField(info, dpi_field, name_field){
     info = info.substring(findpi);
     info = info.substring(info.search("BRE"));
     var name = info.match(/[A-Z]+ [A-Z]+/g);
-    document.getElementById(dpi_field).value = dpif[0];
+    document.getElementById(dpi_field).value = dpi[0];
     document.getElementById(name_field).value = name[0];
 }
 
