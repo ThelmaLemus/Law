@@ -106,7 +106,7 @@
           {
             while ($row = pg_fetch_row($result))
             {
-              $nombre = $row[10];
+              $nombre = $row[11];
               $pid = $row[9];
               echo "
                   <div class=\"ley col-lg-3 col-md-6\">

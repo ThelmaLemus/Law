@@ -295,7 +295,7 @@ function setValues_cartadepoder(inputdate,nombre_a_dar, nombre_a_recibir, respon
 	DPI_testigo1m.innerText = DPI_testigo1;
 	DPI_testigo2m.innerText = DPI_testigo2;
 	cantidad_diasm.innerText = diferencia_endias;
-	fecha_finalm.innerText = fecha_final;
+	fecha_finalm.innerText = fixDate(fecha_final);
 }
 
 function setValues_actadedeclaracion(inputdate, notario_name, direccion, affected_name, affected_DPI, institucion, solicitud)

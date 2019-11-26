@@ -44,7 +44,7 @@
 				$result = pg_query($link, $query);
 				$row = pg_fetch_row($result);
 				$fecha_emision = $row[0];
-				$nombre_ortogante = $row[1];
+				$nombre_otorgante = $row[1];
 				$nombre_apoderado = $row[2];
 				$responsabilidades = $row[3];
 				$dpi_otorgante = $row[4];
@@ -218,7 +218,7 @@
                         <!-- fecha_final -->
                         <div class="form-group col-md-6">
 							<label for="fecha_final">Fecha de caducidad</label>
-							<input type="date" class="form-control" id="fecha_final" placeholder="Fecha de caducidad" <?php if($pid != 0) {echo "value='$fecha_final'";}?>>
+							<input type="date" class="form-control" id="fecha_final" placeholder="Fecha de caducidad" <?php if($pid != 0) {echo "value='$fecha_caducidad'";}?>>
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
