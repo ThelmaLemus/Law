@@ -36,6 +36,36 @@
 		<title>Declaración jurada</title>
 		<?php 
 			$uid = $_GET['uid'];
+			$pid = $_GET['pid'];
+
+			if($pid != 0)
+			{
+				$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
+				$query = "SELECT * FROM extravio_patente WHERE pid = $pid";
+				$result = pg_query($link, $query);
+				$row = pg_fetch_row($result);
+				$fecha_emision = trim($row[1]);
+				$nombre_notario = trim($row[2]);
+				$direccion = trim($row[3]);
+				$nombre_solicitante = trim($row[4]);
+				$dpi_solicitante = trim($row[5]);
+				$nombre_entidad = trim($row[6]);
+				$fecha_actanotarial = trim($row[7]);
+				$notario_actanotarial = trim($row[8]);
+				$empresa_afectada = trim($row[9]);
+				$nombre_archivo = trim($row[0]);
+
+				echo "
+					<script>
+						var fecha_emision = ".$fecha_emision.";
+						
+						var fecha_emision_seteada = formatDate(fecha_emision);
+						
+						document.getElementById('inputdate').value = fecha_emision_seteada;
+						
+					</script>
+				";
+			}
 			 include "navbar.php";
 			 include "../assets/php/upload_dpi.php"; 
 		?>

@@ -31,6 +31,34 @@
 		<title>Single_Template</title>
 		<?php 
 			$uid = $_GET['uid'];
+			$pid = $_GET['pid'];
+			if($pid != 0)
+			{
+				$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
+				$query = "SELECT * FROM acta_de_declaracion WHERE pid = $pid";
+				$result = pg_query($link, $query);
+				$row = pg_fetch_row($result);
+				$fecha_emision = trim($row[0]);
+				$nombre_notario = trim($row[1]);
+				$direccion = trim($row[2]);
+				$nombre_solicitante = trim($row[3]);
+				$dpi_solicitante = trim($row[4]);
+				$institucion = trim($row[5]);
+				$solicitud = trim($row[6]);
+				$usuario = trim($row[7]);
+				$nombre_archivo = trim($row[8]);
+
+				echo "
+					<script>
+						var fecha_emision = ".$fecha_emision.";
+						
+						var fecha_emision_seteada = formatDate(fecha_emision);
+						
+						document.getElementById('inputdate').value = fecha_emision_seteada;
+						
+					</script>
+				";
+			}
 			include "navbar.php";
 			include "../assets/php/upload_dpi.php"; 
 		?>
@@ -50,6 +78,8 @@
                 var institucion = document.getElementById("institucion").value;
                 var solicitud = document.getElementById("solicitud").value;
 				var usuario = "<?php echo $uid ?>";
+				var pid = "<?php echo $pid ?>";
+				var nombre_archivo = document.getElementById("fname").value;
 //				console.log(usuario);
 
 				$.ajax({
@@ -64,7 +94,9 @@
                         dpi_solicitante : dpi_solicitante,
                         institucion : institucion,
                         solicitud : solicitud,
-						usuario : usuario
+						usuario : usuario,
+						pid : pid,
+						nombre_archivo : nombre_archivo
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -88,7 +120,7 @@
 								'elementHandlers': specialElementHandlers
 							});
 							console.log(doc);
-							doc.save('acta_de_declaracion.pdf');
+							doc.save(nombre_archivo);
 						}
 						else
 						console.log("error" + r);
@@ -133,11 +165,15 @@
 								<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
 							<!-- </div> -->
 						</div>
+						<div class="form-group col-md-6">
+							<label for="fname">Nombre archivo</label>
+							<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
+						</div>
                     </div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="fecha_emision">Fecha</label>
-							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
+							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
@@ -147,27 +183,27 @@
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="direccion">Dirección</label>
-							<input type="text" class="form-control" id="direccion" placeholder="Dirección">
+							<input type="text" class="form-control" id="direccion" placeholder="Dirección" <?php if($pid != 0) {echo "value='$direccion'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="texxt" class="form-control" id="affected_name" placeholder="Nombre del solicitante">
+							<input type="texxt" class="form-control" id="affected_name" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
 						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">DPI</label>
-							<input type="texxt" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante">
+							<input type="texxt" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante" <?php if($pid != 0) {echo "value='$dpi_solicitante'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Institución</label>
-							<input type="text" class="form-control" id="institucion" placeholder="Nombre de institución a la que se hace solicitud">
+							<input type="text" class="form-control" id="institucion" placeholder="Nombre de institución a la que se hace solicitud" <?php if($pid != 0) {echo "value='$institucion'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">Solicitud</label>
-							<textarea class="form-control" id="solicitud" placeholder="Solicitud"></textarea>
+							<textarea class="form-control" id="solicitud" placeholder="Solicitud"><?php if($pid != 0) {echo $solicitud;}?></textarea>
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="setValues_actadedeclaracion('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'institucion', 'solicitud');converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
@@ -186,7 +222,7 @@
                         -CUI-  numero <mark id="dpi_solicitantem"></mark>, extendido por el Registro Nacional de las Personas de la República de Guatemala, 
                         quien asegura ser de los datos de identificación personal que han quedado consignados y hallarse en el libre ejercicio de sus derechos 
                         civiles. Y por este acto, manifiesta el requirente, que solicita mis servicios profesionales a efecto de hacer constar en Acta Notarial 
-                        su DECLARACIÓN JURADA , de los hechos y circunstancias que a continuación se indican, y para tal efecto se procede de la manera siguiente: 
+                        su DECLARACIÓN JURADA, de los hechos y circunstancias que a continuación se indican, y para tal efecto se procede de la manera siguiente: 
                         PRIMERO: El infrascrito Notario procede a juramentar al requirente, advertido de las penas relativas al delito de perjurio,
                         <mark id="nombre_solicitante2m"></mark>, BAJO JURAMENTO DECLARA Que con los documentos presentados cumple con los requisitos 
                         reglamentarios establecidos por <mark id="institucion_a_solicitarm"></mark> para solicitar <mark id="solicitudm"></mark>, 
