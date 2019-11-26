@@ -38,11 +38,23 @@
 				$query = "SELECT * FROM autenticacion_de_firma WHERE pid = $pid";
 				$result = pg_query($link, $query);
 				$row = pg_fetch_row($result);
-				$fecha = $row[0];
-				$nombre_notario = $row[1];
-				$nombre_solicitante = $row[2];
-				$dpi = $row[3];
-				$nombre_archivo = $row[6];
+				$fecha = trim($row[0]);
+				$nombre_notario = trim($row[1]);
+				$nombre_solicitante = trim($row[2]);
+				$dpi = trim($row[3]);
+				$nombre_archivo = trim($row[6]);
+
+				echo "
+					<script>
+						console.log(".$fecha.");
+						var fecha_emision = ".$fecha.";
+						
+						var fecha_emision_seteada = formatDate(fecha_emision);
+						
+						document.getElementById('inputdate').value = fecha_emision_seteada;
+						
+					</script>
+				";
 			}
 			// $pid = $_GET['pid'];
 			include "navbar.php";
@@ -158,7 +170,7 @@
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputdate">Fecha</label>
-							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha'";}?>>
+							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
@@ -190,9 +202,10 @@
 						});
 
 					}
-
-					
-					setTodaysDate('inputdate');
+					<?php
+					if($pid == 0)
+						echo "setTodaysDate('inputdate');";
+					?>
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">

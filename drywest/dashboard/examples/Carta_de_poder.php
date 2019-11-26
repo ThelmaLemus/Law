@@ -43,16 +43,30 @@
 				$query = "SELECT * FROM carta_de_poder WHERE pid = $pid";
 				$result = pg_query($link, $query);
 				$row = pg_fetch_row($result);
-				$fecha_emision = $row[0];
-				$nombre_otorgante = $row[1];
-				$nombre_apoderado = $row[2];
-				$responsabilidades = $row[3];
-				$dpi_otorgante = $row[4];
-				$dpi_apoderado = $row[5];
-				$dpi_testigo1 = $row[6];
-				$dpi_testigo2 = $row[7];
-				$fecha_caducidad = $row[8];
-				$nombre_archivo = $row[11];
+				$fecha_emision = trim($row[0]);
+				$nombre_otorgante = trim($row[1]);
+				$nombre_apoderado = trim($row[2]);
+				$responsabilidades = trim($row[3]);
+				$dpi_otorgante = trim($row[4]);
+				$dpi_apoderado = trim($row[5]);
+				$dpi_testigo1 = trim($row[6]);
+				$dpi_testigo2 = trim($row[7]);
+				$fecha_caducidad = trim($row[8]);
+				$nombre_archivo = trim($row[11]);
+
+				echo "
+					<script>
+						var fecha_emision = ".$fecha_emision.";
+						var fecha_caducidad = ".$fecha_caducidad.";
+
+						var fecha_emision_seteada = formatDate(fecha_emision);
+						var fecha_caducidad_seteada = formatDate(fecha_caducidad);
+
+						document.getElementById('inputdate').value = fecha_emision_seteada;
+						document.getElementById('fecha_final').value = fecha_caducidad_seteada;
+
+					</script>
+				";
 			}
 			 include "navbar.php";
 			 include "../assets/php/upload_dpi.php"; 
@@ -194,8 +208,7 @@
                         <!-- responsabilidades -->
                         <div class="form-group col-md-6" id="templ">
 							<label for="responsabilidades">Responsabilidades</label>
-							<textarea class="form-control" id="responsabilidades" placeholder="Responsabilidades" <?php if($pid != 0) {echo "value='$responsabilidades'";}?>>
-                            </textarea>
+							<textarea class="form-control" id="responsabilidades" placeholder="Responsabilidades"><?php if($pid != 0) {echo $responsabilidades;}?></textarea>
 						</div>
                         <!-- DPIs -->
 						<div class="form-group col-md-6">
@@ -236,8 +249,10 @@
 						});
 
 					}
-
-					setTodaysDate('inputdate');
+					<?php
+					if($pid == 0)
+						echo "setTodaysDate('inputdate');";
+					?>
 
  
 				</script>
