@@ -34,11 +34,11 @@
                     affected_dpi = '$affected_DPI',
                     affected_nit = '$affected_NIT',
                     nombre_entidad = '$nombre_entidad',
-                    nit_entidad = $nit_entidad,
+                    nit_entidad = '$nit_entidad',
                     direccion_entidad = '$direccion_entidad',
                     departament_entidad = '$departament_entidad',
                     municipio_entidad = '$municipio_entidad',
-                    cantidad_del_pago = $cantidad_del_pago,
+                    cantidad_del_pago = '$cantidad_del_pago',
                     fecha_del_pago = '$fecha_del_pago',
                     numero_formulario_sat = '$numero_formulario_SAT',
                     nombre_archivo = '$nombre_archivo'

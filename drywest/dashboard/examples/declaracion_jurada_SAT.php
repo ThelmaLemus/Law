@@ -28,7 +28,7 @@
 	<script src="../assets/js/templates_func.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale = 1.0">
 	<meta charset="utf-8">
-		<title>Single_Template</title>
+		<title>SAT - Declaración jurada</title>
 		<?php 
 			$uid = $_GET['uid'];
 			$pid = $_GET['pid'];
@@ -95,7 +95,7 @@
                 var numero_formulario_SAT = document.getElementById("numero_formulario_SAT").value;
 				var usuario = "<?php echo $uid ?>";
 				var pid = "<?php echo $pid ?>";
-				var nombre_archivo = document.getElementById("nombre_archivo").value;
+				var nombre_archivo = document.getElementById("fname").value;
 //				console.log(usuario);
 
 				$.ajax({
@@ -175,7 +175,7 @@
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
 				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_declaracionjurada_SAT('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'affected_NIT', 'nombre_entidad', 'nit_entidad', 'direccion_entidad', 'departamento_entidad', 'municipio_entidad', 'cantidad_del_pago', 'fecha_del_pago', 'numero_formulario_SAT');">Vista previa</a>
 			</div>
-			<h2 class="docname">Acta de declaración jurada</h2>
+			<h2 class="docname">SAT - declaración jurada</h2>
 			<div class="tab-content Lcontent">
 				<form method='post' class="tab-pane active" id="home" >
 					<div class="form-row" enctype="multipart/form-data">

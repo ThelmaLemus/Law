@@ -36,6 +36,37 @@
 		<title>Declaración jurada</title>
 		<?php 
 			$uid = $_GET['uid'];
+			$pid = $_GET['pid'];
+			if($pid != 0)
+			{
+				$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
+				$query = "SELECT * FROM ampliacion WHERE pid = $pid";
+				$result = pg_query($link, $query);
+				$row = pg_fetch_row($result);
+				$fecha_emision = trim($row[0]);
+				$nombre_notario = trim($row[1]);
+				$numero_escritura = trim($row[2]);
+				$fecha_autorizacion = trim($row[3]);
+				$contenido_escritura = trim($row[4]);
+				$nombre_solicitante = trim($row[5]);
+				$tipo_documento = trim($row[6]);
+				$numero_documento = trim($row[7]);
+				$ampliacion = trim($row[8]);
+				$nombre_archivo = trim($row[10]);
+
+				/* echo "
+					<script>
+						var fecha_emision2 = ".$fecha_emision.";
+						var fecha_emision_seteada = formatDate(fecha_emision2);
+						document.getElementById('fecha_emision').value = fecha_emision_seteada;
+
+						var fecha_del_pago = ".$fecha_del_pago.";
+						var fecha_del_pago_seteada = formatDate(fecha_del_pago);
+						document.getElementById('fecha_del_pago').value = fecha_del_pago_seteada;
+						
+					</script>
+				"; */
+			}
 			 include "navbar.php";
 			 include "../assets/php/upload_dpi.php"; 
 		?>
@@ -57,6 +88,7 @@
                 var numero_documento = document.getElementById("numero_documento").value;
                 var ampliacion = document.getElementById("ampliacion").value;
 				var usuario = "<?php echo $uid ?>";
+				var pid = "<?php echo $pid ?>";
 				var nombre_archivo = document.getElementById("nombre_archivo").value;
 				console.log(usuario);
 
@@ -75,7 +107,8 @@
                         numero_documento : numero_documento,
                         ampliacion : ampliacion,
                         usuario : usuario,
-                        nombre_archivo : nombre_archivo
+						nombre_archivo : nombre_archivo,
+						pid : pid
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -123,54 +156,53 @@
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre del documento</label>
-							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento">
+							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
 						</div>
                     </div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="fecha_emision">Fecha</label>
-							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
+							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="text" class="form-control" id="nombre_notario" value ='<?php echo trim($user_full_name) ?>'>
+							<input type="text" class="form-control" id="nombre_notario" value ='<?php if($pid == 0) {echo trim($user_full_name);} else {echo $nombre_notario;} ?>'>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputdate">Número de escritura</label>
-							<input type="text" class="form-control" id="numero_escritura" placeholder="Número de escritura">
+							<input type="text" class="form-control" id="numero_escritura" placeholder="Número de escritura" <?php if($pid != 0) {echo "value='$numero_escritura'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Fecha de autorización de escritura</label>
-							<input type="date" class="form-control" id="fecha_autorizacion" placeholder="Fecha de autorización de escritura">
+							<input type="date" class="form-control" id="fecha_autorizacion" placeholder="Fecha de autorización de escritura" <?php if($pid != 0) {echo "value='$fecha_autorizacion'";}?>>
 						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">Contenido de escritura</label>
-							<input type="text" class="form-control" id="contenido_escritura" placeholder="Contenido de escritura">
+							<input type="text" class="form-control" id="contenido_escritura" placeholder="Contenido de escritura" <?php if($pid != 0) {echo "value='$contenido_escritura'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Nombre solicitante</label>
-							<input type="text" class="form-control" id="nombre_solicitante" placeholder="Nombre del solicitante">
+							<input type="text" class="form-control" id="nombre_solicitante" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
 							<label for="fecha_emision">Tipo de documento de identificación</label>
-							<input type="text" class="form-control" id="tipo_documento" placeholder="Tipo de documento de identificación">
+							<input type="text" class="form-control" id="tipo_documento" placeholder="Tipo de documento de identificación" <?php if($pid != 0) {echo "value='$tipo_documento'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Número de documento de identificación</label>
-							<input type="text" class="form-control" id="numero_documento" placeholder="Número de documento de identificación">
+							<input type="text" class="form-control" id="numero_documento" placeholder="Número de documento de identificación" <?php if($pid != 0) {echo "value='$numero_documento'";}?>>
 						</div>
 					</div>
 					<div class="form-row">
                         <div class="form-group col-md-6" id="templ">
                             <label for="affected_name">Ampliación</label>
-                            <textarea class="form-control" id="ampliacion" placeholder="Detalles de la ampliación">
-                            </textarea>
+                            <textarea class="form-control" id="ampliacion" placeholder="Detalles de la ampliación"><?php if($pid != 0) {echo $ampliacion;}?></textarea>
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>

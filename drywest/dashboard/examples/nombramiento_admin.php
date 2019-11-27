@@ -31,6 +31,29 @@
 		<title>Single_Template</title>
 		<?php 
 			$uid = $_GET['uid'];
+			$pid = $_GET['pid'];
+			if($pid != 0)
+			{
+				$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
+				$query = "SELECT * FROM nombramiento WHERE pid = $pid";
+				$result = pg_query($link, $query);
+				$row = pg_fetch_row($result);
+				$nombre_entidad = trim($row[0]);
+				$fecha_emision = trim($row[1]);
+				$nombre_notario = trim($row[2]);
+				$direccion = trim($row[3]);
+				$nombre_solicitante = trim($row[4]);
+				$dpi_solicitante = trim($row[5]);
+				$numero_escritura = trim($row[6]);
+				$notario_escritura = trim($row[7]);
+				$fecha_autorizacion = trim($row[8]);
+				$actividades = trim($row[9]);
+				$numero_acta = trim($row[10]);
+				$fecha_acta = trim($row[11]);
+				$plazo_enaños = trim($row[12]);
+				$nombre_archivo = trim($row[14]);
+
+			}
 			include "navbar.php";
 			include "../assets/php/upload_dpi.php"; 
 		?>
@@ -56,6 +79,7 @@
                 var fecha_acta = document.getElementById("fecha_acta").value;
                 var plazo_enaños = document.getElementById("plazo_enaños").value;
 				var usuario = "<?php echo $uid ?>";
+				var pid = "<?php echo $pid ?>";
 				var nombre_archivo = document.getElementById("nombre_archivo").value;
 				console.log(usuario);
 
@@ -78,7 +102,8 @@
                         fecha_acta : fecha_acta,
                         plazo_enaños : plazo_enaños,
                         usuario : usuario,
-                        nombre_archivo : nombre_archivo
+						nombre_archivo : nombre_archivo,
+						pid : pid
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -138,74 +163,74 @@
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre del documento</label>
-							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento">
+							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
 						</div>
                     </div>
                     
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="fecha_emision">Fecha</label>
-							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
+							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="texxt" class="form-control" id="nombre_notario" value ='<?php echo trim($user_full_name) ?>'>
+							<input type="texxt" class="form-control" id="nombre_notario" value ='<?php if($pid == 0) {echo trim($user_full_name);} else {echo $nombre_notario;} ?>'>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="direccion">Dirección</label>
-							<input type="text" class="form-control" id="direccion" placeholder="Dirección">
+							<input type="text" class="form-control" id="direccion" placeholder="Dirección" <?php if($pid != 0) {echo "value='$direccion'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="texxt" class="form-control" id="nombre_solicitante" placeholder="Nombre del solicitante">
+							<input type="texxt" class="form-control" id="nombre_solicitante" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
 						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">DPI</label>
-							<input type="texxt" class="form-control" id="dpi_solicitante" placeholder="Número de DPI del solicitante">
+							<input type="texxt" class="form-control" id="dpi_solicitante" placeholder="Número de DPI del solicitante" <?php if($pid != 0) {echo "value='$dpi_solicitante'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad">
+							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad" <?php if($pid != 0) {echo "value='$nombre_entidad'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">Número de escritura</label>
-							<input type="texxt" class="form-control" id="numero_escritura" placeholder="Número de escritura">
+							<input type="texxt" class="form-control" id="numero_escritura" placeholder="Número de escritura" <?php if($pid != 0) {echo "value='$numero_escritura'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Notario de la escritura</label>
-							<input type="text" class="form-control" id="notario_escritura" placeholder="Notario acreditador de escritura">
+							<input type="text" class="form-control" id="notario_escritura" placeholder="Notario acreditador de escritura" <?php if($pid != 0) {echo "value='$notario_escritura'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">Fecha de acreditación</label>
-							<input type="date" class="form-control" id="fecha_autorizacion" placeholder="Fecha de acreditación de la escritura">
+							<input type="date" class="form-control" id="fecha_autorizacion" placeholder="Fecha de acreditación de la escritura" <?php if($pid != 0) {echo "value='$fecha_autorizacion'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Actividades</label>
-							<input type="text" class="form-control" id="actividades" placeholder="Actividades de la entidad">
+							<input type="text" class="form-control" id="actividades" placeholder="Actividades de la entidad" <?php if($pid != 0) {echo "value='$actividades'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">Número de acta</label>
-							<input type="text" class="form-control" id="numero_acta" placeholder="Número de acta">
+							<input type="text" class="form-control" id="numero_acta" placeholder="Número de acta" <?php if($pid != 0) {echo "value='$numero_acta'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Fecha de acta</label>
-							<input type="date" class="form-control" id="fecha_acta" placeholder="Fecha de acreditación de acta">
+							<input type="date" class="form-control" id="fecha_acta" placeholder="Fecha de acreditación de acta" <?php if($pid != 0) {echo "value='$fecha_acta'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">Plazo de posición en el puesto</label>
-							<input type="text" class="form-control" id="plazo_enaños" placeholder="Plazo en años">
+							<input type="text" class="form-control" id="plazo_enaños" placeholder="Plazo en años" <?php if($pid != 0) {echo "value='$plazo_enaños'";}?>>
                         </div>
                     </div>
 					<div type="" id="imprimir" onclick="converttoPDF();" class="btn btn-primary">Descargar y guardar</div>

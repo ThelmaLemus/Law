@@ -14,11 +14,34 @@
     $plazo_enaños = $_POST['plazo_enaños'];
     $usuario = $_POST['usuario'];
     $nombre_archivo = $_POST['nombre_archivo'];
+    $pid = $_POST['pid'];
 
     $link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
 
-    $query = "INSERT INTO nombramiento(nombre_entidad, fecha_emision, nombre_notario, direccion, nombre_solicitante, dpi_solicitante, numero_escritura, notario_escritura, fecha_autorizacion, usuario, nombre_archivo, actividades, numero_acta, fecha_acta, plazo_enaños) 
+    if($pid == 0)
+    {
+        $query = "INSERT INTO nombramiento(nombre_entidad, fecha_emision, nombre_notario, direccion, nombre_solicitante, dpi_solicitante, numero_escritura, notario_escritura, fecha_autorizacion, usuario, nombre_archivo, actividades, numero_acta, fecha_acta, plazo_enaños) 
                 VALUES ('$nombre_entidad', '$fecha_emision', '$nombre_notario', '$direccion', '$nombre_solicitante', '$dpi_solicitante', '$numero_escritura', '$notario_escritura', '$fecha_autorizacion', $usuario, '$nombre_archivo', '$actividades', '$numero_acta', '$fecha_acta', '$plazo_enaños')";
+    }
+    else
+    {
+        $query = "UPDATE nombramiento SET
+                    nombre_entidad = '$nombre_entidad',
+                    fecha_emision = '$fecha_emision',
+                    nombre_notario = '$nombre_notario',
+                    direccion = '$direccion',
+                    nombre_solicitante = '$nombre_solicitante',
+                    dpi_solicitante = '$dpi_solicitante',
+                    numero_escritura = '$numero_escritura',
+                    notario_escritura = '$notario_escritura',
+                    fecha_autorizacion = '$fecha_autorizacion',
+                    nombre_archivo = '$nombre_archivo',
+                    actividades = '$actividades',
+                    numero_acta = '$numero_acta',
+                    fecha_acta = '$fecha_acta',
+                    plazo_enaños = '$plazo_enaños'
+                WHERE pid = $pid";
+    }
     
     $result = pg_query($link, $query);
     if($result){   
