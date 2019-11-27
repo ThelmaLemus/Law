@@ -46,8 +46,30 @@
     }
 
     $result = pg_query($link, $query);
-    if($result){   
-        echo 1;  
+
+    $query1 = "SELECT pid FROM declaracionjurada_sat WHERE
+    fecha_emision = '$fecha_emision' AND
+    notario_name = '$notario_name' AND
+    direccion = '$direccion' AND
+    affected_name = '$affected_name' AND
+    affected_dpi = '$affected_DPI' AND
+    affected_nit = '$affected_NIT' AND
+    nombre_entidad = '$nombre_entidad' AND
+    nit_entidad = '$nit_entidad' AND
+    direccion_entidad = '$direccion_entidad' AND
+    departament_entidad = '$departament_entidad' AND
+    municipio_entidad = '$municipio_entidad' AND
+    cantidad_del_pago = '$cantidad_del_pago' AND
+    fecha_del_pago = '$fecha_del_pago' AND
+    numero_formulario_sat = '$numero_formulario_SAT' AND
+    nombre_archivo = '$nombre_archivo'";
+
+    $result1 = pg_query($link, $query1);
+    $fila = pg_fetch_row($result1);
+    $pid_resultante = $fila[0];
+
+    if($result && $result1){   
+        echo $pid_resultante;
     }
     
 ?>

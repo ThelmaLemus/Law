@@ -38,8 +38,26 @@
     }
     
     $result = pg_query($link, $query);
-    if($result){   
-        echo 1;  
+
+    $query1 = "SELECT pid FROM carta_de_poder WHERE
+    fecha_emision = '$fecha_emision' AND
+    nombre_otorgante = '$nombre_otorgante' AND
+    nombre_apoderado = '$nombre_apoderado' AND
+    responsabilidades = '$responsabilidades' AND
+    dpi_otorgante = '$DPI_otorgante' AND
+    dpi_apoderado = '$DPI_apoderado' AND
+    dpi_testigo1 = '$DPI_testigo1' AND
+    dpi_testigo2 = '$DPI_testigo2' AND
+    fecha_caducidad = '$fecha_caducidad' AND
+    uid = $usuario AND
+    nombre_documento = '$nombre_archivo'";
+
+    $result1 = pg_query($link, $query1);
+    $fila = pg_fetch_row($result1);
+    $pid_resultante = $fila[0];
+
+    if($result && $result1){   
+        echo $pid_resultante;
     }
     
 ?>

@@ -36,8 +36,25 @@
     }
 
     $result = pg_query($link, $query);
-    if($result){   
-        echo 1;  
+
+    $query1 = "SELECT pid FROM ampliacion WHERE
+    fecha_emision = '$fecha_emision' AND
+    nombre_notario = '$nombre_notario' AND
+    numero_escritura = '$numero_escritura' AND
+    fecha_autorizacion = '$fecha_autorizacion' AND
+    contenido_escritura = '$contenido_escritura' AND
+    nombre_solicitante = '$nombre_solicitante' AND
+    tipo_documento = '$tipo_documento' AND
+    numero_documento = '$numero_documento' AND
+    ampliacion = '$ampliacion' AND
+    nombre_archivo = '$nombre_archivo'";
+
+    $result1 = pg_query($link, $query1);
+    $fila = pg_fetch_row($result1);
+    $pid_resultante = $fila[0];
+
+    if($result && $result1){   
+        echo $pid_resultante;
     }
     
 ?>    

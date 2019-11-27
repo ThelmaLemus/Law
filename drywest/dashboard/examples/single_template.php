@@ -126,7 +126,7 @@
 								doc.save(nombre_archivo + '.pdf');
 								
 		setTimeout(() => {
-						window.location.href = 'single_template.php?uid=$uid&pid=' + r;
+						window.location.href = 'single_template.php?uid=<?php echo $uid ?>&pid=' + r;
 					}, 2000);
 							}
 							else

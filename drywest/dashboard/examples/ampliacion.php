@@ -112,8 +112,14 @@
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
-						if(r == 1){
+						if(r > 0){
 							alert("Agregado");
+							console.log(r);
+							//GUADAR COMENTARIOS
+							<?php
+								if($pid == 0)
+									echo "savefromcero(r)";
+								?>
 							
 							//DESCARGAR
 							var doc = new jsPDF();
@@ -133,6 +139,10 @@
 							});
 							console.log(doc);
 							doc.save(nombre_archivo);
+
+							setTimeout(() => {
+						window.location.href = 'ampliacion.php?uid=<?php echo $uid ?>&pid=' + r;
+					}, 2000);
 						}
 						else
 							console.log(r);
@@ -177,6 +187,38 @@
 		setTimeout(() => {
 						window.location.reload(true);
 					}, 2000);
+	}
+
+	function savefromcero(pid){
+		//le di un id al input y con la siguiente linea obtengo el valor del comentario
+		comentario = document.getElementById("inputComentario").value;
+		console.log(comentario);
+		var pid = pid;
+		var tipo = 6;
+		//LAS VARIABLES UID Y LID SON OBTENIDAS CON PHP Y YA ESTAN PARA USAR CON JS
+		//lid -> ya los tengo con php
+		//uid -> ya los tengo con php
+		$.ajax({
+			url: "guardar_comment.php",
+			type: "POST",
+			data:
+			{
+				pid : pid,
+				tipo : tipo,
+				comentario : comentario
+			},
+			success: function(r){
+				//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
+				if(r == 1){
+					alert("Agregado");
+//					clearContents(comentario);
+				}
+				else
+				{
+					console.log(r);
+				}
+			},
+		});
 	}
 
 		</script>
@@ -315,7 +357,10 @@
 									<div class="newcomment">
 										<textarea class="form-control answinput" id="inputComentario" rows="3" 
 														placeholder="Ingresa un comentario o respuesta."></textarea>
-										<button type="button" name="actualizar" value="Actualizar" id="act" onclick="save();" class="btn btn-primary btn-sm publish-button">Publicar</button>
+														<?php
+										if($pid != 0)
+										echo "<button type='button' name='actualizar' value='Actualizar' id='act' onclick='save();' class='btn btn-primary btn-sm publish-button'>Publicar</button>";
+										?>
 									</div>
 									<div id="otroscomentarios">
 										<div class="fperse" id="comentsdiv">

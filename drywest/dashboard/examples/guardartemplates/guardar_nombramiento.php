@@ -44,8 +44,29 @@
     }
     
     $result = pg_query($link, $query);
-    if($result){   
-        echo 1;  
+
+    $query1 = "SELECT pid FROM nombramiento WHERE
+                    nombre_entidad = '$nombre_entidad' AND
+                    fecha_emision = '$fecha_emision' AND
+                    nombre_notario = '$nombre_notario' AND
+                    direccion = '$direccion' AND
+                    nombre_solicitante = '$nombre_solicitante' AND
+                    dpi_solicitante = '$dpi_solicitante' AND
+                    numero_escritura = '$numero_escritura' AND
+                    notario_escritura = '$notario_escritura' AND
+                    fecha_autorizacion = '$fecha_autorizacion' AND
+                    nombre_archivo = '$nombre_archivo' AND
+                    actividades = '$actividades' AND
+                    numero_acta = '$numero_acta' AND
+                    fecha_acta = '$fecha_acta' AND
+                    plazo_enaños = '$plazo_enaños'";
+
+    $result1 = pg_query($link, $query1);
+    $fila = pg_fetch_row($result1);
+    $pid_resultante = $fila[0];
+
+    if($result && $result1){   
+        echo $pid_resultante;
     }
     
 ?>   

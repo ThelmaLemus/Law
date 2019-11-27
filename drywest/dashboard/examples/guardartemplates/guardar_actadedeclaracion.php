@@ -35,8 +35,23 @@
 
     $result = pg_query($link, $query);
 
-    if($result){   
-        echo 1;  
+    $query1 = "SELECT pid FROM acta_de_declaracion WHERE
+    fecha = '$fecha_emision' AND
+    nombre_notario = '$nombre_notario' AND
+    direccion = '$direccion' AND
+    nombre_solicitante = '$nombre_solicitante' AND
+    dpi_solicitante = '$dpi_solicitante' AND
+    institucion = '$institucion' AND
+    solicitud = '$solicitud' AND
+    usuario = $usuario AND
+    nombre_plantilla = '$nombre_archivo'";
+
+    $result1 = pg_query($link, $query1);
+    $fila = pg_fetch_row($result1);
+    $pid_resultante = $fila[0];
+
+    if($result && $result1){   
+        echo $pid_resultante;
     }
     else
         echo $result;
