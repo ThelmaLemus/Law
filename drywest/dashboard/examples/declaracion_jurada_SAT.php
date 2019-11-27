@@ -5,6 +5,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.943/build/pdf.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/f529d3c7df.js" crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.debug.js"></script>
 
@@ -14,11 +15,6 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
-<link href="../assets/js/plugins/nucleo/css/nucleo.css rel=stylesheet />
-      <link href=../assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css rel=stylesheet />
-      <link href=../assets/css/argon-dashboard.css?v=1.1.0 rel=stylesheet />
-      <link href=../assets/css/nvbr.css rel=stylesheet />
-      <link href=../assets/css/main.css rel=stylesheet />
 
 
 	<script
@@ -30,10 +26,9 @@
 	<script src="pdf.worker.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
 	<script src="../assets/js/templates_func.js"></script>
-	<script src="../assets/js/moments.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale = 1.0">
 	<meta charset="utf-8">
-		<title>Declaración jurada - SAT</title>
+		<title>Single_Template</title>
 		<?php 
 			$uid = $_GET['uid'];
 			$pid = $_GET['pid'];
@@ -74,12 +69,12 @@
 					</script>
 				"; */
 			}
-			 include "navbar.php";
-			 include "../assets/php/upload_dpi.php"; 
+			include "navbar.php";
+			include "../assets/php/upload_dpi.php"; 
 		?>
 		<script>
 			localStorage.setItem('busco', false);
-
+ 
 			function converttoPDF()
 			{
                 
@@ -156,6 +151,20 @@
 				});
 			};
 
+/* 			function genPDF()
+			{
+			html2canvas(document.getElementById("profile"),{
+			onrendered:function(canvas){
+
+			var img=canvas.toDataURL("image/png");
+			var doc = new jsPDF();
+			doc.addImage(img,'JPEG',20,20);
+			doc.save('test.pdf');
+			}
+
+			});
+
+			} */
 		</script>
 </head>
 <body class="fondon">
@@ -166,13 +175,20 @@
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
 				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_declaracionjurada_SAT('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'affected_NIT', 'nombre_entidad', 'nit_entidad', 'direccion_entidad', 'departamento_entidad', 'municipio_entidad', 'cantidad_del_pago', 'fecha_del_pago', 'numero_formulario_SAT');">Vista previa</a>
 			</div>
-			<h2 class="docname">Declaración jurada - SAT</h2>
+			<h2 class="docname">Acta de declaración jurada</h2>
 			<div class="tab-content Lcontent">
-				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
-					<div class="form-row">
+				<form method='post' class="tab-pane active" id="home" >
+					<div class="form-row" enctype="multipart/form-data">
 						<div class="form-group col-md-6">
-							<label for="notario_name">Nombre del documento</label>
-							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
+							<!-- <div class="row"> -->
+								<input type="file" name="sig" class="custom-file-input" id="dpisgin" aria-describedby="inputGroupFileAddon01">
+								<label class="btn btn-primary" for="dpisgin"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
+								<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
+							<!-- </div> -->
+						</div>
+						<div class="form-group col-md-6">
+							<label for="fname">Nombre archivo</label>
+							<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
 						</div>
                     </div>
 					<div class="form-row">
@@ -247,33 +263,15 @@
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
 				</form>
-			
-
 				<script>
-					 function imprimir(){
-						//send the div to PDF
-						html2canvas($("#templ"), { // DIV ID HERE
-							onrendered: function(canvas) {
-								var imgData = canvas.toDataURL('image/png'); 
-								var doc = new jsPDF('landscape');
-								doc.addImage(imgData, 'PDF', 10, 10);
-								doc.save('sample-file.pdf'); //SAVE PDF FILE
-							}
-						});
 
-					}
-
-					<?php
-					if($pid == 0)
-					{
-						setTodaysDate('fecha_emision');
-					}
-					?>
+				setTodaysDate('fecha_emision');
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">
 					<div class="ntext" id="ntext">
-                    En la Ciudad de Guatemala, el <mark id="fecha_emisionm"></mark>, Yo: <mark id="nombre_notariom"></mark>, Notario, 
+						<!-- <h2 class="docname" style="display: none;">Acta de declaración jurada</h2> -->
+                        En la Ciudad de Guatemala, el <mark id="fecha_emisionm"></mark>, Yo: <mark id="nombre_notariom"></mark>, Notario, 
                     en ejercicio, constituido en mi oficina profesional ubicada en <mark id="direccionm"></mark>, de la ciudad de Guatemala, 
                     a requerimiento de <mark id="nombre_solicitantem"></mark>, quien se identifica con Documento Personal de 
                     Identificación –DPI- con Código Único de Identificación –CUI- <mark id="dpi_solicitantem"></mark>, extendido por 
@@ -306,13 +304,16 @@
                     más que hacer constar, se finaliza la presente en el mismo lugar y fecha, a las cuales se les adhieren los timbres 
                     de ley. Leo lo escrito al requirente, quien enterado de su contenido, objeto, validez y efectos legales, la ratifica, 
                     acepta y firma, haciéndolo a continuación el Notario, quien de todo lo actuado DOY FE. 
-
-
+					</div>
+					<div>&nbsp;</div>
+					<div>&nbsp;</div>
+					<div>&nbsp;</div>
+					<div>&nbsp;</div>
+					<br><br><br><br><br>
+				</div>
 				<div id="elementH"></div>
 				<!-- <button onclick="converttoPDF()">Descargar</button> -->
 			</div>
-		</div>
-		</div>
 		</div>
 
 		<div class="notas anotaciones">
