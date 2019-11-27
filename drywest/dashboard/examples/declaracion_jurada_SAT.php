@@ -36,6 +36,44 @@
 		<title>Declaración jurada - SAT</title>
 		<?php 
 			$uid = $_GET['uid'];
+			$pid = $_GET['pid'];
+			if($pid != 0)
+			{
+				$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
+				$query = "SELECT * FROM declaracionjurada_sat WHERE pid = $pid";
+				$result = pg_query($link, $query);
+				$row = pg_fetch_row($result);
+				$fecha_emision = trim($row[0]);
+				$nombre_notario = trim($row[1]);
+				$direccion = trim($row[2]);
+				$nombre_solicitante = trim($row[3]);
+				$dpi_solicitante = trim($row[4]);
+				$nit_solicitante = trim($row[5]);
+				$nombre_entidad = trim($row[6]);
+				$nit_entidad = trim($row[7]);
+				$direccion_entidad = trim($row[8]);
+				$departamento_entidad = trim($row[9]);
+				$municipio_entidad = trim($row[10]);
+				$cantidad_del_pago = trim($row[11]);
+				$fecha_del_pago = trim($row[12]);
+				$numero_formulario_sat = trim($row[13]);
+				$nombre_archivo = trim($row[15]);
+
+				echo "<script> console.log(".$fecha_emision."); </script>";
+
+				/* echo "
+					<script>
+						var fecha_emision2 = ".$fecha_emision.";
+						var fecha_emision_seteada = formatDate(fecha_emision2);
+						document.getElementById('fecha_emision').value = fecha_emision_seteada;
+
+						var fecha_del_pago = ".$fecha_del_pago.";
+						var fecha_del_pago_seteada = formatDate(fecha_del_pago);
+						document.getElementById('fecha_del_pago').value = fecha_del_pago_seteada;
+						
+					</script>
+				"; */
+			}
 			 include "navbar.php";
 			 include "../assets/php/upload_dpi.php"; 
 		?>
@@ -61,6 +99,7 @@
                 var fecha_del_pago = document.getElementById("fecha_del_pago").value;
                 var numero_formulario_SAT = document.getElementById("numero_formulario_SAT").value;
 				var usuario = "<?php echo $uid ?>";
+				var pid = "<?php echo $pid ?>";
 				var nombre_archivo = document.getElementById("nombre_archivo").value;
 //				console.log(usuario);
 
@@ -84,7 +123,8 @@
                         fecha_del_pago : fecha_del_pago,
                         numero_formulario_SAT : numero_formulario_SAT,
                         usuario : usuario,
-                        nombre_archivo : nombre_archivo
+						nombre_archivo : nombre_archivo,
+						pid : pid
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -132,77 +172,77 @@
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre del documento</label>
-							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento">
+							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
 						</div>
                     </div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="fecha_emision">Fecha de emisión</label>
-							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
+							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre del notario</label>
-							<input type="text" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>'>
+							<input type="text" class="form-control" id="notario_name" value ='<?php if($pid == 0) {echo trim($user_full_name);} else {echo $nombre_notario;} ?>'>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputdate">Dirección del notario</label>
-							<input type="text" class="form-control" id="direccion" placeholder="Dirección de oficina del notario">
+							<input type="text" class="form-control" id="direccion" placeholder="Dirección de oficina del notario" <?php if($pid != 0) {echo "value='$direccion'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre del solicitante</label>
-							<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante">
+							<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
 						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">DPI del solicitante</label>
-							<input type="text" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante">
+							<input type="text" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante" <?php if($pid != 0) {echo "value='$dpi_solicitante'";}?>>
                         </div>
                         <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">NIT del solicitante</label>
-							<input type="text" class="form-control" id="affected_NIT" placeholder="Número de NIT del solicitante">
+							<input type="text" class="form-control" id="affected_NIT" placeholder="Número de NIT del solicitante" <?php if($pid != 0) {echo "value='$nit_solicitante'";}?>>
                         </div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="dpi">Nombre de la entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad propietaria">
+							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad propietaria" <?php if($pid != 0) {echo "value='$nombre_entidad'";}?>>
                         </div>
                         <div class="form-group col-md-6">
 							<label for="dpi">NIT de la entidad</label>
-							<input type="text" class="form-control" id="nit_entidad" placeholder="NIT de la entidad propietaria">
+							<input type="text" class="form-control" id="nit_entidad" placeholder="NIT de la entidad propietaria" <?php if($pid != 0) {echo "value='$nit_entidad'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="dpi">Dirección de la entidad</label>
-							<input type="text" class="form-control" id="direccion_entidad" placeholder="Dirección de la entidad propietaria">
+							<input type="text" class="form-control" id="direccion_entidad" placeholder="Dirección de la entidad propietaria" <?php if($pid != 0) {echo "value='$direccion_entidad'";}?>>
                         </div>
                         <div class="form-group col-md-6">
 							<label for="dpi">Departamento de la entidad</label>
-							<input type="text" class="form-control" id="departamento_entidad" placeholder="Departamento de la entidad propietaria">
+							<input type="text" class="form-control" id="departamento_entidad" placeholder="Departamento de la entidad propietaria" <?php if($pid != 0) {echo "value='$departamento_entidad'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="dpi">Municipio de la entidad</label>
-							<input type="text" class="form-control" id="municipio_entidad" placeholder="Municipio de la entidad propietaria">
+							<input type="text" class="form-control" id="municipio_entidad" placeholder="Municipio de la entidad propietaria" <?php if($pid != 0) {echo "value='$municipio_entidad'";}?>>
                         </div>
                         <div class="form-group col-md-6">
 							<label for="dpi">Cantidad del pago</label>
-							<input type="text" class="form-control" id="cantidad_del_pago" placeholder="Cantidad del pago">
+							<input type="text" class="form-control" id="cantidad_del_pago" placeholder="Cantidad del pago" <?php if($pid != 0) {echo "value='$cantidad_del_pago'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
 							<label for="fecha_emision">Fecha del pago</label>
-							<input type="date" class="form-control" id="fecha_del_pago" placeholder="Fecha del pago">
+							<input type="date" class="form-control" id="fecha_del_pago" placeholder="Fecha del pago" <?php if($pid != 0) {echo "value='$fecha_del_pago'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Número del formulario SAT</label>
-							<input type="text" class="form-control" id="numero_formulario_SAT" placeholder="Número del formulario SAT">
+							<input type="text" class="form-control" id="numero_formulario_SAT" placeholder="Número del formulario SAT" <?php if($pid != 0) {echo "value='$numero_formulario_sat'";}?>>
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
@@ -223,8 +263,12 @@
 
 					}
 
-					setTodaysDate('fecha_emision');
-
+					<?php
+					if($pid == 0)
+					{
+						setTodaysDate('fecha_emision');
+					}
+					?>
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">

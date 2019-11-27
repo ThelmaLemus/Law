@@ -57,11 +57,14 @@
 
 				echo "
 					<script>
-						var fecha_emision = ".$fecha_emision.";
-						
-						var fecha_emision_seteada = formatDate(fecha_emision);
-						
-						document.getElementById('inputdate').value = fecha_emision_seteada;
+					
+						var fecha_emision2 = ".$fecha_emision.";
+						var fecha_emision_seteada = formatDate(fecha_emision2);
+						document.getElementById('fecha_emision').value = fecha_emision_seteada;
+
+						var fecha_emision_actanotarial = ".$fecha_actanotarial.";
+						var fecha_emision_actanotarial_seteada = formatDate(fecha_emision_actanotarial);
+						document.getElementById('fecha_emision_actanotarial').value = fecha_emision_actanotarial_seteada;
 						
 					</script>
 				";
@@ -87,6 +90,7 @@
 				var nombre_notario_actanotarial = document.getElementById("nombre_notario_actanotarial").value;
 				var empresa_afectada = document.getElementById("empresa_afectada").value;
 				var usuario = "<?php echo $uid ?>";
+				var pid = "<?php echo $pid ?>";
 				var nombre_archivo = document.getElementById("nombre_archivo").value;
 				console.log(usuario);
 
@@ -105,7 +109,8 @@
 						nombre_notario_actanotarial : nombre_notario_actanotarial,
 						empresa_afectada : empresa_afectada,
 						usuario : usuario,
-						nombre_archivo : nombre_archivo
+						nombre_archivo : nombre_archivo,
+						pid : pid
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -153,53 +158,53 @@
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre del documento</label>
-							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento">
+							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
 						</div>
                     </div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="fecha_emision">Fecha</label>
-							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
+							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="text" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>'>
+							<input type="text" class="form-control" id="notario_name" value ='<?php if($pid == 0) {echo trim($user_full_name);} else {echo $nombre_notario;} ?>'>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputdate">Dirección</label>
-							<input type="text" class="form-control" id="direccion" placeholder="Dirección">
+							<input type="text" class="form-control" id="direccion" placeholder="Dirección" <?php if($pid != 0) {echo "value='$direccion'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante">
+							<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
 						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">DPI</label>
-							<input type="text" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante">
+							<input type="text" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante" <?php if($pid != 0) {echo "value='$dpi_solicitante'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="Entidad propietaria">
+							<input type="text" class="form-control" id="nombre_entidad" placeholder="Entidad propietaria" <?php if($pid != 0) {echo "value='$nombre_entidad'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
 							<label for="fecha_emision">Fecha de emisión de acta notarial</label>
-							<input type="date" class="form-control" id="fecha_emision_actanotarial" placeholder="Fecha de emisión de acta notarial">
+							<input type="date" class="form-control" id="fecha_emision_actanotarial" placeholder="Fecha de emisión de acta notarial" <?php if($pid != 0) {echo "value='$fecha_actanotarial'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="dpi">Notario de acta notarial</label>
-							<input type="text" class="form-control" id="nombre_notario_actanotarial" placeholder="Nombre del notario de acta notarial">
+							<input type="text" class="form-control" id="nombre_notario_actanotarial" placeholder="Nombre del notario de acta notarial" <?php if($pid != 0) {echo "value='$notario_actanotarial'";}?>>
 						</div>
 					</div>
 					<div class="form-row">
                         <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">Empresa afectada</label>
-							<input type="text" class="form-control" id="empresa_afectada" placeholder="Nombre de la empresa afectada">
+							<input type="text" class="form-control" id="empresa_afectada" placeholder="Nombre de la empresa afectada" <?php if($pid != 0) {echo "value='$empresa_afectada'";}?>>
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
@@ -219,8 +224,10 @@
 						});
 
 					}
-
-					setTodaysDate('fecha_emision');
+					<?php
+					if($pid == 0)
+						echo "setTodaysDate('fecha_emision');";
+					?>
 
  
 				</script>

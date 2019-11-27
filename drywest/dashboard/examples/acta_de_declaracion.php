@@ -177,7 +177,7 @@
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="texxt" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>'>
+							<input type="texxt" class="form-control" id="notario_name" value ='<?php if($pid == 0) {echo trim($user_full_name);} else {echo $nombre_notario;} ?>'>
 						</div>
                     </div>
                     <div class="form-row">
