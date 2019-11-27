@@ -142,6 +142,45 @@
 				});
 			};
 
+			function clearContents(element) {
+			element = '';
+		}
+
+		function save(){
+		//le di un id al input y con la siguiente linea obtengo el valor del comentario
+		comentario = document.getElementById("inputComentario").value;
+		console.log(comentario);
+		var pid = <?php echo $pid ?>;
+		var tipo = 4;
+		//LAS VARIABLES UID Y LID SON OBTENIDAS CON PHP Y YA ESTAN PARA USAR CON JS
+		//lid -> ya los tengo con php
+		//uid -> ya los tengo con php
+		$.ajax({
+			url: "guardar_comment.php",
+			type: "POST",
+			data:
+			{
+				pid : pid,
+				tipo : tipo,
+				comentario : comentario
+			},
+			success: function(r){
+				//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
+				if(r == 1){
+					alert("Agregado");
+//					clearContents(comentario);
+				}
+				else
+				{
+					console.log(r);
+				}
+			},
+		});
+		setTimeout(() => {
+						window.location.reload(true);
+					}, 2000);
+	}
+
 		</script>
 </head>
 <body class="fondon">
@@ -260,26 +299,9 @@
 
 		<div class="notas anotaciones">
 			<div class="accordion" id="accordionExample">
-				<form method="post">
-					<div class="buto">
-						<input type="text" name="valuetosearch" class="bus form-control my-sm-2" placeholder="Búsqueda" value= <?php echo str_replace('+', '&nbsp;', $val); ?>><br>
-						<div class="choose">
-							<div class="checklabel">
-								<input type="checkbox" id="contsearch" onclick="CheckBoxFunc('contsearch', 'contres')" checked>
-								<label for="contsearch">Contenido</label>
-							</div>
-							<div class="checlabel">
-								<input type="checkbox" id="comsearch" onclick="CheckBoxFunc('comsearch', 'comres')" checked>
-								<label for="contsearch">Comentarios</label>
-							</div>
-						</div>
-						<input type="submit" class="bus1 btn btn-outline-success my-2 my-sm-2" name="buscar" value="Buscar" onclick="SetVariables()"><br>
-					</div>
-				</form>
 				<div class="bot">
 					<div class="list-group notes-buttons" id="list-tab" role="tablist">
 						<a class="comment-result-buttons list-group-item list-group-item-action active" id="list-comments-list" data-toggle="list" href="#list-comments" role="tab" aria-controls="comments">Comentarios</a>
-						<a class="comment-result-buttons list-group-item list-group-item-action" id="list-results-list" data-toggle="list" href="#list-results" role="tab" aria-controls="results">Resultados</a>
 					</div>
 				</div>
 				<div class="card">
@@ -288,85 +310,18 @@
 							<div class="tab-pane fade show active" id="list-comments" role="tabpanel" aria-labelledby="list-comments-list">
 								<div class="card-body comments-card-body">
 									<div class="newcomment">
-										<textarea onfocus="clearContents(this);" class="form-control answinput" id="inputComentario" rows="3" 
+										<textarea class="form-control answinput" id="inputComentario" rows="3" 
 														placeholder="Ingresa un comentario o respuesta."></textarea>
-										<button type="button" name="actualizar" value="Actualizar" id="act" class="btn btn-primary btn-sm publish-button">Publicar</button>
+										<button type="button" name="actualizar" value="Actualizar" id="act" onclick="save();" class="btn btn-primary btn-sm publish-button">Publicar</button>
 									</div>
 									<div id="otroscomentarios">
 										<div class="fperse" id="comentsdiv">
 											<?php 
-												printComments($page,$lid);
+												$tipo = 4;
+												printComments($pid, $tipo);
 											?>
 										</div>
 									</div>
-								</div>
-							</div>
-							<div class="tab-pane fade" id="list-results" role="tabpanel" aria-labelledby="list-results-list">
-								<div class="card-body" id= "results">
-									<!-- <?php
-										if ($f==0) 
-										{
-											echo "Realice una búsqueda para observar resultados o sugerencias";
-										}
-										elseif (($f==1)||($f==11))
-										{
-											echo "<div id ='contres'><h5>Documento</h5>";
-											if($choose == 1 || $choose ==3){
-												echo "<script> showresults = true;
-												console.log('entro a cont')</script>";
-												$queryo2 = "SELECT DISTINCT pagina, articulo_inicio FROM contenido WHERE lid='$lid' AND contenido ILIKE '%".$valuetosearch."%' ORDER BY pagina";
-												$resulto2 = pg_query($dbconn, $queryo2) or die('Query failedd: ' . pg_last_error());
-												$co=pg_num_rows($resulto2);
-												if ($co==0)
-												{
-													echo "No se han encontrado sugerencias.";
-												}
-												elseif($co!=0)
-												{
-													while($rowo = pg_fetch_row($resulto2))
-													{
-														$pagina = $rowo[0];
-														echo "Página $pagina : <br>";
-														$articulo = $rowo[1];
-														echo "<a href='../examples/prueba.php?uid=$uid&lid=$lid&b=11&search=$valuetosearch&p=$pagina&c=$choose'> Artículo " . $articulo."</a>";
-														echo "<br>";
-													}
-												}
-											}else{
-												echo"Debe marcar la casilla de contenido y buscar de nuevo para ver resultados";
-											}
-											echo"</div>
-											<div id = 'comres'><h5>Comentarios</h5>";
-											if ($choose ==2 || $choose ==3) {
-												echo "<script> showresults = true;
-												console.log('entro a com')</script>";
-												$queryocom = "SELECT DISTINCT  Com.comentario, Com.cid, Com.pagina FROM comentarios Com WHERE '$lid' = Com.lid AND(Com.comentario ILIKE '%".$valuetosearch."%') ORDER BY Com.pagina";
-												$resultocom = pg_query($dbconn, $queryocom) or die('Query failedd: ' . pg_last_error());
-												$colcom=pg_num_rows($resultocom);
-												if ($colcom==0)
-												{
-													echo "No se han encontrado comentarios.";
-												}
-												elseif($colcom!=0)
-												{
-													while($rowo = pg_fetch_row($resultocom))
-													{
-														$pagina = $rowo[2];
-														echo "Página $pagina :";
-														$articulo = $rowo[0];
-														echo "<br>";
-														echo "<a href='../examples/prueba.php?uid=$uid&lid=$lid&b=11&search=$valuetosearch&p=$pagina&c=$choose'>$articulo</a> <br>";
-													}
-												}
-											}else{
-												echo"Debe marcar la casilla de comentarios y buscar de nuevo para ver resultados";
-											}
-											echo"</div>";
-										}
-										pg_free_result($result3);
-										pg_free_result($result0);
-										pg_free_result($result1);
-									?> -->
 								</div>
 							</div>
 						</div>
@@ -376,7 +331,43 @@
 		</div>
 	</div>
 	
+	<?php
 
+function printComments($pid, $tipo){
+	// echo"<h1>adios$p</h1>";
+	$pid = $pid;
+	$tipo = $tipo;
+	
+	$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
+	$dbcc = $link or die('Could not connect: ' . pg_last_error());
+	$queryo2 = "SELECT DISTINCT * FROM comentarios_documentos WHERE pid=$pid AND tipo=$tipo";
+	$resulto2 = pg_query($dbcc, $queryo2) or die('Query failedd: ' . pg_last_error());
+	$rownum=pg_num_rows($resulto2);
+	if ($rownum==0)
+	{
+		echo "";
+	}
+	elseif($rownum!=0)
+	{
+		echo"<ul class=\"list-group list-group-flush posts\">";
+
+		while($rowo = pg_fetch_row($resulto2))
+		{
+			$comment = $rowo[2];
+			echo"
+			<li class=\"list-group-item\">
+				<div class=\"post\">
+					<div class=\"postcontent\">
+						$comment
+					</div>
+				</div>
+			</li>";
+		}
+		echo"</ul>";
+	}
+}
+
+	?>
 
 
 </body>
