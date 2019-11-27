@@ -323,6 +323,33 @@
 
         <li class="nav-item">
           <?php 
+            $href = $index==1?"<a class=\"nav-link \" href=\"examples/leyes.php\">":"<a class=\"nav-link \" href=\"leyes.php\">";
+            echo $href;
+          ?>
+            <i class="ni ni-book-bookmark"></i> Leyes
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <?php 
+            $href = $index==1?"<a class=\"nav-link \" href=\"examples/acuerdos.php\">":"<a class=\"nav-link \" href=\"acuerdos.php\">";
+            echo $href;
+          ?>
+            <i class="ni ni-book-bookmark"></i> Acuerdos
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <?php 
+            $href = $index==1?"<a class=\"nav-link \" href=\"examples/convenios.php\">":"<a class=\"nav-link \" href=\"convenios.php\">";
+            echo $href;
+          ?>
+            <i class="ni ni-book-bookmark"></i> Convenios
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <?php 
             $href = $index==1?"<a class=\"nav-link \" href=\"examples/templates.php\">":"<a class=\"nav-link \" href=\"templates.php\">";
             echo $href;
           ?>

@@ -230,6 +230,15 @@ function setTodaysDate(input_id_element){
     fecha_field.value = fecha_formateada;
 }
 
+function formatDate(fecha_field){
+    var fecha_hoy = new Date(fecha_field);
+    var año = fecha_hoy.getFullYear();
+    var mes = fecha_hoy.getMonth() + 1;
+    var dia = fecha_hoy.getDate();
+    var fecha_formateada = año + "-" + mes + "-" + dia;
+    return fecha_formateada;
+}
+
 
 Date.daysBetween = function( date1, date2 ) {
   //Get 1 day in milliseconds
@@ -288,7 +297,7 @@ function setValues_cartadepoder(inputdate,nombre_a_dar, nombre_a_recibir, respon
 	DPI_testigo1m.innerText = DPI_testigo1;
 	DPI_testigo2m.innerText = DPI_testigo2;
 	cantidad_diasm.innerText = diferencia_endias;
-	fecha_finalm.innerText = fecha_final;
+	fecha_finalm.innerText = fixDate(fecha_final);
 }
 
 function setValues_actadedeclaracion(inputdate, notario_name, direccion, affected_name, affected_DPI, institucion, solicitud)
@@ -357,9 +366,169 @@ function setValues_declaracionjurada(fecha_emision,notario_name, direccion, affe
     nombre_solicitantem.innerText = affected_name;
     dpi_solicitantem.innerText = affected_DPI;
     nombre_entidadm.innerText = nombre_entidad;
-    fecha_emision_actanotarialm.innerText = fecha_emision_actanotarial;
+    fecha_emision_actanotarialm.innerText = fixDate(fecha_emision_actanotarial);
     nombre_notario_actanotarialm.innerText = nombre_notario_actanotarial;
     nombre_entidad2m.innerText = nombre_entidad;
     empresa_afectadam.innerText = empresa_afectada;
     empresa_afectada2m.innerText = empresa_afectada;
+}
+
+function setValues_declaracionjurada_SAT(fecha_emision,notario_name, direccion, affected_name, affected_DPI, affected_NIT, nombre_entidad, nit_entidad, direccion_entidad, departamento_entidad, municipio_entidad, cantidad_del_pago, fecha_del_pago, numero_formulario_SAT)
+{
+    //INPUTS
+    var fecha_emision = document.getElementById(fecha_emision).value;
+    var notario_name = document.getElementById(notario_name).value;
+    var direccion = document.getElementById(direccion).value;
+    var affected_name = document.getElementById(affected_name).value;
+    var affected_DPI = document.getElementById(affected_DPI).value;
+    var affected_NIT = document.getElementById(affected_NIT).value;
+    var nombre_entidad = document.getElementById(nombre_entidad).value;
+    var nit_entidad = document.getElementById(nit_entidad).value;
+    var direccion_entidad = document.getElementById(direccion_entidad).value;
+    var departament_entidad = document.getElementById(departamento_entidad).value;
+    var municipio_entidad = document.getElementById(municipio_entidad).value;
+    var cantidad_del_pago = document.getElementById(cantidad_del_pago).value;
+    var fecha_del_pago = document.getElementById(fecha_del_pago).value;
+    var numero_formulario_SAT = document.getElementById(numero_formulario_SAT).value;
+
+    //MARKS
+    var fecha_emisionm = document.getElementById("fecha_emisionm");
+    var nombre_notariom = document.getElementById("nombre_notariom");
+    var direccionm = document.getElementById("direccionm");
+    var nombre_solicitantem = document.getElementById("nombre_solicitantem");
+    var dpi_solicitantem = document.getElementById("dpi_solicitantem");
+    var NIT_solicitantem = document.getElementById("NIT_solicitantem");
+    var nombre_entidadm = document.getElementById("nombre_entidadm");
+    var nombre_entidad2m = document.getElementById("nombre_entidad2m");
+    var NIT_entidadm = document.getElementById("NIT_entidadm");
+    var direccion_entidadm = document.getElementById("direccion_entidadm");
+    var departamento_entidadm = document.getElementById("departamento_entidadm");
+    var municipio_entidadm = document.getElementById("municipio_entidadm");
+    var cantidad_del_pagom = document.getElementById("cantidad_del_pagom");
+    var fecha_del_pagom = document.getElementById("fecha_del_pagom");
+    var numero_formulario_SATm = document.getElementById("numero_formulario_SATm");
+    var cantidad_del_pago2m = document.getElementById("cantidad_del_pago2m"); 
+
+    fecha_emisionm.innerText = fixDate(fecha_emision);
+    nombre_notariom.innerText = notario_name;
+    direccionm.innerText = direccion;
+    nombre_solicitantem.innerText = affected_name;
+    dpi_solicitantem.innerText = affected_DPI;
+    NIT_solicitantem.innerText = affected_NIT;
+    nombre_entidadm.innerText = nombre_entidad;
+    nombre_entidad2m.innerText = nombre_entidad;
+    NIT_entidadm.innerText = nit_entidad;
+    direccion_entidadm.innerText = direccion_entidad;
+    departamento_entidadm.innerText = departament_entidad;
+    municipio_entidadm.innerText = municipio_entidad;
+    cantidad_del_pagom.innerText = cantidad_del_pago;
+    fecha_del_pagom.innerText = fixDate(fecha_del_pago);
+    numero_formulario_SATm.innerText = numero_formulario_SAT;
+    cantidad_del_pago2m.innerText = cantidad_del_pago;
+
+}
+
+function setValues_ampliacion(fecha_emision,nombre_notario, numero_escritura, fecha_autorizacion, contenido_escritura, nombre_solicitante, tipo_documento, numero_documento, ampliacion)
+{
+    //INPUTS
+    var fecha_emision = document.getElementById(fecha_emision).value;
+    var nombre_notario = document.getElementById(nombre_notario).value;
+    var numero_escritura = document.getElementById(numero_escritura).value;
+    var fecha_autorizacion = document.getElementById(fecha_autorizacion).value;
+    var contenido_escritura = document.getElementById(contenido_escritura).value;
+    var nombre_solicitante = document.getElementById(nombre_solicitante).value;
+    var tipo_documento = document.getElementById(tipo_documento).value;
+    var numero_documento = document.getElementById(numero_documento).value;
+    var ampliacion = document.getElementById(ampliacion).value;
+
+    //MARKS
+    var fecha_emisionm = document.getElementById("fecha_emisionm");
+    var nombre_notariom = document.getElementById("nombre_notariom");
+    var numero_escrituram = document.getElementById("numero_escrituram");
+    var fecha_autorizacionm = document.getElementById("fecha_autorizacionm");
+    var contenido_escrituram = document.getElementById("contenido_escrituram");
+    var nombre_solicitantem = document.getElementById("nombre_solicitantem");
+    var tipo_documentom = document.getElementById("tipo_documentom");
+    var numero_documentom = document.getElementById("numero_documentom");
+    var ampliacionm = document.getElementById("ampliacionm");
+    var nombre_solicitante2m = document.getElementById("nombre_solicitante2m");
+    var numero_escritura2m = document.getElementById("numero_escritura2m");
+    var fecha_autorizacion2m = document.getElementById("fecha_autorizacion2m");
+
+
+    fecha_emisionm.innerText = fixDate(fecha_emision);
+    nombre_notariom.innerText = nombre_notario;
+    numero_escrituram.innerText = numero_escritura;
+    fecha_autorizacionm.innerText = fixDate(fecha_autorizacion);
+    contenido_escrituram.innerText = contenido_escritura;
+    nombre_solicitantem.innerText = nombre_solicitante;
+    tipo_documentom.innerText = tipo_documento;
+    numero_documentom.innerText = numero_documento;
+    ampliacionm.innerText = ampliacion;
+    nombre_solicitante2m.innerText = nombre_solicitante;
+    numero_escritura2m.innerText = numero_escritura;
+    fecha_autorizacion2m.innerText = fixDate(fecha_autorizacion);
+}
+
+function setValues_nombramiento(nombre_entidad,fecha_emision, nombre_notario, direccion, nombre_solicitante, dpi_solicitante, numero_escritura, notario_escritura, fecha_autorizacion, actividades, numero_acta, fecha_acta, plazo_enaños)
+{
+
+    //INPUTS
+    var nombre_entidad = document.getElementById(nombre_entidad).value;
+    var fecha_emision = document.getElementById(fecha_emision).value;
+    var nombre_notario = document.getElementById(nombre_notario).value;
+    var direccion = document.getElementById(direccion).value;
+    var nombre_solicitante = document.getElementById(nombre_solicitante).value;
+    var dpi_solicitante = document.getElementById(dpi_solicitante).value;
+    var numero_escritura = document.getElementById(numero_escritura).value;
+    var notario_escritura = document.getElementById(notario_escritura).value;
+    var fecha_autorizacion = document.getElementById(fecha_autorizacion).value;
+    var actividades = document.getElementById(actividades).value;
+    var numero_acta = document.getElementById(numero_acta).value;
+    var fecha_acta = document.getElementById(fecha_acta).value;
+    var plazo_enaños = document.getElementById(plazo_enaños).value;
+
+    //MARKS
+    var nombre_entidadm = document.getElementById("nombre_entidadm");
+    var fecha_emisionm = document.getElementById("fecha_emisionm");
+    var nombre_notariom = document.getElementById("nombre_notariom");
+    var direccionm = document.getElementById("direccionm");
+    var nombre_solicitantem = document.getElementById("nombre_solicitantem");
+    var dpi_solicitantem = document.getElementById("dpi_solicitantem");
+    var nombre_entidad2m = document.getElementById("nombre_entidad2m");
+    var nombre_entidad3m = document.getElementById("nombre_entidad3m");
+    var numero_escrituram = document.getElementById("numero_escrituram");
+    var notario_escrituram = document.getElementById("notario_escrituram");
+    var fecha_autorizacionm = document.getElementById("fecha_autorizacionm");
+    var actividadesm = document.getElementById("actividadesm");
+    var numero_actam = document.getElementById("numero_actam");
+    var nombre_entidad4m = document.getElementById("nombre_entidad4m");
+    var fecha_actam = document.getElementById("fecha_actam");
+    var nombre_solicitante2m = document.getElementById("nombre_solicitante2m");
+    var nombre_entidad5m = document.getElementById("nombre_entidad5m");
+    var plazo_enañosm = document.getElementById("plazo_enañosm");
+    var nombre_entidad6m = document.getElementById("nombre_entidad6m");
+    var nombre_solicitante3m = document.getElementById("nombre_solicitante3m");
+
+    nombre_entidadm.innerText = nombre_entidad;
+    fecha_emisionm.innerText = fixDate(fecha_emision);
+    nombre_notariom.innerText = nombre_notario;
+    direccionm.innerText = direccion;
+    nombre_solicitantem.innerText = nombre_solicitante;
+    dpi_solicitantem.innerText = dpi_solicitante;
+    nombre_entidad2m.innerText = nombre_entidad;
+    nombre_entidad3m.innerText = nombre_entidad;
+    numero_escrituram.innerText = numero_escritura;
+    notario_escrituram.innerText = notario_escritura;
+    fecha_autorizacionm.innerText = fixDate(fecha_autorizacion);
+    actividadesm.innerText = actividades;
+    numero_actam.innerText = numero_acta;
+    nombre_entidad4m.innerText = nombre_entidad;
+    fecha_actam.innerText = fixDate(fecha_acta);
+    nombre_solicitante2m.innerText = nombre_solicitante;
+    nombre_entidad5m.innerText = nombre_entidad;
+    plazo_enañosm.innerText = plazo_enaños;
+    nombre_entidad6m.innerText = nombre_entidad;
+    nombre_solicitante3m.innerText = nombre_solicitante;
+    
 }

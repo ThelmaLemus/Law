@@ -10,11 +10,30 @@
     $nombre_notario_actanotarial = $_POST['nombre_notario_actanotarial'];
     $empresa_afectada = $_POST['empresa_afectada'];
     $usuario = $_POST['usuario'];
+    $pid = $_POST['pid'];
 
     $link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
 
-    $query = "INSERT INTO extravio_patente(fecha_emision, notario_name, direccion, affected_name, affected_dpi, nombre_entidad, fecha_emision_actanotarial, nombre_notario_actanotarial, empresa_afectada, usuario, nombre_documento) 
+    if($pid == 0)
+    {
+        $query = "INSERT INTO extravio_patente(fecha_emision, notario_name, direccion, affected_name, affected_dpi, nombre_entidad, fecha_emision_actanotarial, nombre_notario_actanotarial, empresa_afectada, usuario, nombre_documento) 
                 VALUES ('$fecha_emision', '$notario_name', '$direccion', '$affected_name', '$affected_DPI', '$nombre_entidad', '$fecha_emision_actanotarial', '$nombre_notario_actanotarial', '$empresa_afectada', $usuario, '$nombre_archivo')";
+    }
+    else
+    {
+        $query = "UPDATE extravio_patente SET
+                    fecha_emision = '$fecha_emision',
+                    notario_name = '$notario_name',
+                    direccion = '$direccion',
+                    affected_name = '$affected_name',
+                    affected_dpi = '$affected_DPI',
+                    nombre_entidad = '$nombre_entidad',
+                    fecha_emision_actanotarial = '$fecha_emision_actanotarial',
+                    nombre_notario_actanotarial = '$nombre_notario_actanotarial',
+                    empresa_afectada = '$empresa_afectada',
+                    nombre_documento = '$nombre_archivo'
+                WHERE pid = $pid";
+    }
     
     $result = pg_query($link, $query);
     if($result){   

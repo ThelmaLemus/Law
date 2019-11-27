@@ -5,6 +5,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.943/build/pdf.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/f529d3c7df.js" crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.debug.js"></script>
 
@@ -14,11 +15,6 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
-<link href="../assets/js/plugins/nucleo/css/nucleo.css rel=stylesheet />
-      <link href=../assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css rel=stylesheet />
-      <link href=../assets/css/argon-dashboard.css?v=1.1.0 rel=stylesheet />
-      <link href=../assets/css/nvbr.css rel=stylesheet />
-      <link href=../assets/css/main.css rel=stylesheet />
 
 
 	<script
@@ -30,35 +26,77 @@
 	<script src="pdf.worker.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
 	<script src="../assets/js/templates_func.js"></script>
-	<script src="../assets/js/moments.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale = 1.0">
 	<meta charset="utf-8">
-		<title>Declaración jurada - SAT</title>
+		<title>SAT - Declaración jurada</title>
 		<?php 
 			$uid = $_GET['uid'];
-			 include "navbar.php";
-			 include "../assets/php/upload_dpi.php"; 
+			$pid = $_GET['pid'];
+			if($pid != 0)
+			{
+				$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
+				$query = "SELECT * FROM declaracionjurada_sat WHERE pid = $pid";
+				$result = pg_query($link, $query);
+				$row = pg_fetch_row($result);
+				$fecha_emision = trim($row[0]);
+				$nombre_notario = trim($row[1]);
+				$direccion = trim($row[2]);
+				$nombre_solicitante = trim($row[3]);
+				$dpi_solicitante = trim($row[4]);
+				$nit_solicitante = trim($row[5]);
+				$nombre_entidad = trim($row[6]);
+				$nit_entidad = trim($row[7]);
+				$direccion_entidad = trim($row[8]);
+				$departamento_entidad = trim($row[9]);
+				$municipio_entidad = trim($row[10]);
+				$cantidad_del_pago = trim($row[11]);
+				$fecha_del_pago = trim($row[12]);
+				$numero_formulario_sat = trim($row[13]);
+				$nombre_archivo = trim($row[15]);
+
+				echo "<script> console.log(".$fecha_emision."); </script>";
+
+				/* echo "
+					<script>
+						var fecha_emision2 = ".$fecha_emision.";
+						var fecha_emision_seteada = formatDate(fecha_emision2);
+						document.getElementById('fecha_emision').value = fecha_emision_seteada;
+
+						var fecha_del_pago = ".$fecha_del_pago.";
+						var fecha_del_pago_seteada = formatDate(fecha_del_pago);
+						document.getElementById('fecha_del_pago').value = fecha_del_pago_seteada;
+						
+					</script>
+				"; */
+			}
+			include "navbar.php";
+			include "../assets/php/upload_dpi.php"; 
 		?>
 		<script>
 			localStorage.setItem('busco', false);
-
+ 
 			function converttoPDF()
 			{
-				console.log('hola');
-
+                
 				//GUARDAR
 				var fecha_emision = document.getElementById("fecha_emision").value;
 				var notario_name = document.getElementById("notario_name").value;
 				var direccion = document.getElementById("direccion").value;
 				var affected_name = document.getElementById("affected_name").value;
-				var affected_DPI = document.getElementById("affected_DPI").value;
-				var nombre_entidad = document.getElementById("nombre_entidad").value;
-				var fecha_emision_actanotarial = document.getElementById("fecha_emision_actanotarial").value;
-				var nombre_notario_actanotarial = document.getElementById("nombre_notario_actanotarial").value;
-				var empresa_afectada = document.getElementById("empresa_afectada").value;
+                var affected_DPI = document.getElementById("affected_DPI").value;
+                var affected_NIT = document.getElementById("affected_NIT").value;
+                var nombre_entidad = document.getElementById("nombre_entidad").value;
+                var nit_entidad = document.getElementById("nit_entidad").value;
+                var direccion_entidad = document.getElementById("direccion_entidad").value;
+				var departament_entidad = document.getElementById("departamento_entidad").value;
+				var municipio_entidad = document.getElementById("municipio_entidad").value;
+                var cantidad_del_pago = document.getElementById("cantidad_del_pago").value;
+                var fecha_del_pago = document.getElementById("fecha_del_pago").value;
+                var numero_formulario_SAT = document.getElementById("numero_formulario_SAT").value;
 				var usuario = "<?php echo $uid ?>";
-				var nombre_archivo = document.getElementById("nombre_archivo").value;
-				console.log(usuario);
+				var pid = "<?php echo $pid ?>";
+				var nombre_archivo = document.getElementById("fname").value;
+//				console.log(usuario);
 
 				$.ajax({
 					type: "POST",
@@ -66,16 +104,22 @@
 					data:
 					{
 						fecha_emision : fecha_emision,
-						notario_name : notario_name,
-						direccion : direccion,
-						affected_name : affected_name,
-						affected_DPI : affected_DPI,
-						nombre_entidad : nombre_entidad,
-						fecha_emision_actanotarial : fecha_emision_actanotarial,
-						nombre_notario_actanotarial : nombre_notario_actanotarial,
-						empresa_afectada : empresa_afectada,
-						usuario : usuario,
-						nombre_archivo : nombre_archivo
+                        notario_name : notario_name,
+                        direccion : direccion,
+                        affected_name : affected_name,
+                        affected_DPI : affected_DPI,
+                        affected_NIT : affected_NIT,
+                        nombre_entidad : nombre_entidad,
+                        nit_entidad : nit_entidad,
+                        direccion_entidad : direccion_entidad,
+                        departament_entidad : departament_entidad,
+                        municipio_entidad : municipio_entidad,
+                        cantidad_del_pago : cantidad_del_pago,
+                        fecha_del_pago : fecha_del_pago,
+                        numero_formulario_SAT : numero_formulario_SAT,
+                        usuario : usuario,
+						nombre_archivo : nombre_archivo,
+						pid : pid
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -107,6 +151,20 @@
 				});
 			};
 
+/* 			function genPDF()
+			{
+			html2canvas(document.getElementById("profile"),{
+			onrendered:function(canvas){
+
+			var img=canvas.toDataURL("image/png");
+			var doc = new jsPDF();
+			doc.addImage(img,'JPEG',20,20);
+			doc.save('test.pdf');
+			}
+
+			});
+
+			} */
 		</script>
 </head>
 <body class="fondon">
@@ -115,108 +173,105 @@
 		<div class="letter">
 			<div class="editop list-group" id="myList" role="tablist">
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
-				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_declaracionjurada('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'nombre_entidad', 'fecha_emision_actanotarial', 'nombre_notario_actanotarial', 'empresa_afectada');">Vista previa</a>
+				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_declaracionjurada_SAT('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'affected_NIT', 'nombre_entidad', 'nit_entidad', 'direccion_entidad', 'departamento_entidad', 'municipio_entidad', 'cantidad_del_pago', 'fecha_del_pago', 'numero_formulario_SAT');">Vista previa</a>
 			</div>
-			<h2 class="docname">Declaración jurada - SAT</h2>
+			<h2 class="docname">SAT - declaración jurada</h2>
 			<div class="tab-content Lcontent">
-				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
-					<div class="form-row">
+				<form method='post' class="tab-pane active" id="home" >
+					<div class="form-row" enctype="multipart/form-data">
 						<div class="form-group col-md-6">
-							<label for="notario_name">Nombre del documento</label>
-							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento">
+							<!-- <div class="row"> -->
+								<input type="file" name="sig" class="custom-file-input" id="dpisgin" aria-describedby="inputGroupFileAddon01">
+								<label class="btn btn-primary" for="dpisgin"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
+								<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
+							<!-- </div> -->
+						</div>
+						<div class="form-group col-md-6">
+							<label for="fname">Nombre archivo</label>
+							<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
 						</div>
                     </div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="fecha_emision">Fecha de emisión</label>
-							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
+							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre del notario</label>
-							<input type="text" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>'>
+							<input type="text" class="form-control" id="notario_name" value ='<?php if($pid == 0) {echo trim($user_full_name);} else {echo $nombre_notario;} ?>'>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputdate">Dirección del notario</label>
-							<input type="text" class="form-control" id="direccion" placeholder="Dirección de oficina del notario">
+							<input type="text" class="form-control" id="direccion" placeholder="Dirección de oficina del notario" <?php if($pid != 0) {echo "value='$direccion'";}?>>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre del solicitante</label>
-							<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante">
+							<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
 						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">DPI del solicitante</label>
-							<input type="text" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante">
+							<input type="text" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante" <?php if($pid != 0) {echo "value='$dpi_solicitante'";}?>>
                         </div>
                         <div class="form-group col-md-6" id="templ">
 							<label for="affected_name">NIT del solicitante</label>
-							<input type="text" class="form-control" id="affected_NIT" placeholder="Número de NIT del solicitante">
+							<input type="text" class="form-control" id="affected_NIT" placeholder="Número de NIT del solicitante" <?php if($pid != 0) {echo "value='$nit_solicitante'";}?>>
                         </div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="dpi">Nombre de la entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad propietaria">
+							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad propietaria" <?php if($pid != 0) {echo "value='$nombre_entidad'";}?>>
                         </div>
                         <div class="form-group col-md-6">
 							<label for="dpi">NIT de la entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="NIT de la entidad propietaria">
+							<input type="text" class="form-control" id="nit_entidad" placeholder="NIT de la entidad propietaria" <?php if($pid != 0) {echo "value='$nit_entidad'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="dpi">Nombre de la entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="Nombre de la entidad propietaria">
+							<label for="dpi">Dirección de la entidad</label>
+							<input type="text" class="form-control" id="direccion_entidad" placeholder="Dirección de la entidad propietaria" <?php if($pid != 0) {echo "value='$direccion_entidad'";}?>>
                         </div>
                         <div class="form-group col-md-6">
-							<label for="dpi">NIT de la entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="NIT de la entidad propietaria">
+							<label for="dpi">Departamento de la entidad</label>
+							<input type="text" class="form-control" id="departamento_entidad" placeholder="Departamento de la entidad propietaria" <?php if($pid != 0) {echo "value='$departamento_entidad'";}?>>
+						</div>
+                    </div>
+                    <div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="dpi">Municipio de la entidad</label>
+							<input type="text" class="form-control" id="municipio_entidad" placeholder="Municipio de la entidad propietaria" <?php if($pid != 0) {echo "value='$municipio_entidad'";}?>>
+                        </div>
+                        <div class="form-group col-md-6">
+							<label for="dpi">Cantidad del pago</label>
+							<input type="text" class="form-control" id="cantidad_del_pago" placeholder="Cantidad del pago" <?php if($pid != 0) {echo "value='$cantidad_del_pago'";}?>>
 						</div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-							<label for="fecha_emision">Fecha de emisión de acta notarial</label>
-							<input type="date" class="form-control" id="fecha_emision_actanotarial" placeholder="Fecha de emisión de acta notarial">
+							<label for="fecha_emision">Fecha del pago</label>
+							<input type="date" class="form-control" id="fecha_del_pago" placeholder="Fecha del pago" <?php if($pid != 0) {echo "value='$fecha_del_pago'";}?>>
 						</div>
 						<div class="form-group col-md-6">
-							<label for="dpi">Notario de acta notarial</label>
-							<input type="text" class="form-control" id="nombre_notario_actanotarial" placeholder="Nombre del notario de acta notarial">
-						</div>
-					</div>
-					<div class="form-row">
-                        <div class="form-group col-md-6" id="templ">
-							<label for="affected_name">Empresa afectada</label>
-							<input type="text" class="form-control" id="empresa_afectada" placeholder="Nombre de la empresa afectada">
+							<label for="dpi">Número del formulario SAT</label>
+							<input type="text" class="form-control" id="numero_formulario_SAT" placeholder="Número del formulario SAT" <?php if($pid != 0) {echo "value='$numero_formulario_sat'";}?>>
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
 				</form>
-			
-
 				<script>
-					 function imprimir(){
-						//send the div to PDF
-						html2canvas($("#templ"), { // DIV ID HERE
-							onrendered: function(canvas) {
-								var imgData = canvas.toDataURL('image/png'); 
-								var doc = new jsPDF('landscape');
-								doc.addImage(imgData, 'PDF', 10, 10);
-								doc.save('sample-file.pdf'); //SAVE PDF FILE
-							}
-						});
 
-					}
-
-					setTodaysDate('fecha_emision');
-
+				setTodaysDate('fecha_emision');
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">
 					<div class="ntext" id="ntext">
-                    En la Ciudad de Guatemala, el <mark id="fecha_emisionm"></mark>, Yo: <mark id="nombre_notariom"></mark>, Notario, 
+						<!-- <h2 class="docname" style="display: none;">Acta de declaración jurada</h2> -->
+                        En la Ciudad de Guatemala, el <mark id="fecha_emisionm"></mark>, Yo: <mark id="nombre_notariom"></mark>, Notario, 
                     en ejercicio, constituido en mi oficina profesional ubicada en <mark id="direccionm"></mark>, de la ciudad de Guatemala, 
                     a requerimiento de <mark id="nombre_solicitantem"></mark>, quien se identifica con Documento Personal de 
                     Identificación –DPI- con Código Único de Identificación –CUI- <mark id="dpi_solicitantem"></mark>, extendido por 
@@ -249,13 +304,16 @@
                     más que hacer constar, se finaliza la presente en el mismo lugar y fecha, a las cuales se les adhieren los timbres 
                     de ley. Leo lo escrito al requirente, quien enterado de su contenido, objeto, validez y efectos legales, la ratifica, 
                     acepta y firma, haciéndolo a continuación el Notario, quien de todo lo actuado DOY FE. 
-
-
+					</div>
+					<div>&nbsp;</div>
+					<div>&nbsp;</div>
+					<div>&nbsp;</div>
+					<div>&nbsp;</div>
+					<br><br><br><br><br>
+				</div>
 				<div id="elementH"></div>
 				<!-- <button onclick="converttoPDF()">Descargar</button> -->
 			</div>
-		</div>
-		</div>
 		</div>
 
 		<div class="notas anotaciones">

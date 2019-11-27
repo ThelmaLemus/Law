@@ -31,6 +31,31 @@
 		<title>Single_Template</title>
 		<?php 
 			$uid = $_GET['uid'];
+			$pid = $_GET['pid'];
+			if($pid != 0)
+			{
+				$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
+				$query = "SELECT * FROM autenticacion_de_firma WHERE pid = $pid";
+				$result = pg_query($link, $query);
+				$row = pg_fetch_row($result);
+				$fecha = trim($row[0]);
+				$nombre_notario = trim($row[1]);
+				$nombre_solicitante = trim($row[2]);
+				$dpi = trim($row[3]);
+				$nombre_archivo = trim($row[6]);
+
+				echo "
+					<script>
+						console.log(".$fecha.");
+						var fecha_emision = ".$fecha.";
+						
+						var fecha_emision_seteada = formatDate(fecha_emision);
+						
+						document.getElementById('inputdate').value = fecha_emision_seteada;
+						
+					</script>
+				";
+			}
 			// $pid = $_GET['pid'];
 			include "navbar.php";
 			include "../assets/php/upload_dpi.php"; 
@@ -47,8 +72,9 @@
 				var nombre_notario = document.getElementById("notario_name").value;
 				var nombre_solicitante = document.getElementById("affected_name").value;
 				var dpi_solicitante = document.getElementById("dpi").value;
-				var usuario = "<?php echo $uid ?>";
-				// var pid = "<?php ?>";
+				//var pid = $pid;
+				var usuario = "<?php echo $uid; ?>";
+				var pid = "<?php echo $pid; ?>";
 //				console.log(usuario);
 				var nombre_archivo = document.getElementById("fname").value;
 				if(nombre_archivo == "" || nombre_archivo == null){
@@ -64,7 +90,8 @@
 							nombre_solicitante : nombre_solicitante,
 							dpi_solicitante : dpi_solicitante,
 							usuario : usuario,
-							nombre_archivo: nombre_archivo
+							nombre_archivo: nombre_archivo,
+							pid : pid
 						},
 						success: function(r){
 							//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -137,12 +164,14 @@
 							<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
 							<!-- </div> -->
 						</form>
-						<div class="form-group col-md-6">
-							<label for="fname">Nombre archivo</label>
-							<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf	">
-						</div>
 					</div>
 					<form  method='post'  enctype="multipart/form-data">
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="fname">Nombre archivo</label>
+								<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
+							</div>
+						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="inputdate">Fecha</label>
@@ -179,9 +208,10 @@
 						});
 
 					}
-
-					
-					setTodaysDate('inputdate');
+					<?php
+					if($pid == 0)
+						echo "setTodaysDate('inputdate');";
+					?>
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">

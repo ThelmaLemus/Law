@@ -75,4 +75,61 @@ CREATE TABLE public.vistas
         REFERENCES public.leyes (lid) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
+
+CREATE TABLE nombramiento
+(
+	nombre_entidad character(60),
+	fecha_emision character(60),
+	nombre_notario character(60),
+	direccion character(60),
+	nombre_solicitante character(60),
+	dpi_solicitante character(15),
+	numero_escritura character(60),
+	notario_escritura character(60),
+	fecha_autorizacion character(60),
+	actividades character(500),
+	numero_acta character(60),
+	fecha_acta character(60),
+	plazo_enaños character(30),
+	usuario integer,
+	nombre_archivo character(30),
+	pid serial
+);
+
+CREATE TABLE declaracionjurada_sat
+(
+	fecha_emision character(60),
+	notario_name character(60),
+	direccion character(60),
+	affected_name character(60),
+	affected_dpi character(15),
+	affected_nit character(15),
+	nombre_entidad character(60),
+	nit_entidad character(15),
+	direccion_entidad character(60),
+	departament_entidad character(30),
+	municipio_entidad character(30),
+	cantidad_del_pago character(60),
+	fecha_del_pago character(60),
+	numero_formulario_sat character(60),
+	usuario integer,
+	nombre_archivo character(30),
+	pid serial
+);
+
+CREATE TABLE ampliacion
+(
+	fecha_emision character(60),
+	nombre_notario character(60),
+	numero_escritura character(60),
+	fecha_autorizacion character(60),
+	contenido_escritura character(60),
+	nombre_solicitante character(60),
+	tipo_documento character(30),
+	numero_documento character(15),
+	ampliacion character(500),
+	usuario integer,
+	nombre_archivo character(30),
+	pid serial
+);

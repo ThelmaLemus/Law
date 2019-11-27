@@ -36,39 +36,6 @@
 		<title>Declaración jurada</title>
 		<?php 
 			$uid = $_GET['uid'];
-			$pid = $_GET['pid'];
-
-			if($pid != 0)
-			{
-				$link = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998");
-				$query = "SELECT * FROM extravio_patente WHERE pid = $pid";
-				$result = pg_query($link, $query);
-				$row = pg_fetch_row($result);
-				$fecha_emision = trim($row[1]);
-				$nombre_notario = trim($row[2]);
-				$direccion = trim($row[3]);
-				$nombre_solicitante = trim($row[4]);
-				$dpi_solicitante = trim($row[5]);
-				$nombre_entidad = trim($row[6]);
-				$fecha_actanotarial = trim($row[7]);
-				$notario_actanotarial = trim($row[8]);
-				$empresa_afectada = trim($row[9]);
-				$nombre_archivo = trim($row[0]);
-
-				echo "
-					<script>
-					
-						var fecha_emision2 = ".$fecha_emision.";
-						var fecha_emision_seteada = formatDate(fecha_emision2);
-						document.getElementById('fecha_emision').value = fecha_emision_seteada;
-
-						var fecha_emision_actanotarial = ".$fecha_actanotarial.";
-						var fecha_emision_actanotarial_seteada = formatDate(fecha_emision_actanotarial);
-						document.getElementById('fecha_emision_actanotarial').value = fecha_emision_actanotarial_seteada;
-						
-					</script>
-				";
-			}
 			 include "navbar.php";
 			 include "../assets/php/upload_dpi.php"; 
 		?>
@@ -81,36 +48,34 @@
 
 				//GUARDAR
 				var fecha_emision = document.getElementById("fecha_emision").value;
-				var notario_name = document.getElementById("notario_name").value;
-				var direccion = document.getElementById("direccion").value;
-				var affected_name = document.getElementById("affected_name").value;
-				var affected_DPI = document.getElementById("affected_DPI").value;
-				var nombre_entidad = document.getElementById("nombre_entidad").value;
-				var fecha_emision_actanotarial = document.getElementById("fecha_emision_actanotarial").value;
-				var nombre_notario_actanotarial = document.getElementById("nombre_notario_actanotarial").value;
-				var empresa_afectada = document.getElementById("empresa_afectada").value;
+                var nombre_notario = document.getElementById("nombre_notario").value;
+                var numero_escritura = document.getElementById("numero_escritura").value;
+                var fecha_autorizacion = document.getElementById("fecha_autorizacion").value;
+                var contenido_escritura = document.getElementById("contenido_escritura").value;
+                var nombre_solicitante = document.getElementById("nombre_solicitante").value;
+                var tipo_documento = document.getElementById("tipo_documento").value;
+                var numero_documento = document.getElementById("numero_documento").value;
+                var ampliacion = document.getElementById("ampliacion").value;
 				var usuario = "<?php echo $uid ?>";
-				var pid = "<?php echo $pid ?>";
 				var nombre_archivo = document.getElementById("nombre_archivo").value;
 				console.log(usuario);
 
 				$.ajax({
 					type: "POST",
-					url: "guardartemplates/guardar_declaracionjurada_extraviodepatente.php",
+					url: "guardartemplates/guardar_ampliacion.php",
 					data:
 					{
 						fecha_emision : fecha_emision,
-						notario_name : notario_name,
-						direccion : direccion,
-						affected_name : affected_name,
-						affected_DPI : affected_DPI,
-						nombre_entidad : nombre_entidad,
-						fecha_emision_actanotarial : fecha_emision_actanotarial,
-						nombre_notario_actanotarial : nombre_notario_actanotarial,
-						empresa_afectada : empresa_afectada,
-						usuario : usuario,
-						nombre_archivo : nombre_archivo,
-						pid : pid
+                        nombre_notario : nombre_notario,
+                        numero_escritura : numero_escritura,
+                        fecha_autorizacion : fecha_autorizacion,
+                        contenido_escritura : contenido_escritura,
+                        nombre_solicitante : nombre_solicitante,
+                        tipo_documento : tipo_documento,
+                        numero_documento : numero_documento,
+                        ampliacion : ampliacion,
+                        usuario : usuario,
+                        nombre_archivo : nombre_archivo
 					},
 					success: function(r){
 						//si el retorno al llamar el archivo es 1 lo guardo de lo contrario no lo guardo
@@ -150,61 +115,62 @@
 		<div class="letter">
 			<div class="editop list-group" id="myList" role="tablist">
 				<a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Edición</a>
-				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_declaracionjurada('fecha_emision','notario_name', 'direccion', 'affected_name', 'affected_DPI', 'nombre_entidad', 'fecha_emision_actanotarial', 'nombre_notario_actanotarial', 'empresa_afectada');">Vista previa</a>
+				<a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab" onclick="setValues_ampliacion('fecha_emision','nombre_notario', 'numero_escritura', 'fecha_autorizacion', 'contenido_escritura', 'nombre_solicitante', 'tipo_documento', 'numero_documento', 'ampliacion');">Vista previa</a>
 			</div>
-			<h2 class="docname">Declaración jurada, extravío de patente</h2>
+			<h2 class="docname">Ampliación</h2>
 			<div class="tab-content Lcontent">
 				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre del documento</label>
-							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
+							<input type="text" class="form-control" id="nombre_archivo" placeholder="Nombre para guardar el documento">
 						</div>
                     </div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="fecha_emision">Fecha</label>
-							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha_emision'";}?>>
+							<input type="date" class="form-control" id="fecha_emision" placeholder="Fecha de emisión">
 						</div>
 						<div class="form-group col-md-6">
 							<label for="notario_name">Nombre</label>
-							<input type="text" class="form-control" id="notario_name" value ='<?php if($pid == 0) {echo trim($user_full_name);} else {echo $nombre_notario;} ?>'>
+							<input type="text" class="form-control" id="nombre_notario" value ='<?php echo trim($user_full_name) ?>'>
 						</div>
                     </div>
                     <div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputdate">Dirección</label>
-							<input type="text" class="form-control" id="direccion" placeholder="Dirección" <?php if($pid != 0) {echo "value='$direccion'";}?>>
+							<label for="inputdate">Número de escritura</label>
+							<input type="text" class="form-control" id="numero_escritura" placeholder="Número de escritura">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="notario_name">Nombre</label>
-							<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
+							<label for="notario_name">Fecha de autorización de escritura</label>
+							<input type="date" class="form-control" id="fecha_autorizacion" placeholder="Fecha de autorización de escritura">
 						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-md-6" id="templ">
-							<label for="affected_name">DPI</label>
-							<input type="text" class="form-control" id="affected_DPI" placeholder="Número de DPI del solicitante" <?php if($pid != 0) {echo "value='$dpi_solicitante'";}?>>
+							<label for="affected_name">Contenido de escritura</label>
+							<input type="text" class="form-control" id="contenido_escritura" placeholder="Contenido de escritura">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="dpi">Entidad</label>
-							<input type="text" class="form-control" id="nombre_entidad" placeholder="Entidad propietaria" <?php if($pid != 0) {echo "value='$nombre_entidad'";}?>>
+							<label for="dpi">Nombre solicitante</label>
+							<input type="text" class="form-control" id="nombre_solicitante" placeholder="Nombre del solicitante">
 						</div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-							<label for="fecha_emision">Fecha de emisión de acta notarial</label>
-							<input type="date" class="form-control" id="fecha_emision_actanotarial" placeholder="Fecha de emisión de acta notarial" <?php if($pid != 0) {echo "value='$fecha_actanotarial'";}?>>
+							<label for="fecha_emision">Tipo de documento de identificación</label>
+							<input type="text" class="form-control" id="tipo_documento" placeholder="Tipo de documento de identificación">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="dpi">Notario de acta notarial</label>
-							<input type="text" class="form-control" id="nombre_notario_actanotarial" placeholder="Nombre del notario de acta notarial" <?php if($pid != 0) {echo "value='$notario_actanotarial'";}?>>
+							<label for="dpi">Número de documento de identificación</label>
+							<input type="text" class="form-control" id="numero_documento" placeholder="Número de documento de identificación">
 						</div>
 					</div>
 					<div class="form-row">
                         <div class="form-group col-md-6" id="templ">
-							<label for="affected_name">Empresa afectada</label>
-							<input type="text" class="form-control" id="empresa_afectada" placeholder="Nombre de la empresa afectada" <?php if($pid != 0) {echo "value='$empresa_afectada'";}?>>
+                            <label for="affected_name">Ampliación</label>
+                            <textarea class="form-control" id="ampliacion" placeholder="Detalles de la ampliación">
+                            </textarea>
 						</div>
 					</div>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
@@ -224,33 +190,33 @@
 						});
 
 					}
-					<?php
-					if($pid == 0)
-						echo "setTodaysDate('fecha_emision');";
-					?>
+
+					setTodaysDate('fecha_emision');
 
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">
 					<div class="ntext" id="ntext">
-                    En la Ciudad de Guatemala, el <mark id="fecha_emisionm"></mark>. Yo, <mark id="nombre_notariom"></mark>, Notario, 
-                    constituido en mi oficina profesional ubicada en <mark id="direccionm"></mark> de esta ciudad capital. Soy 
-                    requerido por <mark id="nombre_solicitantem"></mark>, quien se identifica con el Documento Personal de Identificación 
-                    (DPI) con Código Único de Identificación (CUI) <mark id="dpi_solicitantem"></mark>, emitido por el Registro Nacional 
-                    de las Personas de la República de Guatemala, quien actúa en su calidad de Administrador Único y Representante Legal de la 
-                    entidad <mark id="nombre_entidadm"></mark>, calidad que acredita con el acta notarial de su 
-                    nombramiento, autorizada en esta ciudad, el <mark id="fecha_emision_actanotarialm"></mark>, por <mark id="nombre_notario_actanotarialm"></mark>, 
-                    inscrita en el Registro Mercantil General de la República, con el objeto de 
-                    hacer constar notarialmente una DECLARACIÓN JURADA, por lo que se procede de la manera siguiente: PRIMERO: 
-                    La requirente en la calidad 
-                    con que actúa, bajo juramento de ley prestado con las formalidades del caso ante el Infrascrito Notario, y enterada de las penas 
-                    relativas al delito de perjurio, manifiesta: a) Que su representada, la entidad <mark id="nombre_entidad2m"></mark>, es propietario 
-                    de <mark id="empresa_afectadam"></mark> inscrita en el Registro Mercantil General de la República; y, b) Que se ha extraviado 
-                    la Patente de Comercio de Empresa de <mark id="empresa_afectada2m"></mark>. SEGUNDO: No habiendo más que hacer constar se finaliza 
-                    la presente, la que es leída al
-                    requirente, quien enterado de su contenido, objeto, validez y efectos legales, en la calidad con que actúa, la acepta, ratifica 
-                    y firma 
-                    con el Notario autorizante. <b>DOY FE</b>
+                    En la ciudad de Guatemala, el <mark id="fecha_emisionm"></mark>, Por mí y Ante mí, 
+                    <b><mark id="nombre_notariom"></mark></b>, Notario, aseguro encontrarme en el libre ejercicio de mis derechos civiles 
+                    y de conformidad con el artículo setenta y siete (77) literal “e” del Código de Notariado, Decreto Número 
+                    trescientos catorce (314), procedo de conformidad con las siguientes cláusulas: <b><u>PRIMERA: ANTECEDENTES:</u></b>  
+                    Que 
+                    autoricé la escritura pública número <mark id="numero_escrituram"></mark> en la ciudad de Guatemala, el 
+                    <mark id="fecha_autorizacionm"></mark> y que la misma contiene <mark id="contenido_escrituram"></mark>. <b><u>SEGUNDA. 
+                    DE LA AMPLIACIÓN:</u></b> Que, por un error involuntario se omitió consignar el domicilio de 
+                    <mark id="nombre_solicitantem"></mark>. 
+                    Por lo que, a efecto de enmendar dicho error, así como para los efectos legales respectivos, la comparecencia 
+                    queda de la siguiente manera: “<b><mark id="nombre_solicitante2m"></mark></b>, quien se identifica con el 
+                    <mark id="tipo_documentom"></mark> número <mark id="numero_documentom"></mark> <mark id="ampliacionm"></mark>” 
+                    <b><u>TERCERA: ACEPTACIÓN:</u></b> Finalmente, acepto el 
+                    contenido total e íntegro del presente instrumento haciendo constar que todo lo demás contenido en la escritura 
+                    pública número <mark id="numero_escritura2m"></mark> autorizada en esta ciudad el <mark id="fecha_autorizacion2m"></mark> 
+                    por el 
+                    Infrascrito Notario se mantiene íntegro. Como Notario, DOY FE: a) De todo lo expuesto; b) De haber tenido a la 
+                    vista la documentación relacionada, especialmente la escritura pública referida que en este acto se amplía; y, 
+                    c) Que bien impuesto de su contenido, objeto, validez, efectos legales y obligación de registro, lo acepto, 
+                    ratifico y firmo. 
 				<div id="elementH"></div>
 				<!-- <button onclick="converttoPDF()">Descargar</button> -->
 			</div>
