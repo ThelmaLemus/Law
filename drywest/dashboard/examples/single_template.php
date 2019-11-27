@@ -129,10 +129,12 @@
 				<div class="tab-pane active" id="home" role="tabpanel">
 					<div class="form-row">
 						<form class="form-group col-md-6"  method='post'  enctype="multipart/form-data">
+							<input type="text"name="iddpi" value="dpi" style="display:none">
+							<input type="text"name="idname" value="affected_name" style="display:none">
 							<!-- <div class="row"> -->
-								<input type="file" name="img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-								<label class="btn btn-primary " for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
-								<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
+							<input type="file" name="img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+							<label class="btn btn-primary " for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
+							<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
 							<!-- </div> -->
 						</form>
 						<div class="form-group col-md-6">

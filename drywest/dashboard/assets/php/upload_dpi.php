@@ -1,7 +1,7 @@
 <?php 
 	include 'OCR.php';
 	
-	function moveFile($fil, $file_name, $file_tmp, $path, $dpi_id, $name_id){
+	function moveFile($fil, $file_name, $file_tmp, $path, $dpiid, $nameid){
 		
 
 		
@@ -11,6 +11,8 @@
 
 
 		$file = $_FILES['img'];
+		$dpi_id = $_POST['iddpi'];
+		$name_id = $_POST['idname'];
 
 		//File properties
 
@@ -24,7 +26,7 @@
 		$file_ext = explode('.', $file_name);
 		$file_ext = strtolower(end($file_ext));
 
-		print_r($file_ext);
+		// print_r($file_ext);
 
 		
 		$allowed = array('jpg', 'jpe','jpeg', 'png');
