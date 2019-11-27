@@ -146,21 +146,21 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="inputdate">Fecha</label>
-								<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión">
+								<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha'";}?>>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="notario_name">Nombre</label>
-								<input type="texxt" class="form-control" id="notario_name" value ='<?php echo trim($user_full_name) ?>'>
+								<input type="texxt" class="form-control" id="notario_name"  value ='<?php if($pid != 0) {echo trim($nombre_notario);} else {echo trim($user_full_name);}?>'>
 							</div>
 						</div>
 						<div class="form-row">
 						<div class="form-group col-md-6" id="templ">
 								<label for="affected_name">Nombre</label>
-								<input type="texxt" class="form-control" id="affected_name" placeholder="Nombre del solicitante">
+								<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="dpi">DPI</label>
-								<input type="text" class="form-control" id="dpi" placeholder="Número de DPI">
+								<input type="text" class="form-control" id="dpi" placeholder="Número de DPI" <?php if($pid != 0) {echo "value='$dpi'";}?>>
 							</div>
 						</div>
 						<div type="" id="imprimir" onclick="setValues('inputdate','notario_name', 'affected_name', 'dpi'); converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
