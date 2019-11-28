@@ -13,14 +13,16 @@
   if ($admin) {
     
     echo"
+      <script>console.log('admin')</script>
       <script src=\"../assets/js/plugins/chart.js/dist/Chart.min.js\"></script>
       <script src=\"../assets/js/plugins/chart.js/dist/Chart.extension.js\"></script>
       <link rel=\"stylesheet\" href=\"../assets/css/library.css\">";
     }else{
       echo"
-      <script src=\"assets/js/plugins/chart.js/dist/Chart.min.js\"></script>
-      <script src=\"assets/js/plugins/chart.js/dist/Chart.extension.js\"></script>
-      <link rel=\"stylesheet\" href=\"assets/css/library.css\">";
+      <script>console.log('nadmin')</script>
+      <script src=\"../../assets/js/plugins/chart.js/dist/Chart.min.js\"></script>
+      <script src=\"../../assets/js/plugins/chart.js/dist/Chart.extension.js\"></script>
+      <link rel=\"stylesheet\" href=\"../../assets/css/library.css\">";
   }
   $dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
   $user_query = "SELECT * FROM usuarios WHERE '$varsesion'=usuario";
@@ -213,7 +215,7 @@
                 (L.nombre_original ILIKE '%".$gsearch."%' 
                 OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
                 OR C.contenido ILIKE '%".$gsearch."%' OR 
-                Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original";
+                Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original limit 5";
                 $laws_result = pg_query($dbconn, $laws_query) or die('Laws query failed: ' . pg_last_error());
                 $i=0;
                 while ($laws = pg_fetch_row($laws_result)) {
@@ -307,7 +309,7 @@
                 (L.nombre_original ILIKE '%".$gsearch."%' 
                 OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
                 OR C.contenido ILIKE '%".$gsearch."%' OR 
-                Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original";
+                Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original limit 5";
                 $agreements_result = pg_query($dbconn, $agreements_query) or die('agreements query failed A: ' . pg_last_error());
                 $i=0;
                 while ($agreements = pg_fetch_row($agreements_result)) {
@@ -362,7 +364,7 @@
                   (L.nombre_original ILIKE '%".$gsearch."%' 
                   OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
                   OR C.contenido ILIKE '%".$gsearch."%' OR 
-                  Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original";
+                  Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original limit 5";
                   $arrangements_result = pg_query($dbconn, $arrangements_query) or die('arrangements query failed: ' . pg_last_error());
                   $arrangement = pg_fetch_row($arrangements_result);
                   $arrangement_ID = $arrangement[0];
