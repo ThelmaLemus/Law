@@ -13,16 +13,14 @@
   if ($admin) {
     
     echo"
-      <script>console.log('admin')</script>
       <script src=\"../assets/js/plugins/chart.js/dist/Chart.min.js\"></script>
       <script src=\"../assets/js/plugins/chart.js/dist/Chart.extension.js\"></script>
       <link rel=\"stylesheet\" href=\"../assets/css/library.css\">";
     }else{
       echo"
-      <script>console.log('nadmin')</script>
-      <script src=\"../../assets/js/plugins/chart.js/dist/Chart.min.js\"></script>
-      <script src=\"../../assets/js/plugins/chart.js/dist/Chart.extension.js\"></script>
-      <link rel=\"stylesheet\" href=\"../../assets/css/library.css\">";
+      <script src=\"assets/js/plugins/chart.js/dist/Chart.min.js\"></script>
+      <script src=\"assets/js/plugins/chart.js/dist/Chart.extension.js\"></script>
+      <link rel=\"stylesheet\" href=\"assets/css/library.css\">";
   }
   $dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
   $user_query = "SELECT * FROM usuarios WHERE '$varsesion'=usuario";
