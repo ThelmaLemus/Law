@@ -642,7 +642,7 @@
                 pg_free_result($arrangements_result);
                 echo"</div>
                 <div class=\"row icon-examples\">";
-                $arrangements_query = "SELECT * FROM leyes L, vistas V WHERE tipo = 'L' AND V.lid = L.lid order by V.views limit 5";
+                $arrangements_query = "SELECT * FROM leyes L, vistas V WHERE tipo = 'C' AND V.lid = L.lid order by V.views limit 5";
                 $arrangements_result = pg_query($dbconn, $arrangements_query) or die('arrangements query failed: ' . pg_last_error());
                 $i=0;
                 while ($arrangements = pg_fetch_row($arrangements_result)) {
@@ -672,9 +672,10 @@
                   }
                   $i++;
                 }
-                /* echo"
-                <a href=\"leyes.php\" class=\"badge badge-primary\">Más convenios</a>
-                "; */
+                echo"
+                </div>
+                <a href=\"convenios.php\" class=\"badge badge-primary\">Más convenios</a>
+                ";
                 pg_free_result($arrangements_result);
                 // pg_close($dbconn);
             }
