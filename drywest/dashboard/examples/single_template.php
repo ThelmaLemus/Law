@@ -221,42 +221,48 @@
 			</div>
 			<h2 class="docname">Autenticación de firma</h2>
 			<div class="tab-content Lcontent">
-				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
+				<div class="tab-pane active" id="home" role="tabpanel">
 					<div class="form-row">
-						<div class="form-group col-md-6">
+						<form class="form-group col-md-6"  method='post'  enctype="multipart/form-data">
+							<input type="text"name="iddpi" value="dpi" style="display:none">
+							<input type="text"name="idname" value="affected_name" style="display:none">
 							<!-- <div class="row"> -->
-								<input type="file" name="img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-								<label class="btn btn-primary " for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
-								<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
+							<input type="file" name="img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+							<label class="btn btn-primary " for="inputGroupFile01"><i class="fas fa-id-card" style="color:white">   DPI del solicitante</i></label>
+							<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093;">
 							<!-- </div> -->
-						</div>
-						<div class="form-group col-md-6">
-							<label for="fname">Nombre archivo</label>
-							<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
-						</div>
+						</form>
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="inputdate">Fecha</label>
-							<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha'";}?>>
+					<form  method='post'  enctype="multipart/form-data">
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="fname">Nombre archivo</label>
+								<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
+							</div>
 						</div>
-						<div class="form-group col-md-6">
-							<label for="notario_name">Nombre</label>
-							<input type="texxt" class="form-control" id="notario_name" value ='<?php if($pid != 0) {echo trim($nombre_notario);} else {echo trim($user_full_name);}?>'>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="inputdate">Fecha</label>
+								<input type="date" class="form-control" id="inputdate" placeholder="Fecha de emisión" <?php if($pid != 0) {echo "value='$fecha'";}?>>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="notario_name">Nombre</label>
+								<input type="texxt" class="form-control" id="notario_name"  value ='<?php if($pid != 0) {echo trim($nombre_notario);} else {echo trim($user_full_name);}?>'>
+							</div>
 						</div>
-					</div>
-					<div class="form-row">
-					<div class="form-group col-md-6" id="templ">
-							<label for="affected_name">Nombre</label>
-							<input type="texxt" class="form-control" id="affected_name" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
+						<div class="form-row">
+						<div class="form-group col-md-6" id="templ">
+								<label for="affected_name">Nombre</label>
+								<input type="text" class="form-control" id="affected_name" placeholder="Nombre del solicitante" <?php if($pid != 0) {echo "value='$nombre_solicitante'";}?>>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="dpi">DPI</label>
+								<input type="text" class="form-control" id="dpi" placeholder="Número de DPI" <?php if($pid != 0) {echo "value='$dpi'";}?>>
+							</div>
 						</div>
-						<div class="form-group col-md-6">
-							<label for="dpi">DPI</label>
-							<input type="text" class="form-control" id="dpi" placeholder="Número de DPI" <?php if($pid != 0) {echo "value='$dpi'";}?>>
-						</div>
-					</div>
-					<div type="" id="imprimir" onclick="setValues('inputdate','notario_name', 'affected_name', 'dpi'); converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
-				</form>
+						<div type="" id="imprimir" onclick="setValues('inputdate','notario_name', 'affected_name', 'dpi'); converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
+					</form>
+				</div>
 				<script>
 					 function imprimir(){
 						//send the div to PDF

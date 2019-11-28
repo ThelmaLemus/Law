@@ -1,14 +1,19 @@
 <?php 
 	include 'OCR.php';
 	
-	function moveFile($fil, $file_name, $file_tmp, $path, $dpi_id, $name_id){
+	function moveFile($fil, $file_name, $file_tmp, $path, $dpiid, $nameid){
 		
 
 		
 	}
 
 	if (isset($_POST["signAuth"])){
-		$file = $_FILES['sig'];
+
+
+		$file = $_FILES['img'];
+		$dpi_id = $_POST['iddpi'];
+		$name_id = $_POST['idname'];
+
 		//File properties
 
 		$file_name = $file['name'];
@@ -21,7 +26,7 @@
 		$file_ext = explode('.', $file_name);
 		$file_ext = strtolower(end($file_ext));
 
-		print_r($file_ext);
+		// print_r($file_ext);
 
 		
 		$allowed = array('jpg', 'jpe','jpeg', 'png');
@@ -35,7 +40,6 @@
                     echo "<script>console.log('Ingresado correctamente')</script>";
                     $res = getImageText($file_destination);
                     echo "<script>fillField(\"$res\", \"$dpi_id\", \"$name_id\")</script>";
-                    
 				} else {
 					echo "<script>console.log('Intentalo de nuevo')</script>";
 				}

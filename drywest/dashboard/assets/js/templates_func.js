@@ -191,10 +191,12 @@ function fillField(info, dpi_field, name_field){
     var dpi = info.match(dpi_p);
     var findpi = info.search(dpi[0]) + 15;
     info = info.substring(findpi);
-    info = info.substring(info.search("BRE"));
+    info = info.substring(info.search("BRE")+4);
     var name = info.match(/[A-Z]+ [A-Z]+/g);
-    document.getElementById(dpi_field).value = dpif[0];
-    document.getElementById(name_field).value = name[0];
+    setTimeout(() => {
+        document.getElementById(dpi_field).value = dpi[0];
+        document.getElementById(name_field).value = name[0];
+    }, 1000);
 }
 
 function fixDate(stringdate){
