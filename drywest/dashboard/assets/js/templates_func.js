@@ -186,7 +186,8 @@ function dateParser(date){
     
 } 
 
-function fillField(info, dpi_field, name_field){
+function fillField(fname,info, dpi_field, name_field, label_id){
+    // debugger
     var dpi_p = /\d{4} \d{5} \d{4}/g;
     var dpi = info.match(dpi_p);
     var findpi = info.search(dpi[0]) + 15;
@@ -194,8 +195,10 @@ function fillField(info, dpi_field, name_field){
     info = info.substring(info.search("BRE")+4);
     var name = info.match(/[A-Z]+ [A-Z]+/g);
     setTimeout(() => {
+        document.getElementById(label_id).title=fname;
         document.getElementById(dpi_field).value = dpi[0];
         document.getElementById(name_field).value = name[0];
+        console.log(dpi_field+": "+dpi[0]);
     }, 1000);
 }
 

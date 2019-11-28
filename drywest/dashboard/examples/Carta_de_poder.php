@@ -14,11 +14,11 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
-<link href="../assets/js/plugins/nucleo/css/nucleo.css rel=stylesheet />
-      <link href=../assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css rel=stylesheet />
-      <link href=../assets/css/argon-dashboard.css?v=1.1.0 rel=stylesheet />
-      <link href=../assets/css/nvbr.css rel=stylesheet />
-      <link href=../assets/css/main.css rel=stylesheet />
+<link href="../assets/js/plugins/nucleo/css/nucleo.css" rel=stylesheet/>
+      <link href="../assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel=stylesheet />
+      <link href="../assets/css/argon-dashboard.css?v=1.1.0" rel=stylesheet />
+      <link href="../assets/css/nvbr.css" rel=stylesheet />
+      <link href="../assets/css/main.css" rel=stylesheet />
 
 
 	<script
@@ -231,14 +231,43 @@
 			</div>
 			<h2 class="docname">Carta de poder</h2>
 			<div class="tab-content Lcontent">
-				<form method='post' class="tab-pane active" id="home" role="tabpanel" enctype="multipart/form-data">
-					<div class="form-row">
+				<div class="tab-pane active" id="home" role="tabpanel">
+					<form class="form-row" method='post'  enctype="multipart/form-data">
+						<div class="form-group col-md-6">
+							<input type="text"name="iddpi1" value="DPI_otorgante" style="display:none">
+							<input type="text"name="idname1" value="nombre_a_dar" style="display:none">
+							<input type="text"name="label_id1" value="dpi1_IN" style="display:none">
+							<input type="file" name="dpi1" class="custom-file-input" id="DPI01" aria-describedby="inputGroupFileAddon01"style="display:none"> 
+							<label class="btn btn-primary" for="DPI01"><i class="fas fa-id-card" style="color:white" id="dpi1_IN">   DPI del otorgante</i></label>
+						</div>
+						<div class="form-group col-md-6">
+							<input type="text"name="iddpi2" value="DPI_apoderado" style="display:none">
+							<input type="text"name="idname2" value="nombre_a_recibir" style="display:none">
+							<input type="text"name="label_id2" value="dpi1_IN" style="display:none">
+							<input type="file" name="dpi2" class="custom-file-input" id="DPI02" aria-describedby="inputGroupFileAddon01"style="display:none"> 
+							<label class="btn btn-primary" for="DPI02"><i class="fas fa-id-card" style="color:white" id="dpi2_IN">   DPI del apoderado</i></label>
+						</div>
+						<div class="form-group col-md-6">
+							<input type="text"name="iddpi3" value="DPI_otorgante" style="display:none">
+							<input type="text"name="idname3" value="nombre_a_dar" style="display:none">
+							<input type="text"name="label_id3" value="dpi1_IN" style="display:none">
+							<input type="file" name="dpi3" class="custom-file-input" id="DPI03" aria-describedby="inputGroupFileAddon01"style="display:none"> 
+							<label class="btn btn-primary" for="DPI03"><i class="fas fa-id-card" style="color:white" id="dpi3_IN">   DPI del testigo1</i></label>
+						</div>
+						<div class="form-group col-md-6">
+							<input type="text"name="iddpi4" value="DPI_otorgante" style="display:none">
+							<input type="text"name="idname4" value="nombre_a_dar" style="display:none">
+							<input type="text"name="label_id4" value="dpi1_IN" style="display:none">
+							<input type="file" name="dpi4" class="custom-file-input" id="DPI04" aria-describedby="inputGroupFileAddon01"style="display:none"> 
+							<label class="btn btn-primary" for="DPI04"><i class="fas fa-id-card" style="color:white" id="dpi4_IN">   DPI del testigo2</i></label>
+						</div>
+						<input type="submit" name="signAuth" class=" uploadbutton fas fa-upload" value="&#xf093; Cargar archivos">
+					</form>
+					<form class="form-row"  method='post'>
 						<div class="form-group col-md-6">
 							<label for="fname">Nombre archivo</label>
 							<input type="text" class="form-control" name="fname" id= "fname" placeholder="Nombre archivo pdf" <?php if($pid != 0) {echo "value='$nombre_archivo'";}?>>
 						</div>
-					</div>
-					<div class="form-row">
 						<div class="form-group col-md-6">
                             <!-- fecha_emision -->
 							<label for="inputdate">Fecha</label>
@@ -249,8 +278,6 @@
 							<label for="nombre_a_dar">Nombre</label>
 							<input type="text" class="form-control" id="nombre_a_dar" placeholder="Nombre del otorgante" <?php if($pid != 0) {echo "value='$nombre_otorgante'";}?>>
 						</div>
-					</div>
-					<div class="form-row">
                         <div class="form-group col-md-6" id="templ">
                         <!-- nombre_a_recibir -->
 							<label for="nombre_a_recibir">Nombre</label>
@@ -284,9 +311,9 @@
 							<label for="fecha_final">Fecha de caducidad</label>
 							<input type="date" class="form-control" id="fecha_final" placeholder="Fecha de caducidad" <?php if($pid != 0) {echo "value='$fecha_caducidad'";}?>>
 						</div>
-					</div>
+					</form>
 					<div type="" id="imprimir" onclick="converttoPDF()" class="btn btn-primary">Descargar y guardar</div>
-				</form>
+				</div>
 				<script>
 					 function imprimir(){
 						//send the div to PDF
