@@ -82,9 +82,10 @@ mark{
 }
 
 /* Templates styles */
-.uploadbutton{
+.uploadbutton, .uploadbutton:hover{
 	background: none !important;
 	border: none !important;
 	padding: 20px;
+	cursor: pointer;
 }
 /* Templates styles */
