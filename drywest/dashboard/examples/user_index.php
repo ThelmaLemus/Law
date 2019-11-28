@@ -207,8 +207,8 @@
                 echo"</div>
                 <div class=\"row icon-examples\">";
                 $laws_query = "SELECT DISTINCT L.lid, L.nombre_original
-                FROM contenido C, comentarios Com, leyes L, vistas V 
-                WHERE V.lid = C.lid AND L.tipo = 'L'
+                FROM contenido C, comentarios Com, leyes L
+                WHERE L.tipo = 'L'
                 AND C.lid = L.lid AND Com.lid = L.lid AND 
                 (L.nombre_original ILIKE '%".$gsearch."%' 
                 OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
@@ -301,8 +301,8 @@
               echo"</div>
                 <div class=\"row icon-examples\">";
                 $agreements_query = "SELECT distinct L.nombre_original
-                FROM contenido C, comentarios Com, leyes L, vistas V
-                WHERE L.tipo = 'A' AND V.lid = C.lid
+                FROM contenido C, comentarios Com, leyes L
+                WHERE L.tipo = 'A'
                 AND C.lid = L.lid AND Com.lid = L.lid AND 
                 (L.nombre_original ILIKE '%".$gsearch."%' 
                 OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
@@ -356,8 +356,8 @@
                 $i=0;
                 foreach ($Fav_arrangements as &$valor) {
                   $arrangements_query = "SELECT distinct L.nombre_original
-                  FROM contenido C, comentarios Com, leyes L, vistas V 
-                  WHERE '$valor' = L.lid AND V.lid = C.lid AND L.tipo = 'C'
+                  FROM contenido C, comentarios Com, leyes L, 
+                  WHERE '$valor' = L.lid AND L.tipo = 'C'
                   AND C.lid = L.lid AND Com.lid = L.lid AND 
                   (L.nombre_original ILIKE '%".$gsearch."%' 
                   OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
@@ -481,7 +481,7 @@
                 pg_free_result($laws_result);
               echo"</div>
                 <div class=\"row icon-examples\">";
-                $laws_query = "SELECT * FROM leyes WHERE tipo = 'L'";
+                $laws_query = "SELECT * FROM leyes L, vistas V WHERE tipo = 'L' AND V.lid = L.lid order by V.views limit 5";
                 $laws_result = pg_query($dbconn, $laws_query) or die('Laws query failed: ' . pg_last_error());
                 $i=0;
                 while ($laws = pg_fetch_row($laws_result)) {
@@ -561,7 +561,7 @@
                 pg_free_result($agreements_result);
               echo"</div>
                 <div class=\"row icon-examples\">";
-                $agreements_query = "SELECT * FROM leyes WHERE tipo = 'A'";
+                $agreements_query = "SELECT * FROM leyes L, vistas V WHERE tipo = 'A' AND V.lid = L.lid order by V.views limit 5";
                 $agreements_result = pg_query($dbconn, $agreements_query) or die('agreements query failed: ' . pg_last_error());
                 $i=0;
                 while ($agreements = pg_fetch_row($agreements_result)) {
@@ -642,7 +642,7 @@
                 pg_free_result($arrangements_result);
                 echo"</div>
                 <div class=\"row icon-examples\">";
-                $arrangements_query = "SELECT * FROM leyes WHERE tipo = 'C'";
+                $arrangements_query = "SELECT * FROM leyes L, vistas V WHERE tipo = 'L' AND V.lid = L.lid order by V.views limit 5";
                 $arrangements_result = pg_query($dbconn, $arrangements_query) or die('arrangements query failed: ' . pg_last_error());
                 $i=0;
                 while ($arrangements = pg_fetch_row($arrangements_result)) {
