@@ -318,7 +318,10 @@
 				</form>
 				<script>
 
-				setTodaysDate('fecha_emision');
+				<?php
+				if($pid == 0)
+					echo "setTodaysDate('fecha_emision')";
+				?>
  
 				</script>
 				<div class="tab-pane" id="profile" role="tabpanel" style="text-align: justify;" allign="justify">

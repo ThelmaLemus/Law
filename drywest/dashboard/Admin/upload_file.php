@@ -90,8 +90,8 @@
 		$parser = new \Smalot\PdfParser\Parser();
 		echo "<script>console.log(\"Se creó\");</script>";
 		//$link = "Documentos/sp_gtm-int-text-const.pdf";
-		echo "<script>console.log($file_destination);</script>";
-		$pdf    = $parser->parseFile($file_destination);
+		$pdf = $parser->parseFile($file_destination);
+		echo "<script>console.log(\"Se creó\");</script>";
 		$total = 0;
 		$query1 = "SELECT * FROM leyes WHERE url = '$file_destination'";
 		$result1 = pg_query($dbconn, $query1) or die('Query failed: ' . pg_last_error());
