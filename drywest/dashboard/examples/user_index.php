@@ -208,7 +208,7 @@
                 <div class=\"row icon-examples\">";
                 $laws_query = "SELECT DISTINCT L.lid, L.nombre_original
                 FROM contenido C, comentarios Com, leyes L, vistas V 
-                WHERE V.lid = C.lid L.tipo = 'L'
+                WHERE V.lid = C.lid AND L.tipo = 'L'
                 AND C.lid = L.lid AND Com.lid = L.lid AND 
                 (L.nombre_original ILIKE '%".$gsearch."%' 
                 OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
@@ -302,7 +302,7 @@
                 <div class=\"row icon-examples\">";
                 $agreements_query = "SELECT distinct L.nombre_original
                 FROM contenido C, comentarios Com, leyes L, vistas V
-                WHERE L.tipo = 'A' AND V.lid = C.lid AND
+                WHERE L.tipo = 'A' AND V.lid = C.lid
                 AND C.lid = L.lid AND Com.lid = L.lid AND 
                 (L.nombre_original ILIKE '%".$gsearch."%' 
                 OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
