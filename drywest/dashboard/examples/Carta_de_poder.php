@@ -248,15 +248,15 @@
 							<label class="btn btn-primary" for="DPI02"><i class="fas fa-id-card" style="color:white" id="dpi2_IN">   DPI del apoderado</i></label>
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text"name="iddpi3" value="DPI_otorgante" style="display:none">
-							<input type="text"name="idname3" value="nombre_a_dar" style="display:none">
+							<input type="text"name="iddpi3" value="DPI_testigo1" style="display:none">
+							<input type="text"name="idname3" value="" style="display:none">
 							<input type="text"name="label_id3" value="dpi1_IN" style="display:none">
 							<input type="file" name="dpi3" class="custom-file-input" id="DPI03" aria-describedby="inputGroupFileAddon01"style="display:none"> 
 							<label class="btn btn-primary" for="DPI03"><i class="fas fa-id-card" style="color:white" id="dpi3_IN">   DPI del testigo1</i></label>
 						</div>
 						<div class="form-group col-md-6">
-							<input type="text"name="iddpi4" value="DPI_otorgante" style="display:none">
-							<input type="text"name="idname4" value="nombre_a_dar" style="display:none">
+							<input type="text"name="iddpi4" value="DPI_testigo2" style="display:none">
+							<input type="text"name="idname4" value="" style="display:none">
 							<input type="text"name="label_id4" value="dpi1_IN" style="display:none">
 							<input type="file" name="dpi4" class="custom-file-input" id="DPI04" aria-describedby="inputGroupFileAddon01"style="display:none"> 
 							<label class="btn btn-primary" for="DPI04"><i class="fas fa-id-card" style="color:white" id="dpi4_IN">   DPI del testigo2</i></label>
