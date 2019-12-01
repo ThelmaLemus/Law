@@ -71,12 +71,12 @@
                 // $username =  "ECR1030";
 
                 // ecotuc
-                // $license_code = "8165BC02-5A40-4532-8E28-C3E919FBA6EF"; 
-                // $username =  "ecotuc";
+                $license_code = "8165BC02-5A40-4532-8E28-C3E919FBA6EF"; 
+                $username =  "ecotuc";
                 
                 // IC1030
-                $license_code = "892C5DD8-505C-4960-9FD8-30BFE793F3F4"; 
-                $username =  "IC1030";
+                // $license_code = "892C5DD8-505C-4960-9FD8-30BFE793F3F4"; 
+                // $username =  "IC1030";
                 
                 $url = 'http://www.ocrwebservice.com/restservices/processDocument?gettext=true';
 

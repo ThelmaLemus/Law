@@ -192,6 +192,25 @@ function fillField(fname,info, dpi_field, name_field, label_id){
     var dpi = info.match(dpi_p);
     var findpi = info.search(dpi[0]) + 15;
     info = info.substring(findpi);
+    if(info.search("BRE") != -1 ){
+        info = info.substring(info.search("BRE")+4);
+    }else{ info = info.substring(1)}
+    var name = info.match(/[A-Z]+ [A-Z]+/g);
+    setTimeout(() => {
+        document.getElementById(label_id).title=fname;
+        document.getElementById(dpi_field).value = dpi[0];
+        if(name_field != ""){
+            document.getElementById(name_field).value = name[0];
+        }
+        console.log(dpi_field+": "+dpi[0]);
+    }, 1000);
+}
+/* 
+function fillsinglefield(){
+    var dpi_p = /\d{4} \d{5} \d{4}/g;
+    var dpi = info.match(dpi_p);
+    var findpi = info.search(dpi[0]) + 15;
+    info = info.substring(findpi);
     info = info.substring(info.search("BRE")+4);
     var name = info.match(/[A-Z]+ [A-Z]+/g);
     setTimeout(() => {
@@ -200,7 +219,7 @@ function fillField(fname,info, dpi_field, name_field, label_id){
         document.getElementById(name_field).value = name[0];
         console.log(dpi_field+": "+dpi[0]);
     }, 1000);
-}
+} */
 
 function fixDate(stringdate){
     let goodDate = moment(stringdate);
