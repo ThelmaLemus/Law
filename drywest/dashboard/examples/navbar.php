@@ -350,6 +350,14 @@
 
         <li class="nav-item">
           <?php 
+            $href = $index==1?"<a class=\"nav-link \" href=\"examples/tramites.php\">":"<a class=\"nav-link \" href=\"tramites.php\">";
+            echo $href;
+          ?>
+            <i class="ni ni-paper-diploma"></i> Trámites
+          </a>
+        </li>
+        <li class="nav-item">
+          <?php 
             $href = $index==1?"<a class=\"nav-link \" href=\"examples/templates.php\">":"<a class=\"nav-link \" href=\"templates.php\">";
             echo $href;
           ?>
