@@ -356,13 +356,13 @@
                 $i=0;
                 foreach ($Fav_arrangements as &$valor) {
                   $arrangements_query = "SELECT distinct L.nombre_original
-                  FROM contenido C, comentarios Com, leyes L, 
-                  WHERE '$valor' = L.lid AND L.tipo = 'C'
-                  AND C.lid = L.lid AND Com.lid = L.lid AND 
-                  (L.nombre_original ILIKE '%".$gsearch."%' 
-                  OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
-                  OR C.contenido ILIKE '%".$gsearch."%' OR 
-                  Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original limit 5";
+                      FROM contenido C, comentarios Com, leyes L
+                      WHERE L.tipo = 'C'
+                      AND C.lid = L.lid AND Com.lid = L.lid AND 
+                      (L.nombre_original ILIKE '%".$gsearch."%' 
+                      OR L.nombre_sintilde ILIKE '%".$gsearch."%' 
+                      OR C.contenido ILIKE '%".$gsearch."%' OR 
+                      Com.comentario ILIKE '%".$gsearch."%') order by L.nombre_original limit 5";
                   $arrangements_result = pg_query($dbconn, $arrangements_query) or die('arrangements query failed: ' . pg_last_error());
                   $arrangement = pg_fetch_row($arrangements_result);
                   $arrangement_ID = $arrangement[0];
