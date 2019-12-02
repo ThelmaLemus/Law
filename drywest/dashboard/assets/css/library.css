@@ -25,3 +25,18 @@
 	display: flex;
     justify-content: center !important;
 }
+
+.uinfo{
+    display: flex;
+    align-content: flex-start;
+    justify-content: left;
+}
+
+.fa-xs{
+    font-size: 15px !important;
+}
+
+.uinfo span{
+    display: flex;
+    flex-direction: column;
+}

@@ -320,6 +320,14 @@
             <i class="ni ni-single-02"></i> Perfil
           </a>
         </li>
+        <li class="nav-item">
+          <?php 
+            $href = $index==1?"<a class=\"nav-link \" href=\"".$add."examples/directorio.php\">":"<a class=\"nav-link \" href=\"".$add."directorio.php\">";
+            echo $href;
+          ?>
+            <i class="fas fa-address-book"></i> Directorio
+          </a>
+        </li>
 
         <li class="nav-item">
           <?php 

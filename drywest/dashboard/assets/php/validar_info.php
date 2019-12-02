@@ -30,7 +30,7 @@
             pg_close($dbconn);
             echo "<script>
                     alert('Contraseña incorrecta');
-                    window.location= '../../examples/profile.php'
+                    window.location= '../examples/profile.php'
                 </script>";
         }elseif ($user_pass == trim($row2[4])) {
             $query = "UPDATE usuarios SET nombre = '$user_name', apellido = '$user_last_name', correo= '$user_email' WHERE usuario='$varsesion'";
@@ -40,7 +40,7 @@
             pg_close($dbconn);
             echo "<script>
             alert('Información actualizada exitosamente');
-            window.location= '../../examples/profile.php'
+            window.location= '../examples/profile.php'
             </script>";
         }	
 
@@ -67,7 +67,7 @@
             pg_close($dbconn);
             echo "<script>
             alert('Información actualizada exitosamente');
-            window.location= '../../examples/profile.php'
+            window.location= '../examples/profile.php'
             </script>";
 
 	}

@@ -25,11 +25,11 @@
   $user_pass=trim($row[4]);
   $user_email=trim($row[5]);
   $user_full_name= trim($row[1])." ".trim($row[2]);
-  $user_dpi = trim(row[8]);
-  $user_phone = trim(row[10]);
-  $user_col = trim(row[9]);
-  $user_des = trim(row[11]);
-  $user_addr = trim(row[12]);
+  $user_dpi = trim($row[8]);
+  $user_phone = trim($row[10]);
+  $user_col = trim($row[9]);
+  $user_desc = trim($row[11]);
+  $user_addr = trim($row[12]);
   pg_free_result($result);
   pg_close($dbconn);
 	//
@@ -232,32 +232,32 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-passactual">Número de teléfono</label>
-                        <input type="text"  name = "num" id="input-passactual" class="form-control form-control-alternative" placeholder="35335 1207" value="<?php echo $user_phone ?>" required>
+                        <label class="form-control-label" for="input-np">Número de teléfono</label>
+                        <input type="text"  name = "num" id="input-np" class="form-control form-control-alternative" placeholder="35335 1207" value="<?php echo $user_phone ?>" required>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-pass2">Número de colegiado</label>
-                        <input type="text"  name = "numc" id="input-pass2" class="form-control form-control-alternative col-lg-10" value="<?php echo $user_col ?>" placeholder="Extendido por el colegio de abogados" required>
+                        <label class="form-control-label" for="input-nc">Número de colegiado</label>
+                        <input type="text"  name = "numc" id="input-nc" class="form-control form-control-alternative col-lg-10" value="<?php echo $user_col ?>" placeholder="Extendido por el colegio de abogados" required>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-pass1">Descripción del profesional (Incluir especialidad)</label>
-                        <textarea type="text"  name = "descr" id="input-pass1" class="form-control form-control-alternative" value="<?php echo $user_des ?>" placeholder="Máximo 500 caracteres" onkeyup="validDesc(this)" required></textarea>
+                        <label class="form-control-label" for="input-desc">Especialidad</label>
+                        <input type="text"  name = "descr" id="input-desc" class="form-control form-control-alternative" placeholder="Especialidad" value="<?php echo $user_desc ?>" onkeyup="validDesc(this)" required>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-pass1">Dirección de oficina</label>
-                        <input type="text"  name = "dire" id="input-pass1" class="form-control form-control-alternative" value="<?php echo $user_addr ?>" placeholder="10ma Calle 13-75 Edificio Americas oficina 702" required>
+                        <label class="form-control-label" for="input-addr">Dirección de oficina</label>
+                        <input type="text"  name = "dire" id="input-addr" class="form-control form-control-alternative" value="<?php echo $user_addr ?>" placeholder="10ma Calle 13-75 Edificio Americas oficina 702" required>
                       </div>
                     </div>
                   </div>
-                  <input type="submit" name="proff" class="btn btn-secondary" value="Agregar" id= "regbut"> 
+                  <input type="submit" name="proff" class="btn btn-secondary" value="Agregar"> 
                 </div>
               </form>
             </div>
