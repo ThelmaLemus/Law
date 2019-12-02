@@ -1,29 +1,39 @@
 CREATE DATABASE proyectoleyes;
 
-CREATE TABLE usuarios(
+CREATE TABLE public.usuarios
+(
 	uid integer NOT NULL DEFAULT nextval('usuarios_uid_seq'::regclass),
     nombre character(20) COLLATE pg_catalog."default" NOT NULL,
     apellido character(20) COLLATE pg_catalog."default" NOT NULL,
     usuario character(30) COLLATE pg_catalog."default" NOT NULL,
     "contraseña" character(25) COLLATE pg_catalog."default" NOT NULL,
     correo character(35) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT usuarios_pkey PRIMARY KEY (uid),
-    CONSTRAINT correo UNIQUE (correo),
-    CONSTRAINT usuario UNIQUE (usuario)
+    foto bytea,
+    fecha_c date,
+    dpi character(15) COLLATE pg_catalog."default",
+    n_colegiado character(10) COLLATE pg_catalog."default",
+    n_telefono character(15) COLLATE pg_catalog."default",
+    descripcion character(500) COLLATE pg_catalog."default",
+    d_oficina character(100) COLLATE pg_catalog."default",
+    CONSTRAINT usuarios_pkey PRIMARY KEY(uid),
+    CONSTRAINT usuarios_correo_key UNIQUE (correo),
+    CONSTRAINT usuarios_usuario_key UNIQUE (usuario)
 );
 
 
 CREATE TABLE contenido
 (
-	lid integer NOT NULL,
-	articulo_inicio integer NOT NULL, #ANTES ERA articulo
-	contenido character(10000) NOT NULL,
-	pagina integer NOT NULL,
-	#AGREGADO
-	articulo_final integer NOT NULL, ##AGREGADO
-	contenido_sintilde character(10000) NOT NULL,
-	FOREIGN KEY (lid) REFERENCES leyes (lid),
-	PRIMARY KEY (lid, articulo)
+    lid integer NOT NULL,
+    articulo_inicio integer NOT NULL,
+    contenido character(10000) COLLATE pg_catalog."default" NOT NULL,
+    pagina integer NOT NULL,
+    articulo_final integer,
+    contenido_sintilde character(10000) COLLATE pg_catalog."default",
+    CONSTRAINT contenido_pkey PRIMARY KEY (lid, articulo_inicio),
+    CONSTRAINT contenido_lid_fkey FOREIGN KEY (lid)
+        REFERENCES public.leyes (lid) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 CREATE TABLE leyes
@@ -76,6 +86,101 @@ CREATE TABLE public.biblioteca
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
+
+CREATE TABLE public.comentarios_tramites
+(
+	cid integer NOT NULL DEFAULT nextval('comentarios_tramites_cid_seq'
+	::regclass),
+    tid integer,
+    comentario character
+	(500) COLLATE pg_catalog."default"
+);
+
+CREATE TABLE public.acta_de_declaracion
+(
+    fecha character(60) COLLATE pg_catalog."default",
+    nombre_notario character(50) COLLATE pg_catalog."default",
+    direccion character(50) COLLATE pg_catalog."default",
+    ombre_solicitante character(50) COLLATE pg_catalog."default",
+    dpi_solicitante character(15) COLLATE pg_catalog."default",
+    institucion character(50) COLLATE pg_catalog."default",
+    solicitud character(500) COLLATE pg_catalog."default",
+    usuario integer,
+    nombre_plantilla character(50) COLLATE pg_catalog."default",
+    pid integer NOT NULL DEFAULT nextval('acta_de_declaracion_pid_seq'::regclass)
+);
+
+
+CREATE TABLE public.autenticacion_de_firma
+(
+    fecha character(10) COLLATE pg_catalog."default",
+    nombre_notario character(50) COLLATE pg_catalog."default",
+    nombre_solicitante character(50) COLLATE pg_catalog."default",
+    dpi character(15) COLLATE pg_catalog."default",
+    uid integer,
+    pid integer NOT NULL DEFAULT nextval('autenticacion_de_firma_pid_seq'::regclass),
+    nombre_archivo character(50) COLLATE pg_catalog."default"
+);
+
+
+CREATE TABLE public.carta_de_poder
+(
+    fecha_emision character(60) COLLATE pg_catalog."default",
+    nombre_otorgante character(50) COLLATE pg_catalog."default",
+    nombre_apoderado character(50) COLLATE pg_catalog."default",
+    responsabilidades character(500) COLLATE pg_catalog."default",
+    dpi_otorgante character(15) COLLATE pg_catalog."default",
+    dpi_apoderado character(15) COLLATE pg_catalog."default",
+    dpi_testigo1 character(15) COLLATE pg_catalog."default",
+    dpi_testigo2 character(15) COLLATE pg_catalog."default",
+    fecha_caducidad character(60) COLLATE pg_catalog."default",
+    uid integer,
+    pid integer NOT NULL DEFAULT nextval('carta_de_poder_pid_seq'::regclass)
+);
+
+CREATE TABLE public.comentarios_documentos
+(
+    tipo integer,
+    pid integer,
+    comentario character(500) COLLATE pg_catalog."default"
+);
+
+CREATE TABLE public.extravio_patente
+(
+    nombre_documento character(50) COLLATE pg_catalog."default",
+    fecha_emision character(60) COLLATE pg_catalog."default",
+    notario_name character(60) COLLATE pg_catalog."default",
+    direccion character(80) COLLATE pg_catalog."default",
+    affected_name character(60) COLLATE pg_catalog."default",
+    affected_dpi character(15) COLLATE pg_catalog."default",
+    nombre_entidad character(60) COLLATE pg_catalog."default",
+    fecha_emision_actanotarial character(60) COLLATE pg_catalog."default",
+    nombre_notario_actanotarial character(60) COLLATE pg_catalog."default",
+    empresa_afectada character(60) COLLATE pg_catalog."default",
+    usuario integer,
+    pid integer NOT NULL DEFAULT nextval('extravio_patente_pid_seq'::regclass)
+);
+
+CREATE TABLE public.nombramiento
+(
+    nombre_entidad character(60) COLLATE pg_catalog."default",
+    fecha_emision character(60) COLLATE pg_catalog."default",
+    nombre_notario character(60) COLLATE pg_catalog."default",
+    direccion character(60) COLLATE pg_catalog."default",
+    nombre_solicitante character(60) COLLATE pg_catalog."default",
+    dpi_solicitante character(15) COLLATE pg_catalog."default",
+    numero_escritura character(60) COLLATE pg_catalog."default",
+    notario_escritura character(60) COLLATE pg_catalog."default",
+    fecha_autorizacion character(60) COLLATE pg_catalog."default",
+    actividades character(500) COLLATE pg_catalog."default",
+    numero_acta character(60) COLLATE pg_catalog."default",
+    fecha_acta character(60) COLLATE pg_catalog."default",
+    "plazo_enaños" character(30) COLLATE pg_catalog."default",
+    usuario integer,
+    nombre_archivo character(30) COLLATE pg_catalog."default",
+    pid integer NOT NULL DEFAULT nextval('nombramiento_pid_seq'::regclass)
+);
+
 
 
 
