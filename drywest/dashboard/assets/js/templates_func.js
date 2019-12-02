@@ -261,6 +261,10 @@ function formatDate(fecha_field){
     var año = fecha_hoy.getFullYear();
     var mes = fecha_hoy.getMonth() + 1;
     var dia = fecha_hoy.getDate();
+    if(dia < 10)
+    {
+        dia = "0"+dia;
+    }
     var fecha_formateada = año + "-" + mes + "-" + dia;
     return fecha_formateada;
 }
