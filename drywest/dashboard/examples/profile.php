@@ -25,6 +25,11 @@
   $user_pass=trim($row[4]);
   $user_email=trim($row[5]);
   $user_full_name= trim($row[1])." ".trim($row[2]);
+  $user_dpi = trim(row[8]);
+  $user_phone = trim(row[10]);
+  $user_col = trim(row[9]);
+  $user_des = trim(row[11]);
+  $user_addr = trim(row[12]);
   pg_free_result($result);
   pg_close($dbconn);
 	//
@@ -157,8 +162,6 @@
                         <input name="u_last_name" type="text" id="input-apellido" class="form-control form-control-alternative" placeholder="Apellido" value= "<?php echo $user_last_name?>" required>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">Usuario</label>
@@ -167,12 +170,16 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
+                        <label class="form-control-label" for="input-dpi">DPI</label>
+                        <input name="u_dpi" type="text" id="input-dpi" class="form-control form-control-alternative" placeholder="DPI" value="<?php echo $user_dpi?>" required disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
                         <label class="form-control-label" for="input-email">Email</label>
                         <input name="u_email" type="email" id="input-email" class="form-control form-control-alternative" placeholder="ejemplo@lawbrary.com" value="<?php echo $user_email?>" required>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-pass">Contraseña</label>
@@ -217,6 +224,40 @@
                     </div>
                   </div>
                   <input type="submit" name="PChange" class="btn btn-secondary" value="Cambiar" id= "regbut"> 
+                </div>
+              </form>
+              <form method='post'>
+                <h6 class="heading-small text-muted mb-4">Perfil profesional</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-passactual">Número de teléfono</label>
+                        <input type="text"  name = "num" id="input-passactual" class="form-control form-control-alternative" placeholder="35335 1207" value="<?php echo $user_phone ?>" required>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-pass2">Número de colegiado</label>
+                        <input type="text"  name = "numc" id="input-pass2" class="form-control form-control-alternative col-lg-10" value="<?php echo $user_col ?>" placeholder="Extendido por el colegio de abogados" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-pass1">Descripción del profesional (Incluir especialidad)</label>
+                        <textarea type="text"  name = "descr" id="input-pass1" class="form-control form-control-alternative" value="<?php echo $user_des ?>" placeholder="Máximo 500 caracteres" onkeyup="validDesc(this)" required></textarea>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-pass1">Dirección de oficina</label>
+                        <input type="text"  name = "dire" id="input-pass1" class="form-control form-control-alternative" value="<?php echo $user_addr ?>" placeholder="10ma Calle 13-75 Edificio Americas oficina 702" required>
+                      </div>
+                    </div>
+                  </div>
+                  <input type="submit" name="proff" class="btn btn-secondary" value="Agregar" id= "regbut"> 
                 </div>
               </form>
             </div>

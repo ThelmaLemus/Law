@@ -9,6 +9,13 @@ function passwordConfirmation(pass1, pass2){
     }
 }
 
+function validDesc(e){
+    if (e.value.length > 500) {
+        e.value = e.value.substr(0, 500);
+        alert("Favor escribir un máximo de 500 caracteres");
+    }
+}
+
 
 function fillUserInfo(info){
     console.log(info);

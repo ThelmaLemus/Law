@@ -11,12 +11,12 @@
 	}
 	// include 'navbar.php'; 
 
-    $user_name = $_POST['u_name'];
-    $user_last_name = $_POST['u_last_name'];
-    $user_email = $_POST['u_email'];
-    $user_pass = $_POST['u_pass'];
 	
 	if(isset($_POST['IChange'])){
+        $user_name = $_POST['u_name'];
+        $user_last_name = $_POST['u_last_name'];
+        $user_email = $_POST['u_email'];
+        $user_pass = $_POST['u_pass'];
         
         $dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
 
@@ -43,6 +43,32 @@
             window.location= '../../examples/profile.php'
             </script>";
         }	
+
+    }
+    
+    if(isset($_POST['proff'])){
+        
+        $uphone = $_POST['num'];
+        $ucol =$_POST['numc'];
+        $uadd =$_POST['dire'];
+        $udesc =$_POST['descr'];
+
+
+        $dbconn = pg_connect("host=localhost dbname=proyectoleyes user=postgres password=1998") or die('Could not connect: ' . pg_last_error());
+
+        $query2 = "SELECT * FROM usuarios WHERE '$varsesion' = usuario";
+        $result2 = pg_query($query2) or die('Query failed: ' . pg_last_error());
+        $row2 = pg_fetch_row($result2);
+
+            $query = "UPDATE usuarios SET n_telefono = '$uphone', n_colegiado = '$ucol', descripcion= '$udesc', d_oficina = '$uadd' WHERE usuario='$varsesion'";
+            $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+            pg_free_result($result);
+            pg_free_result($result2);
+            pg_close($dbconn);
+            echo "<script>
+            alert('Información actualizada exitosamente');
+            window.location= '../../examples/profile.php'
+            </script>";
 
 	}
 ?>
